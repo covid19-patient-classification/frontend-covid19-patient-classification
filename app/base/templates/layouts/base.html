@@ -3,8 +3,8 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <link rel="apple-touch-icon" sizes="76x76" href="/static/assets//img/apple-icon.png">
-        <link rel="icon" type="image/png" href="/static/assets/img/utpl-favicon.png">
+        <link rel="apple-touch-icon" sizes="76x76" href="./static/assets//img/apple-icon.png">
+        <link rel="icon" type="image/png" href="./static/assets/img/utpl-favicon.png">
         <title>
             Covid 19 - {% block title %} {% endblock title %} | UTPL
         </title>
@@ -16,26 +16,30 @@
             <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css" />
             
             <!-- Nucleo Icons -->
-            <link href="/static/assets/css/nucleo-icons.css" rel="stylesheet" />
-            <link href="/static/assets/css/nucleo-svg.css" rel="stylesheet" />
+            <link href="./static/assets/css/nucleo-icons.css" rel="stylesheet" />
+            <link href="./static/assets/css/nucleo-svg.css" rel="stylesheet" />
             
             <!-- Font Awesome Icons -->
             <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
-            <link href="/static/assets/css/nucleo-svg.css" rel="stylesheet" />
+            <link href="./static/assets/css/nucleo-svg.css" rel="stylesheet" />
             
             <!-- CSS Files -->
-            <link id="pagestyle" href="/static/assets/css/light-theme-core.css" rel="stylesheet" />
-            <link id="pagestyle_dark" href="/static/assets//css/dark-theme-core.css" rel="stylesheet" />
+            <link id="pagestyle" href="./static/assets/css/light-theme-core.css" rel="stylesheet" />
+            <link id="pagestyle_dark" href="./static/assets//css/dark-theme-core.css" rel="stylesheet" />
 
 
         <!-- Specific page css goes here! -->
         {% block stylesheets %}{% endblock stylesheets %}
     </head>
 
-    <body class="g-sidenav-show  bg-gray-100">
+    <body class="g-sidenav-show  bg-gray-100" onload="startTime()">
         {% include "includes/sidebar.html" %}
 
         <main class="main-content mt-1 main-content position-relative max-height-vh-100 h-100 border-radius-lg">
+
+            <!-- NAVBAR --> 
+            {% include "includes/navbar.html" %} 
+
             {% block content %} {% endblock content %}
         </main>
 
