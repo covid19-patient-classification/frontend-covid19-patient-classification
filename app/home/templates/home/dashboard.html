@@ -7,7 +7,7 @@
         <div class="d-flex flex-column h-100 mb-4">
             <h2 class="font-weight-bolder text-dark mb-0">Dashboard</h2>
         </div>
-        <div class="grid-statistics-container">
+        <div class="grid-one-container">
             <div class="card">
                 <div class="card-body p-3">
                     <div class="d-flex justify-content-between">
@@ -24,7 +24,7 @@
                         </div>
                     </div>
                     <div class="text-start">
-                        <h5 class="font-weight-bolder mb-0">
+                        <h5 class="font-weight-bolder mb-0" id="moderate-status" countto="42">
                             42
                         </h5>
                         <span class="text-sm text-end text-danger font-weight-bolder mt-auto mb-0">
@@ -50,7 +50,7 @@
                         </div>
                     </div>
                     <div class="text-start">
-                        <h5 class="font-weight-bolder mb-0">
+                        <h5 class="font-weight-bolder mb-0" id="serius-status" countto="16">
                             16
                         </h5>
                         <span class="text-sm text-end text-danger font-weight-bolder mt-auto mb-0">
@@ -76,7 +76,7 @@
                         </div>
                     </div>
                     <div class="text-start">
-                        <h5 class="font-weight-bolder mb-0">
+                        <h5 class="font-weight-bolder mb-0" id="critical-status" countto="8">
                             8
                         </h5>
                         <span class="text-sm text-end text-success font-weight-bolder mt-auto mb-0">
@@ -87,6 +87,87 @@
                 </div>
             </div>
         </div>
+        <div class="grid-two-container mt-4">
+            <div class="card total-card">
+                <div class="card-header pb-0 p-3">
+                    <div class="d-flex align-items-center">
+                        <h5 class="mb-0 fw-bolder">Pacientes totales clasificados</h5>
+                        <button type="button" class="btn btn-chart mb-0 ms-2 d-flex align-items-center justify-content-center ms-auto" data-bs-toggle="tooltip" data-bs-placement="left" title="Total de pacientes clasificados">
+                            <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" focusable="false" class="chart-icon css-1ie6an7" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+                                <path fill="none" d="M0 0h24v24H0V0z"></path>
+                                <path d="M11 2v20c-5.07-.5-9-4.79-9-10s3.93-9.5 9-10zm2.03 0v8.99H22c-.47-4.74-4.24-8.52-8.97-8.99zm0 11.01V22c4.74-.47 8.5-4.25 8.97-8.99h-8.97z"></path>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+                <div class="card-body p-3">
+                    <div class="row d-flex align-items-center justify-content-between">
+                        <div class="col-6 text-center">
+                            <div class="chart">
+                                <canvas id="chart-total-patients" class="chart-canvas" height="197"></canvas>
+                            </div>
+                            <h4 class="font-weight-bold mt-n8">
+                                <span class="fw-bolder" id="total-status" countto="218">218</span>
+                                <span class="d-block text-body text-sm">PACIENTES</span>
+                            </h4>
+                        </div>
+                        <div class="col-6 mt-5">
+                            <div class="table-responsive">
+                                <table class="table align-items-center mb-0">
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                <div class="d-flex px-2 py-0">
+                                                    <span class="badge moderate-bg me-3"> </span>
+                                                    <div class="d-flex flex-column justify-content-center">
+                                                        <h6 class="mb-0 text-sm">Moderados</h6>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td class="align-middle text-center text-sm">
+                                                <span class="text-xs font-weight-bold"> 140 </span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <div class="d-flex px-2 py-0">
+                                                    <span class="badge serius-bg me-3"> </span>
+                                                    <div class="d-flex flex-column justify-content-center">
+                                                        <h6 class="mb-0 text-sm">Graves</h6>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td class="align-middle text-center text-sm">
+                                                <span class="text-xs font-weight-bold"> 60 </span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <div class="d-flex px-2 py-0">
+                                                    <span class="badge critical-bg me-3"> </span>
+                                                    <div class="d-flex flex-column justify-content-center">
+                                                        <h6 class="mb-0 text-sm">Críticos</h6>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td class="align-middle text-center text-sm">
+                                                <span class="text-xs font-weight-bold"> 18 </span>
+                                            </td>
+                                        </tr>                                   
+                                  </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
 {% endblock content %}
+
+{% block javascripts %}
+    <script src="./static/assets/js/plugins/countup.min.js"></script>
+    <script src="./static/assets/js/plugins/chartjs.min.js"></script>
+    <script src="./static/assets/js/covid19-patients.js"></script> 
+{% endblock javascripts %} 
