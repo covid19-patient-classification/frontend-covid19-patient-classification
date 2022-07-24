@@ -38,12 +38,12 @@ The project is coded using blueprints, app factory pattern, dual configuration p
 < PROJECT ROOT >
    |
    |-- app/
-   |    |-- base/                                # Base Blueprint - serve app pages
+   |    |-- home/                                # Base Blueprint - serve app pages
    |         |-- static/
    |         |    |-- <css, JS, images>          # CSS files, Javascripts files
    |         |
    |         |-- templates/                      # Templates used to render pages
-   |              |-- base.html                  # Used by common pages
+   |              |-- home.html                  # Used by common pages
    |              |-- index.html                 # Default page
    |
    |         |-- __init__.py                     # Initialize the blueprint

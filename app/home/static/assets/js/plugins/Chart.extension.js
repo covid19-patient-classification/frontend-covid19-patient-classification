@@ -40,7 +40,7 @@ Chart.elements.Rectangle.prototype.draw = function() {
     var barSize = Math.min(Math.abs(left - right), Math.abs(top - bottom));
     borderWidth = borderWidth > barSize ? barSize : borderWidth;
     var halfStroke = borderWidth / 2;
-    // Adjust borderWidth when bar top position is near vm.base(zero).
+    // Adjust borderWidth when bar top position is near vm.home(zero).
     var borderLeft = left + (borderSkipped !== 'left' ? halfStroke * signX : 0);
     var borderRight = right + (borderSkipped !== 'right' ? -halfStroke * signX : 0);
     var borderTop = top + (borderSkipped !== 'top' ? halfStroke * signY : 0);
