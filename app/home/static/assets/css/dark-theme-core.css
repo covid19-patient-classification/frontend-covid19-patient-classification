@@ -132,3 +132,55 @@ body.dark-page .btn-outline-dark {
   color: white;
   border-color: white;
 }
+/* 
+body.dark-page .flatpickr-calendar {
+  background-color: #404B69 !important;
+}
+
+body.dark-page .flatpickr-day {
+  color: #F4F7FE !important;
+}
+
+body.dark-page .flatpickr-months .flatpickr-month {
+  color: #F4F7FE !important;
+}
+
+body.dark-page span.flatpickr-weekday {
+  color: #F4F7FE !important;
+}
+
+body.dark-page .flatpickr-day.flatpickr-disabled, 
+body.dark-page .flatpickr-day.flatpickr-disabled:hover, 
+body.dark-page .flatpickr-day.prevMonthDay, 
+body.dark-page .flatpickr-day.nextMonthDay, 
+body.dark-page .flatpickr-day.notAllowed, 
+body.dark-page .flatpickr-day.notAllowed.prevMonthDay, 
+body.dark-page .flatpickr-day.notAllowed.nextMonthDay  {
+  opacity: 0.5 !important;
+}
+
+body.dark-page .flatpickr-months .flatpickr-prev-month,
+body.dark-page .flatpickr-months .flatpickr-next-month {
+  background-color: #F4F7FE !important;
+}
+
+body.dark-page .flatpickr-months .flatpickr-prev-month svg path,
+body.dark-page .flatpickr-months .flatpickr-next-month svg path {
+  fill: #344767;
+}
+
+body.dark-page .flatpickr-calendar .flatpickr-day.today, 
+body.dark-page .flatpickr-calendar .flatpickr-day.selected {
+  background: #F4F7FE !important;
+  color: #344767 !important;
+}
+
+body.dark-page .flatpickr-calendar .flatpickr-day.inRange {
+  background: #F4F7FE !important;
+  color: #344767 !important;
+}
+
+body.dark-page .flatpickr-calendar .flatpickr-day.endRange {
+  background: #F4F7FE !important;
+  color: #344767 !important;
+} */

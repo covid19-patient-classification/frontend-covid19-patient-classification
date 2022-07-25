@@ -21471,15 +21471,14 @@ p {
 
 .flatpickr-months .flatpickr-prev-month,
 .flatpickr-months .flatpickr-next-month {
-  text-decoration: none;
-  cursor: pointer;
-  position: absolute;
-  top: 0;
-  height: 34px;
-  padding: 10px;
-  z-index: 3;
-  color: rgba(0, 0, 0, 0.9);
-  fill: rgba(0, 0, 0, 0.9);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* background-color: #283149 !important; */
+  border-radius: 10px;
+  color: #fff;
+  height: 34px!important;
+  min-width: 34px!important;
 }
 
 .flatpickr-months .flatpickr-prev-month.flatpickr-disabled,
@@ -21823,7 +21822,7 @@ span.flatpickr-weekday {
 .flatpickr-day {
   background: none;
   border: 1px solid transparent;
-  border-radius: 150px;
+  border-radius: 10px;
   box-sizing: border-box;
   color: #393939;
   cursor: pointer;
@@ -21933,6 +21932,7 @@ span.flatpickr-weekday {
   background: transparent;
   border-color: transparent;
   cursor: default;
+  opacity: 1 !important;
 }
 
 .flatpickr-day.flatpickr-disabled,
@@ -22122,7 +22122,30 @@ span.flatpickr-weekday {
   }
 }
 .datepicker.flatpickr-input {
-  background-color: #fff;
+  appearance: none;
+  -webkit-box-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  justify-content: center;
+  user-select: none;
+  position: relative;
+  white-space: nowrap;
+  vertical-align: middle;
+  outline: transparent solid 2px;
+  outline-offset: 2px;
+  width: auto;
+  line-height: 1.2;
+  border-radius: 7px;
+  font-weight: 500;
+  box-shadow: rgb(112 144 176 / 8%) 45px 76px 113px 7px;
+  transition: all 0.25s ease 0s;
+  box-sizing: border-box;
+  height: 2.5rem;
+  min-width: 2.5rem;
+  font-size: 0.875rem;
+  padding-inline-start: 1rem;
+  padding-inline-end: 1rem;
+  background: #F4F7FE;
 }
 
 .flatpickr-calendar.open {
@@ -22144,7 +22167,7 @@ span.flatpickr-weekday {
   margin-top: 3px;
 }
 .flatpickr-calendar .flatpickr-day.today, .flatpickr-calendar .flatpickr-day.selected, .flatpickr-calendar .flatpickr-day.startRange, .flatpickr-calendar .flatpickr-day.endRange {
-  background: #cb0c9f !important;
+  background: #344767 !important;
   color: #fff;
   border: none;
 }
@@ -22775,7 +22798,8 @@ pre[class*=language-] {
 */
 
 .grid-one-container, 
-.grid-two-container {
+.grid-two-container,
+.grid-three-container {
   display: grid;
   gap: 20px;
   grid-template-columns: repeat(1, minmax(0px, 1fr));
@@ -22784,18 +22808,22 @@ pre[class*=language-] {
 
 
 @media (min-width: 768px) {
-  .grid-one-container {
+  .grid-three-container {
     grid-template-columns: repeat(2, minmax(0px, 1fr));
   }
 }
 
 @media (min-width: 1200px) {
   .grid-one-container {
-    grid-template-columns: repeat(3, minmax(0px, 1fr));
+    grid-template-columns: repeat(1, minmax(0px, 1fr));
   }
 
   .grid-two-container {
     grid-template-columns: repeat(2, minmax(0px, 1fr));
+  }
+
+  .grid-three-container {
+    grid-template-columns: repeat(3, minmax(0px, 1fr));
   }
 }
 

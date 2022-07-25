@@ -149,7 +149,7 @@ new Chart(ctx2, {
                 ticks: {
                     display: false,
                 },
-                stacked: true
+                stacked: true,
             },
             x: {
                 grid: {
@@ -167,8 +167,17 @@ new Chart(ctx2, {
                     },
                     color: '#9ca2b7',
                 },
-                stacked: true
+                stacked: true,
             },
         },
     },
 });
+
+// Chart line Patients by datepicker
+if (document.querySelector('.datepicker')) {
+    flatpickr('.datepicker', {
+        mode: 'range',
+        locale: 'es'
+        // defaultDate: "2022-01-01 to 2022-07-24"
+    });
+}
