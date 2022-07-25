@@ -22799,12 +22799,14 @@ pre[class*=language-] {
 
 .grid-one-container, 
 .grid-two-container,
-.grid-three-container {
+.grid-three-container,
+.grid-badges {
   display: grid;
   gap: 20px;
   grid-template-columns: repeat(1, minmax(0px, 1fr));
   margin-bottom: 20px;
 }
+
 
 .grid-chart {
   display: grid;
@@ -22815,6 +22817,16 @@ pre[class*=language-] {
 @media (min-width: 768px) {
   .grid-three-container {
     grid-template-columns: repeat(2, minmax(0px, 1fr));
+  }
+
+  .grid-badges {
+    grid-template-columns: repeat(3, minmax(0px, 1fr));
+  }
+}
+
+@media (min-width: 576px) {
+  .grid-badges {
+    grid-template-columns: repeat(3, minmax(0px, 1fr));
   }
 }
 
@@ -22827,7 +22839,8 @@ pre[class*=language-] {
     grid-template-columns: repeat(2, minmax(0px, 1fr));
   }
 
-  .grid-three-container {
+  .grid-three-container,
+  .grid-badges {
     grid-template-columns: repeat(3, minmax(0px, 1fr));
   }
 }
@@ -22922,7 +22935,6 @@ pre[class*=language-] {
 
 .badge-dot i {
   display: inline-block;
-  vertical-align: middle;
   width: 0.375rem;
   height: 0.375rem;
   border-radius: 50%;
