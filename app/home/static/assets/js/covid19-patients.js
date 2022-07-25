@@ -94,9 +94,9 @@ new Chart(ctx1, {
 });
 
 // Chart bar Patients by week
-var ctx = document.getElementById('chart-week-patients').getContext('2d');
+var ctx2 = document.getElementById('chart-week-patients').getContext('2d');
 
-new Chart(ctx, {
+new Chart(ctx2, {
     type: 'bar',
     data: {
         labels: ['18', '19', '20', '21', '22', '23', '24'],
@@ -105,31 +105,28 @@ new Chart(ctx, {
                 label: 'Pacientes moderados',
                 tension: 1,
                 borderWidth: 0,
-                borderRadius: 0,
-                borderSkipped: false,
+                borderRadius: 5,
                 backgroundColor: moderatePatientColor,
                 data: [10, 10, 5, 7, 5, 5, 5],
-                maxBarThickness: 10,
+                maxBarThickness: 20,
             },
             {
                 label: 'Pacientes graves',
-                tension: 2,
+                tension: 1,
                 borderWidth: 0,
-                borderRadius: 4,
-                borderSkipped: false,
+                borderRadius: 5,
                 backgroundColor: seriusPatientColor,
                 data: [3, 3, 3, 5, 3, 3, 3],
-                maxBarThickness: 10,
+                maxBarThickness: 20,
             },
             {
                 label: 'Pacientes críticos',
-                tension: 2,
+                tension: 1,
                 borderWidth: 0,
-                borderRadius: 0,
-                borderSkipped: false,
+                borderRadius: 5,
                 backgroundColor: criticalPatientColor,
                 data: [2, 3, 3, 3, 3, 3, 3],
-                maxBarThickness: 10,
+                maxBarThickness: 20,
             },
         ],
     },
