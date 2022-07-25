@@ -2371,9 +2371,9 @@ progress {
 .form-control:focus {
   color: #495057;
   background-color: #fff;
-  border-color: #e293d3;
+  border-color: #344767;
   outline: 0;
-  box-shadow: 0 0 0 2px #e9aede;
+  box-shadow: 0 0 0 2px #344767;
 }
 .form-control::-webkit-date-and-time-value {
   height: 1.4rem;
@@ -22146,10 +22146,10 @@ span.flatpickr-weekday {
   padding-inline-start: 1rem;
   padding-inline-end: 1rem;
   background: #F4F7FE;
+  text-indent: 1rem;
 }
 
 .flatpickr-calendar.open {
-  margin-left: -38px;
   margin-top: 4px;
 }
 .flatpickr-calendar.arrowBottom {
@@ -22887,14 +22887,24 @@ pre[class*=language-] {
 }
 
 .moderate-bg {
-  background-color: #17c1e8;
-  background-image: linear-gradient(310deg, #17c1e8, #17c1e8);
+  background-image: linear-gradient(310deg, #10739E, #10739E);
 }
 
 .serius-bg {
-  background-image: linear-gradient(310deg, #3A416F, #3A416F);
+  background-image: linear-gradient(310deg, #76D7C4, #76D7C4);
 }
 
 .critical-bg {
   background-image: linear-gradient(310deg, #cb0c9f, #cb0c9f);
+}
+
+.input-icon {
+  position: absolute;
+}
+
+.chart-info {
+  display: flex;
+  flex-direction: column;
+  /* margin-inline-end: 20px; */
+  margin-top: 28px;
 }
