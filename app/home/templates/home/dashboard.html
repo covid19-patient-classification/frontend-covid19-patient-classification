@@ -50,8 +50,8 @@
                         </div>
                     </div>
                     <div class="text-start">
-                        <h5 class="font-weight-bolder mb-0" id="serius-status" countto="16">
-                            16
+                        <h5 class="font-weight-bolder mb-0" id="serius-status" countto="23">
+                            23
                         </h5>
                         <span class="text-sm text-end text-danger font-weight-bolder mt-auto mb-0">
                             +5% 
@@ -76,8 +76,8 @@
                         </div>
                     </div>
                     <div class="text-start">
-                        <h5 class="font-weight-bolder mb-0" id="critical-status" countto="8">
-                            8
+                        <h5 class="font-weight-bolder mb-0" id="critical-status" countto="20">
+                            20
                         </h5>
                         <span class="text-sm text-end text-success font-weight-bolder mt-auto mb-0">
                             -20% 
@@ -93,7 +93,7 @@
                     <div class="d-flex align-items-center">
                         <h5 class="mb-0 fw-bolder">Pacientes totales clasificados</h5>
                         <button type="button" class="btn btn-chart mb-0 ms-2 d-flex align-items-center justify-content-center ms-auto" data-bs-toggle="tooltip" data-bs-placement="left" title="Total de pacientes clasificados">
-                            <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" focusable="false" class="chart-icon css-1ie6an7" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+                            <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" focusable="false" class="chart-icon" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
                                 <path fill="none" d="M0 0h24v24H0V0z"></path>
                                 <path d="M11 2v20c-5.07-.5-9-4.79-9-10s3.93-9.5 9-10zm2.03 0v8.99H22c-.47-4.74-4.24-8.52-8.97-8.99zm0 11.01V22c4.74-.47 8.5-4.25 8.97-8.99h-8.97z"></path>
                             </svg>
@@ -101,7 +101,7 @@
                     </div>
                 </div>
                 <div class="card-body p-3">
-                    <div class="row d-flex align-items-center justify-content-between">
+                    <div class="row">
                         <div class="col-6 text-center">
                             <div class="chart">
                                 <canvas id="chart-total-patients" class="chart-canvas" height="197"></canvas>
@@ -158,6 +158,24 @@
                                 </table>
                             </div>
                         </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card total-card">
+                <div class="card-header pb-0 p-3">
+                    <div class="d-flex align-items-center">
+                        <h5 class="mb-0 fw-bolder">Clasificaciones semanales</h5>
+                        <button type="button" class="btn btn-chart mb-0 ms-2 d-flex align-items-center justify-content-center ms-auto" data-bs-toggle="tooltip" data-bs-placement="left" title="Pacientes clasificados en la última semana">
+                            <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" focusable="false" class="chart-icon" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+                                <path fill="none" d="M0 0h24v24H0z"></path>
+                                <path d="M5 9.2h3V19H5zM10.6 5h2.8v14h-2.8zm5.6 8H19v6h-2.8z"></path>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+                <div class="card-body p-3">
+                    <div class="chart">
+                        <canvas id="chart-week-patients" class="chart-canvas" height="197"></canvas>
                     </div>
                 </div>
             </div>

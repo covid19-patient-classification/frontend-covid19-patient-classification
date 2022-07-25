@@ -22851,7 +22851,7 @@ pre[class*=language-] {
   display: inline-block;
   line-height: 1em;
   flex-shrink: 0;
-  color: #344767;
+  /* color: #344767; */
 }
 
 .total-card {
@@ -22860,12 +22860,13 @@ pre[class*=language-] {
 
 .moderate-bg {
   background-color: #17c1e8;
+  background-image: linear-gradient(310deg, #17c1e8, #17c1e8);
 }
 
 .serius-bg {
-  background-color: #3A416F;
+  background-image: linear-gradient(310deg, #3A416F, #3A416F);
 }
 
 .critical-bg {
-  background-color: #cb0c9f;
+  background-image: linear-gradient(310deg, #cb0c9f, #cb0c9f);
 }
