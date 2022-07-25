@@ -22851,7 +22851,7 @@ pre[class*=language-] {
   display: inline-block;
   line-height: 1em;
   flex-shrink: 0;
-  /* color: #344767; */
+  color: #344767;
 }
 
 .total-card {
