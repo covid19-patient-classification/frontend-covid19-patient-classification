@@ -35,9 +35,7 @@ body.dark-page .text-dark {
 body.dark-page .table {
   border-color: rgba(85, 119, 154, 0.2784313725);
 }
-body.dark-page .table > :not(:last-child) > :last-child > * {
-  border-bottom-color: rgba(85, 119, 154, 0.2784313725);
-}
+
 body.dark-page .dropdown-menu {
   background-color: #283149;
   color: #d7d7d7 !important;
@@ -132,6 +130,27 @@ body.dark-page .btn-outline-dark {
   color: white;
   border-color: white;
 }
+
+body.dark-page .dataTable-wrapper .dataTable-bottom .dataTable-pagination .dataTable-pagination-list li a {
+  color: #fff !important;
+}
+
+body.dark-page .dataTable-wrapper .dataTable-bottom .dataTable-pagination .dataTable-pagination-list li a:hover {
+  background: #344767;
+}
+
+
+body.dark-page .dataTables-empty {
+  color: #fff;
+}
+
+/* body.dark-page .dataTable-sorter::before {
+  border-top: 4px solid #fff;
+}
+
+body.dark-page .dataTable-sorter::after {
+  border-bottom: 4px solid #fff;
+} */
 /* 
 body.dark-page .flatpickr-calendar {
   background-color: #404B69 !important;

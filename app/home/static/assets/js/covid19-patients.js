@@ -1,12 +1,16 @@
 moderatePatientColor = '#10739E';
-seriusPatientColor = '#76D7C4';
-criticalPatientColor = '#cb0c9f';
+seriusPatientColor = '#CF8913';
+criticalPatientColor = '#9D443D';
 
 patientsStatus = [
     'moderate-status',
     'serius-status',
     'critical-status',
     'total-status',
+    'donut-moderate-status',
+    'donut-serius-status',
+    'donut-critical-status',
+    'line-total-status',
 ];
 
 patientsStatus.forEach((patientStatus) => {
@@ -28,9 +32,9 @@ var ctx1 = document.getElementById('chart-total-patients').getContext('2d');
 
 var gradientStroke1 = ctx1.createLinearGradient(0, 230, 0, 50);
 
-gradientStroke1.addColorStop(1, 'rgba(203,12,159,0.2)');
+gradientStroke1.addColorStop(1, 'rgba(16, 115, 158,0.2)');
 gradientStroke1.addColorStop(0.2, 'rgba(72,72,176,0.0)');
-gradientStroke1.addColorStop(0, 'rgba(203,12,159,0)');
+gradientStroke1.addColorStop(0, 'rgba(16, 115, 158,0)');
 
 new Chart(ctx1, {
     type: 'doughnut',
@@ -298,4 +302,14 @@ new Chart(ctx3, {
             },
         },
     },
+});
+
+// Datatable of patients resume
+const dataTableBasic = new simpleDatatables.DataTable('#datatable-patients', {
+    searchable: false,
+    fixedHeight: true,
+    lengthMenu: [
+        [5, 10, 25, 50, -1],
+        [5, 10, 25, 50, 'Todos'],
+    ]
 });
