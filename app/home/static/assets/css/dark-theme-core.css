@@ -35,9 +35,7 @@ body.dark-page .text-dark {
 body.dark-page .table {
   border-color: rgba(85, 119, 154, 0.2784313725);
 }
-body.dark-page .table > :not(:last-child) > :last-child > * {
-  border-bottom-color: rgba(85, 119, 154, 0.2784313725);
-}
+
 body.dark-page .dropdown-menu {
   background-color: #283149;
   color: #d7d7d7 !important;
@@ -68,7 +66,7 @@ body.dark-page .navbar-main.blur .nav-link {
   color: #d7d7d7 !important;
 }
 body.dark-page .navbar-main.blur .sidenav-toggler-line.bg-dark {
-  background-color: #d7d7d7 !important;
+  background-color: #344767 !important;
 }
 body.dark-page .sidenav .nav-link.active,
 body.dark-page .sidenav .nav-link:hover {
@@ -118,17 +116,98 @@ body.dark-page input {
   background-color: rgba(40, 49, 73, 0.6);
   border-color: rgba(64, 75, 105, 0.6);
 }
-body.dark-page input.form-control:focus {
+body.dark-page input.form-control:focus, 
+body.dark-page .dataTable-wrapper .dataTable-top .dataTable-search input:focus {
   color: #d7d7d7 !important;
   background-color: rgba(40, 49, 73, 0.6);
   border-color: #283149;
   outline: 0;
   box-shadow: 0 0 0 2px #283149;
 }
+
 body.dark-page .progress {
   background-color: rgba(39, 48, 71, 0.6705882353) !important;
 }
 body.dark-page .btn-outline-dark {
   color: white;
   border-color: white;
+}
+
+body.dark-page .dataTable-wrapper .dataTable-bottom .dataTable-pagination .dataTable-pagination-list li a {
+  color: #fff !important;
+}
+
+body.dark-page .dataTable-wrapper .dataTable-bottom .dataTable-pagination .dataTable-pagination-list li a:hover {
+  background: #344767;
+}
+
+
+body.dark-page .dataTables-empty {
+  color: #fff;
+}
+
+/* body.dark-page .dataTable-sorter::before {
+  border-top: 4px solid #fff;
+}
+
+body.dark-page .dataTable-sorter::after {
+  border-bottom: 4px solid #fff;
+} */
+
+body.dark-page .flatpickr-input {
+  background-color: #283149 !important;
+}
+
+body.dark-page .dataTable-selector {
+  background-color: #283149 !important;
+  border: none;
+  color: #d7d7d7 !important;
+}
+
+body.dark-page .dataTable-wrapper .dataTable-top .dataTable-search input {
+  background-color: #283149 !important;
+  border: none !important;
+}
+
+body.dark-page .flatpickr-calendar {
+  background-color: #283149 !important;
+}
+
+body.dark-page .flatpickr-day {
+  color: #F4F7FE !important;
+}
+
+body.dark-page .flatpickr-months .flatpickr-month {
+  color: #F4F7FE !important;
+}
+
+body.dark-page span.flatpickr-weekday {
+  color: #F4F7FE !important;
+}
+
+body.dark-page .flatpickr-day.flatpickr-disabled, 
+body.dark-page .flatpickr-day.flatpickr-disabled:hover, 
+body.dark-page .flatpickr-day.prevMonthDay, 
+body.dark-page .flatpickr-day.nextMonthDay, 
+body.dark-page .flatpickr-day.notAllowed, 
+body.dark-page .flatpickr-day.notAllowed.prevMonthDay, 
+body.dark-page .flatpickr-day.notAllowed.nextMonthDay  {
+  opacity: 0.5 !important;
+}
+
+body.dark-page .flatpickr-months .flatpickr-prev-month svg path,
+body.dark-page .flatpickr-months .flatpickr-next-month svg path {
+  fill: #F4F7FE;
+}
+
+body.dark-page .flatpickr-current-month .numInputWrapper span.arrowUp:after {
+  border-bottom-color: #fff !important;
+}
+
+body.dark-page .flatpickr-current-month .numInputWrapper span.arrowDown:after {
+  border-top-color: #fff !important;
+}
+
+body.dark-page .flatpickr-current-month .flatpickr-monthDropdown-months {
+  background-color: #283149;
 }

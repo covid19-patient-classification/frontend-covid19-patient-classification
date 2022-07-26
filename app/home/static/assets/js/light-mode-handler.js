@@ -321,7 +321,6 @@ function navbarBlurOnScroll(id) {
   }
 
   function toggleNavLinksColor(type) {
-    console.log("aquiiiiiiiii")
     let navLinks = document.querySelectorAll('.navbar-main .nav-link')
     let navLinksToggler = document.querySelectorAll('.navbar-main .sidenav-toggler-line')
 
