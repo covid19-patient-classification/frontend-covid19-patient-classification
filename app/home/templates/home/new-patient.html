@@ -2,6 +2,11 @@
 
 {% block title %} Nuevo paciente {% endblock title %}
 
+{% block stylesheets %}
+    <link href="./static/assets/css/light-sweet-alert.css" rel="stylesheet" />
+    <link href="./static/assets/css/dark-sweet-alert.css" rel="stylesheet" />
+{% endblock stylesheets %}
+
 {% block content %}
     <div class="container-fluid py-4">
         <div class="d-flex flex-column h-100 mb-4">
@@ -24,7 +29,7 @@
             </div>
             <div class="row">
                 <div class="col-12 col-lg-8 m-auto">
-                    <form class="multisteps-form__form mb-8">
+                    <form class="multisteps-form__form mb-8 needs-validation" id="patient-form" novalidate>
                         <div class="card multisteps-form__panel p-3 border-radius-xl bg-white js-active" data-animation="FadeIn">
                             <h5 class="font-weight-bolder">Variables clínicas</h5>
                             <div class="multisteps-form__content">
@@ -37,7 +42,7 @@
                                             </button>
                                         </div>
                                         <div class="input-group">
-                                            <input class="multisteps-form__input form-control" type="number" min="0" max="100" placeholder="90" />
+                                            <input class="multisteps-form__input form-control" type="number" min="0" max="100" required />
                                             <span class="input-group-text">%</span>
                                         </div>
                                     </div>
@@ -49,7 +54,7 @@
                                             </button>
                                         </div>
                                         <div class="input-group">
-                                            <input class="multisteps-form__input form-control" type="number" min="0" max="100" placeholder="90" />
+                                            <input class="multisteps-form__input form-control" type="number" min="0" max="100" required />
                                             <span class="input-group-text">%</span>
                                         </div>
                                     </div>
@@ -61,7 +66,7 @@
                                             </button>
                                         </div>
                                         <div class="input-group">
-                                            <input class="multisteps-form__input form-control" type="number" min="0" max="100" placeholder="90" />
+                                            <input class="multisteps-form__input form-control" type="number" min="0" max="100" required />
                                             <span class="input-group-text">%</span>
                                         </div>
                                     </div>
@@ -73,7 +78,7 @@
                                             </button>
                                         </div>
                                         <div class="input-group">
-                                            <input class="multisteps-form__input form-control" type="number" min="0" max="100" placeholder="90" />
+                                            <input class="multisteps-form__input form-control" type="number" min="0" required />
                                             <span class="input-group-text">mm Hg</span>
                                         </div>
                                     </div>
@@ -174,7 +179,7 @@
                             </div>
                             <div class="button-row d-flex mt-5 mb-2">
                                 <button class="btn bg-gradient-form prev mb-0 js-btn-prev" type="button" title="Anterior">Anterior</button>
-                                <button class="btn bg-gradient-form fw-bolder ms-auto mb-0" type="button" title="Enviar">Enviar</button>
+                                <button class="btn bg-gradient-form fw-bolder ms-auto mb-0" type="submit" title="Enviar">Enviar</button>
                             </div>
                         </div>
                     </form>
@@ -188,5 +193,7 @@
 {% block javascripts %}
 
     <script src="./static/assets/js/plugins/multistep-form.js"></script>
+    <script src="./static/assets/js/plugins/sweetalert.min.js"></script>
+    <script src="./static/assets/js/patient.js"></script>
 
 {% endblock javascripts %}

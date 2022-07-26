@@ -246,3 +246,8 @@ body.dark-page .bg-gradient-form.prev:hover {
 body.dark-page .form-switch .form-check-input:after {
   background-color:  #fff !important;
 } 
+
+body.dark-page .form-control{
+  color: #fff !important;
+}
+
