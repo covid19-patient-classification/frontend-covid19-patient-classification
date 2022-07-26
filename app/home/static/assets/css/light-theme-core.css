@@ -327,7 +327,6 @@ tr,
 td,
 th {
   border-color: inherit;
-  border-style: solid;
   border-width: 0;
 }
 
@@ -21639,7 +21638,7 @@ p {
 }
 
 .flatpickr-current-month {
-  font-size: 135%;
+  font-size: 1rem;
   line-height: inherit;
   font-weight: 300;
   color: inherit;
@@ -22121,7 +22120,7 @@ span.flatpickr-weekday {
     transform: translate3d(0, 0, 0);
   }
 }
-.datepicker.flatpickr-input {
+.datepicker.flatpickr-input{
   appearance: none;
   -webkit-box-align: center;
   align-items: center;
@@ -22137,7 +22136,6 @@ span.flatpickr-weekday {
   line-height: 1.2;
   border-radius: 7px;
   font-weight: 500;
-  box-shadow: rgb(112 144 176 / 8%) 45px 76px 113px 7px;
   transition: all 0.25s ease 0s;
   box-sizing: border-box;
   height: 2.5rem;
@@ -22167,7 +22165,7 @@ span.flatpickr-weekday {
   margin-top: 3px;
 }
 .flatpickr-calendar .flatpickr-day.today, .flatpickr-calendar .flatpickr-day.selected, .flatpickr-calendar .flatpickr-day.startRange, .flatpickr-calendar .flatpickr-day.endRange {
-  background: #344767 !important;
+  background-image: linear-gradient(310deg, #7928ca 0%, #ff0080 100%) !important;
   color: #fff;
   border: none;
 }
@@ -23133,7 +23131,7 @@ Github: https://github.com/fiduswriter/Simple-DataTables
 } */
 
 .dataTables-empty {
-  text-align: center;
+  text-align: left;
 }
 
 .dataTable-top::after,
@@ -23177,6 +23175,30 @@ Github: https://github.com/fiduswriter/Simple-DataTables
   color: #495057;
   border: 1px solid #e9ecef;
   border-radius: 0.5rem;
+  appearance: none;
+  -webkit-box-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  justify-content: center;
+  user-select: none;
+  position: relative;
+  white-space: nowrap;
+  vertical-align: middle;
+  outline: transparent solid 2px;
+  outline-offset: 2px;
+  width: auto;
+  line-height: 1.2;
+  border-radius: 7px;
+  border: 1px solid #d2d6da;
+  font-weight: 500;
+  transition: all 0.25s ease 0s;
+  box-sizing: border-box;
+  height: 2.5rem;
+  min-width: 2.5rem;
+  font-size: 0.875rem;
+  padding-inline-start: 1rem;
+  padding-inline-end: 1rem;
+  background: #F4F7FE;
 }
 
 .dataTable-wrapper .dataTable-top .dataTable-search input:focus-visible {
@@ -23278,21 +23300,3 @@ Github: https://github.com/fiduswriter/Simple-DataTables
       margin-top: 1rem;
   }
 }
-
-/* 
-.dataTable-wrapper .dataTable-top .dataTable-dropdown label .dataTable-selector {
-  border-color: #e9ecef;
-  border-radius: 0.25rem;
-  padding: 6px;
-}
-
-th a:hover {
-  color: #344767 !important;
-  font-weight: 700!important;
-}
-
-.dataTables-empty {
-  color: #344767;
-  opacity: 0.7;
-  font-size: 0.875rem;
-} */

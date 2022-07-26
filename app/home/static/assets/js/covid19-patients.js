@@ -306,7 +306,7 @@ new Chart(ctx3, {
 
 // Datatable of patients resume
 const dataTableBasic = new simpleDatatables.DataTable('#datatable-patients', {
-    searchable: false,
+    searchable: true,
     fixedHeight: true,
     lengthMenu: [
         [5, 10, 25, 50, -1],
