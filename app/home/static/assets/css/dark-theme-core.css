@@ -251,3 +251,7 @@ body.dark-page .form-control{
   color: #fff !important;
 }
 
+body.dark-page .timeline-step {
+  background-color: #fff !important;
+}
+

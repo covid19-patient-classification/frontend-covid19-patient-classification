@@ -20881,7 +20881,7 @@ hr.horizontal.gray-light {
   top: 0;
   left: 1rem;
   height: 100%;
-  border-right: 2px solid #dee2e6;
+  border-right: 2px solid #9fa7ae;
 }
 
 .timeline-block {
@@ -20904,11 +20904,11 @@ hr.horizontal.gray-light {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  left: 0;
+  left: 0 !important;
   width: 26px;
   height: 26px;
   border-radius: 50%;
-  background: #fff;
+  background-color: #344767 !important;
   text-align: center;
   transform: translateX(-50%);
   font-size: 1rem;

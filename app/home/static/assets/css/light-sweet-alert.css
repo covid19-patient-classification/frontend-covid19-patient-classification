@@ -128,7 +128,7 @@
 }
 
 .swal2-popup.swal2-toast .swal2-success {
-    border-color: #a5dc86;
+    border-color: #01B574 ;
 }
 
 .swal2-popup.swal2-toast .swal2-success [class^="swal2-success-circular-line"] {
@@ -809,8 +809,8 @@
 }
 
 .swal2-icon.swal2-success {
-    border-color: #a5dc86;
-    color: #a5dc86;
+    border-color: #01B574 ;
+    color: #01B574 ;
 }
 
 .swal2-icon.swal2-success [class^="swal2-success-circular-line"] {
@@ -867,7 +867,7 @@
     z-index: 2;
     height: 0.3125em;
     border-radius: 0.125em;
-    background-color: #a5dc86;
+    background-color: #01B574 ;
 }
 
 .swal2-icon.swal2-success [class^="swal2-success-line"][class$="tip"] {
