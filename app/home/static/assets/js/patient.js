@@ -70,14 +70,14 @@ function displayTimeLineHTML(){
     return `
         <div class="container-fluid py-4">
             <div class="row gx-4 text-sm-start">
-                <h6>Es un paciente <span class="badge serius-bg badge-sm">Grave</span></h6>
+                <h6 class="text-start">Es un paciente <span class="badge serius-bg badge-sm">Grave</span></h6>
                 <div class="timeline timeline-one-side mt-3 ps-3" data-timeline-axis-style="dashed">
                     <div class="timeline-block mb-4">
                         <span class="timeline-step">
                             <i class="ni ni-bold-down text-primary text-gradient"></i>
                         </span>
                         <div class="timeline-content">
-                            <h6 class="text-dark text-sm font-weight-bold mb-0">¿ Saturación de O<sub>2</sub> < al 94% ?</h6>
+                            <h6 class="text-dark text-sm font-weight-bold mb-0 text-start">¿ Saturación de O<sub>2</sub> < al 94% ?</h6>
                             <div class="d-flex align-items-center mt-2">
                                 <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" focusable="false" class="td-icon text-danger" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
                                     <path fill="none" d="M0 0h24v24H0z"></path>
@@ -92,7 +92,7 @@ function displayTimeLineHTML(){
                             <i class="ni ni-bold-down text-primary text-gradient"></i>
                         </span>
                         <div class="timeline-content">
-                            <h6 class="text-dark text-sm font-weight-bold mb-0">¿ Presión Arterial / Fracción de O<sub>2</sub> inspirado < a 300 mmHg ?</h6>
+                            <h6 class="text-dark text-sm font-weight-bold mb-0 text-start">¿ Presión Arterial / Fracción de O<sub>2</sub> inspirado < a 300 mmHg ?</h6>
                             <div class="d-flex align-items-center mt-2">
                                 <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" focusable="false" class="td-icon text-danger" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
                                     <path fill="none" d="M0 0h24v24H0z"></path>
@@ -107,7 +107,7 @@ function displayTimeLineHTML(){
                             <i class="ni ni-bold-down text-primary text-gradient"></i>
                         </span>
                         <div class="timeline-content">
-                            <h6 class="text-dark text-sm font-weight-bold mb-0">¿ Presenta Insuficiencia Respiratoria ?</h6>
+                            <h6 class="text-dark text-sm font-weight-bold mb-0 text-start">¿ Presenta Insuficiencia Respiratoria ?</h6>
                             <div class="d-flex align-items-center mt-2">
                                 <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" focusable="false" class="td-icon text-success" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
                                     <path fill="none" d="M0 0h24v24H0z"></path>
@@ -122,7 +122,7 @@ function displayTimeLineHTML(){
                             <i class="ni ni-bold-down text-primary text-gradient"></i>
                         </span>
                         <div class="timeline-content">
-                            <h6 class="text-dark text-sm font-weight-bold mb-0">¿ Presenta Síndrome de dificultad Respiratoria ?</h6>
+                            <h6 class="text-dark text-sm font-weight-bold mb-0 text-start">¿ Presenta Síndrome de dificultad Respiratoria ?</h6>
                             <div class="d-flex align-items-center mt-2">
                                 <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" focusable="false" class="td-icon text-success" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
                                     <path fill="none" d="M0 0h24v24H0z"></path>
@@ -137,7 +137,7 @@ function displayTimeLineHTML(){
                             <i class="ni ni-bold-down text-primary text-gradient"></i>
                         </span>
                         <div class="timeline-content">
-                            <h6 class="text-dark text-sm font-weight-bold mb-0">¿ Presenta shock séptico ?</h6>
+                            <h6 class="text-dark text-sm font-weight-bold mb-0 text-start">¿ Presenta shock séptico ?</h6>
                             <div class="d-flex align-items-center mt-2">
                                 <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" focusable="false" class="td-icon text-success" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
                                     <path fill="none" d="M0 0h24v24H0z"></path>
