@@ -1,8 +1,15 @@
-# Flask App Skeleton
-Skeleton flask python application provided by [Carlos Castillo](http://github.com/carloscastillo10) is a project that could help beginners to quickly have a simple structure of a python-based project using the Flask framework.
+# [COVID-19 Patient Classification](https://frontend-covid19-patients.herokuapp.com/) Aplication
 
-![image](https://user-images.githubusercontent.com/38107722/156813966-d61ebf15-a221-49c8-88ef-f7d281694e47.png)
---
+**Thesis project** provided by the @UTPL on **COVID-19 Patient Classification**, The project could help medical personnel to know more efficiently and quickly the severity of a patient confirmed by COVID-19. UI to a legacy Python-based project compatible with Jinja Template Engine Flask.
+
+---
+- Modular design with **Blueprints**
+- Deployment actions: HEROKU
+- Support via **Github** (issues tracker) and [email](mailto:carloscastillo090916@gmail.com).
+
+<br />
+
+> Links: [COVID-19 Patient Classification](https://frontend-covid19-patients.herokuapp.com/) - LIVE Demo
 
 ## How to use it
 ```
