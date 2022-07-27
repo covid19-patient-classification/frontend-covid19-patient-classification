@@ -3,12 +3,6 @@ from flask import render_template, request
 from jinja2 import TemplateNotFound
 
 
-@blueprint.route('/')
-@blueprint.route('/index')
-def index():
-    return render_template('home/dashboard.html', segment='dashboard')
-
-
 @blueprint.route('/<template>')
 def route_template(template):
 

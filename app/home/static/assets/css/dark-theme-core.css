@@ -50,12 +50,18 @@ body.dark-page .dropdown-menu .dropdown-item:hover, body.dark-page .dropdown-men
   background-color: #404B69;
 }
 body.dark-page .input-group span, body.dark-page .input-group input {
-  background-color: rgba(40, 49, 73, 0.6);
+  background-color: #283149;
   border-color: rgba(40, 49, 73, 0.8) !important;
 }
+
+body.dark-page .form-control:focus {
+  border-color: #fff;
+  box-shadow: 0 0 0 1px #fff;
+}
+
 body.dark-page .navbar-main:not(.bg-transparent) .input-group span, body.dark-page .navbar-main:not(.bg-transparent) .input-group input {
-  background-color: #404B69 !important;
-  border-color: #283149;
+  background-color: #fff !important;
+  border-color: #fff;
 }
 body.dark-page .navbar-main.blur {
   background-color: rgba(64, 75, 105, 0.5) !important;
@@ -116,7 +122,14 @@ body.dark-page input {
   background-color: rgba(40, 49, 73, 0.6);
   border-color: rgba(64, 75, 105, 0.6);
 }
-body.dark-page input.form-control:focus, 
+
+body.dark-page input.form-control:focus {
+  color: #d7d7d7 !important;
+  border-color: #fff;
+  outline: 0;
+  box-shadow: 0 0 0 1px #fff;
+}
+
 body.dark-page .dataTable-wrapper .dataTable-top .dataTable-search input:focus {
   color: #d7d7d7 !important;
   background-color: rgba(40, 49, 73, 0.6);
@@ -211,3 +224,34 @@ body.dark-page .flatpickr-current-month .numInputWrapper span.arrowDown:after {
 body.dark-page .flatpickr-current-month .flatpickr-monthDropdown-months {
   background-color: #283149;
 }
+
+body.dark-page .bg-gradient-form {
+  color: #344767;
+  background-image: linear-gradient(135deg, #F4F7FE 0%, #2f364c 100%);
+}
+
+body.dark-page .bg-gradient-form.prev {
+  color: #fff;
+  background-image: linear-gradient(135deg, #7b96d3 0%, #07080c 100%);
+}
+
+body.dark-page .bg-gradient-form:hover {
+  color: #344767 !important;
+}
+
+body.dark-page .bg-gradient-form.prev:hover {
+  color: #fff !important;
+}
+
+body.dark-page .form-switch .form-check-input:after {
+  background-color:  #fff !important;
+} 
+
+body.dark-page .form-control{
+  color: #fff !important;
+}
+
+body.dark-page .timeline-step {
+  background-color: #fff !important;
+}
+
