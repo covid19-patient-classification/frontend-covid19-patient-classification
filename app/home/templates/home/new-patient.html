@@ -10,7 +10,7 @@
 {% block content %}
     <div class="container-fluid py-4">
         <div class="d-flex flex-column h-100 mb-4">
-            <h3 class="font-weight-bolder text-dark mb-0">Nuevo paciente</h3>
+            <h3 class="font-weight-bolder text-dark mb-0">Clasificación de Pacientes COVID-19</h3>
         </div>
         <div class="patient-form-header border-radius-xl">
             <div class="container-fluid py-2">
@@ -18,9 +18,10 @@
                     <div class="row">
                         <div class="col-12 col-lg-8 mx-auto mt-4 mb-sm-5 mb-3">
                             <div class="multisteps-form__progress">
-                                <button class="multisteps-form__progress-btn js-active" type="button" title="Variables clínicas">
-                                    <span>Variables clínicas</span>
+                                <button class="multisteps-form__progress-btn js-active" type="button" title="Datos generales">
+                                    <span>Datos generales</span>
                                 </button>
+                                <button class="multisteps-form__progress-btn" type="button" title="Variables de Sintomatología">Variables clínicas</button>
                                 <button class="multisteps-form__progress-btn" type="button" title="Variables de Sintomatología">Variables de Sintomatología</button>
                             </div>
                         </div>
@@ -31,6 +32,38 @@
                 <div class="col-12 col-lg-8 m-auto">
                     <form class="multisteps-form__form mb-8 needs-validation" method="POST" id="patient-form" novalidate>
                         <div class="card multisteps-form__panel p-3 border-radius-xl bg-white js-active" data-animation="FadeIn">
+                            <h5 class="font-weight-bolder">Datos generales</h5>
+                            <div class="multisteps-form__content">
+                                <div class="grid-two-form mt-3">
+                                    <div>
+                                        <div class="d-flex align-items-center mb-2">
+                                            <label>Cédula</label>
+                                            <button type="button" class="btn btn-icon-only btn-rounded btn-outline-secondary mb-0 ms-2 btn-sm d-flex align-items-center justify-content-center" data-bs-toggle="tooltip" data-bs-placement="right" title="Identificación del paciente" data-bs-original-title="Saturación de oxígeno">
+                                                <i class="fas fa-info" aria-hidden="true"></i>
+                                            </button>
+                                        </div>
+                                        <div class="input-group">
+                                            <input class="multisteps-form__input form-control" type="text" required />
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div class="d-flex align-items-center mb-2">
+                                            <label>Nombres y Apellidos</label>
+                                            <button type="button" class="btn btn-icon-only btn-rounded btn-outline-secondary mb-0 ms-2 btn-sm d-flex align-items-center justify-content-center" data-bs-toggle="tooltip" data-bs-placement="right" title="Nombres y Apellidos completos del paciente" data-bs-original-title="Presión parcial de oxígeno">
+                                                <i class="fas fa-info" aria-hidden="true"></i>
+                                            </button>
+                                        </div>
+                                        <div class="input-group">
+                                            <input class="multisteps-form__input form-control" type="text" required />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="button-row d-flex mt-4 mb-2">
+                                <button class="btn bg-gradient-form fw-bolder ms-auto mb-0 js-btn-next" type="button" title="Siguiente">Siguiente</button>
+                            </div>
+                        </div>
+                        <div class="card multisteps-form__panel p-3 border-radius-xl bg-white" data-animation="FadeIn">
                             <h5 class="font-weight-bolder">Variables clínicas</h5>
                             <div class="multisteps-form__content">
                                 <div class="grid-two-form mt-3">
@@ -85,6 +118,7 @@
                                 </div>
                             </div>
                             <div class="button-row d-flex mt-4 mb-2">
+                                <button class="btn bg-gradient-form prev mb-0 js-btn-prev" type="button" title="Anterior">Anterior</button>
                                 <button class="btn bg-gradient-form fw-bolder ms-auto mb-0 js-btn-next" type="button" title="Siguiente">Siguiente</button>
                             </div>
                         </div>
