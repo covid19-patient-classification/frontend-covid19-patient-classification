@@ -255,3 +255,11 @@ body.dark-page .timeline-step {
   background-color: #fff !important;
 }
 
+@media (min-width: 992px) {
+  body.dark-page .navbar-vertical.navbar-expand-xs .navbar-nav .nav-link-tooltip {
+    background-color: #344767 !important;
+  }
+}
+
+
+
