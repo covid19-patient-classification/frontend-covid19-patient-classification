@@ -1,4 +1,4 @@
-# [COVID-19 Patient Classification](https://frontend-covid19-patients.herokuapp.com/) Aplication
+# [COVID-19 Patient Classification](https://covid19-patient-classification.herokuapp.com/) Aplication
 
 **Thesis project** provided by the @UTPL on **COVID-19 Patient Classification**, The project could help medical personnel to know more efficiently and quickly the severity of a patient confirmed by COVID-19. UI to a legacy Python-based project compatible with Jinja Template Engine Flask.
 
@@ -9,7 +9,7 @@
 
 <br />
 
-> Links: [COVID-19 Patient Classification](https://frontend-covid19-patients.herokuapp.com/) - LIVE Demo
+> Links: [COVID-19 Patient Classification](https://covid19-patient-classification.herokuapp.com/) - LIVE Demo
 
 ## How to use it
 ```
