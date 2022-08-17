@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <link rel="apple-touch-icon" sizes="76x76" href="./static/assets//img/apple-icon.png">
+        <link rel="icon" type="image/png" href="./static/assets/img/utpl-favicon.png">
+        <title>
+            Covid 19 - {% block title %} {% endblock title %} | UTPL
+        </title>
+
+            <!--     Font     -->
+            <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
+            
+            <!-- CSS Files -->
+            <link id="pagestyle" href="./static/assets/css/light-theme-core.css" rel="stylesheet" />
+
+
+        <!-- Specific page css goes here! -->
+        {% block stylesheets %}{% endblock stylesheets %}
+    </head>
+
+    <body class="g-sidenav-show  bg-gray-100" onload="startTime()">
+        
+        {% block content %} {% endblock content %}
+        
+    </body>
+</html>

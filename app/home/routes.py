@@ -18,8 +18,7 @@ def route_template(template):
         return render_template("home/" + template, segment=segment)
 
     except TemplateNotFound:
-        pass
-        # return render_template('home/page-404.html'), 404
+        return render_template('home/page-404.html'), 404
 
     except:
         pass
