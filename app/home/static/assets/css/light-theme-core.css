@@ -19112,7 +19112,7 @@ hr.horizontal.gray-light {
   .g-sidenav-show .navbar:not(.sidenav).navbar-main .navbar-collapse {
     display: flex !important;
     flex-basis: auto;
-    align-items: start;
+    align-items: end;
   }
   .g-sidenav-show .navbar:not(.sidenav).navbar-main .navbar-nav {
     flex-direction: row;
