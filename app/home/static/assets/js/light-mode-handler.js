@@ -42,7 +42,7 @@ if (document.querySelectorAll('.input-group').length != 0) {
 
 // Set Navbar Fixed
 function navbarFixed(el) {
-  let classes = ['position-sticky', 'blur', 'shadow-blur', 'mt-4', 'left-auto', 'top-1', 'z-index-sticky'];
+  let classes = ['position-sticky', 'blur', 'shadow-blur', 'mt-4', 'left-auto', 'top-2', 'z-index-sticky'];
   const navbar = document.getElementById('navbarBlur');
 
   if (!el.getAttribute("checked")) {
@@ -64,7 +64,7 @@ function navbarBlurOnScroll(id) {
   const navbar = document.getElementById(id);
   let navbarScrollActive = navbar ? navbar.getAttribute("navbar-scroll") : false;
   let scrollDistance = 5;
-  let classes = ['position-sticky', 'blur', 'shadow-blur', 'mt-4', 'left-auto', 'top-1', 'z-index-sticky'];
+  let classes = ['position-sticky', 'blur', 'shadow-blur', 'mt-4', 'left-auto', 'top-2', 'z-index-sticky'];
   let toggleClasses = ['shadow-none'];
 
   if (navbarScrollActive == 'true') {
