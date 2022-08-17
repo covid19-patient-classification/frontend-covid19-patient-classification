@@ -22801,7 +22801,6 @@ pre[class*=language-] {
   display: grid;
   gap: 20px;
   grid-template-columns: repeat(1, minmax(0px, 1fr));
-  margin-bottom: 20px;
 }
 
 .grid-badges {
