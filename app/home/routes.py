@@ -7,7 +7,6 @@ from jinja2 import TemplateNotFound
 def route_template(template):
 
     try:
-
         if not template.endswith('.html'):
             template += '.html'
 
@@ -29,7 +28,6 @@ def route_template(template):
 def get_segment(request):
 
     try:
-
         segment = request.path.split('/')[-1]
 
         if segment == '':
