@@ -18034,6 +18034,9 @@ textarea.form-control-lg {
   :not(.navbar) .dropdown:not(.dropdown-hover) .dropdown-menu {
     margin-top: 8px !important;
   }
+  .position-sticky .dropdown:not(.dropdown-hover) .dropdown-menu {
+    margin-top: 45px !important;
+  }
   :not(.navbar) .dropdown .dropdown-menu.show {
     opacity: 1;
     pointer-events: auto;
