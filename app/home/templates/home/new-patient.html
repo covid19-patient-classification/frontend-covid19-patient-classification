@@ -16,7 +16,7 @@
             <div class="container-fluid py-2">
                 <div class="multisteps-form">
                     <div class="row">
-                        <div class="col-12 col-lg-8 mx-auto mt-4 mb-sm-5 mb-3">
+                        <div class="col-12 col-lg-9 mx-auto mt-4 mb-sm-5 mb-3">
                             <div class="multisteps-form__progress">
                                 <button class="multisteps-form__progress-btn js-active" type="button" title="Datos generales">
                                     <span>Datos generales</span>
@@ -29,7 +29,7 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-12 col-lg-8 m-auto">
+                <div class="col-12 col-lg-9 m-auto">
                     <form class="multisteps-form__form mb-8 needs-validation" method="POST" id="patient-form" novalidate>
                         <div class="card multisteps-form__panel p-3 border-radius-xl bg-white js-active" data-animation="FadeIn">
                             <h5 class="font-weight-bolder">Datos generales</h5>
@@ -43,7 +43,7 @@
                                             </button>
                                         </div>
                                         <div class="input-group">
-                                            <input class="multisteps-form__input form-control" type="text" required />
+                                            <input class="multisteps-form__input form-control" type="text" placeholder="E.j. 1104999535" required />
                                         </div>
                                     </div>
                                     <div>
@@ -54,7 +54,7 @@
                                             </button>
                                         </div>
                                         <div class="input-group">
-                                            <input class="multisteps-form__input form-control" type="text" required />
+                                            <input class="multisteps-form__input form-control" type="text" placeholder="E.j. Antonio Manuel Ponce Armijos" required />
                                         </div>
                                     </div>
                                 </div>
@@ -111,7 +111,7 @@
                                             </button>
                                         </div>
                                         <div class="input-group">
-                                            <input class="multisteps-form__input form-control" type="number" min="0" required />
+                                            <input class="multisteps-form__input form-control" type="number" min="0" readonly />
                                             <span class="input-group-text">mm Hg</span>
                                         </div>
                                     </div>
@@ -126,13 +126,13 @@
                             <h5 class="font-weight-bolder">Variables de Sintomatología</h5>
                             <div class="multisteps-form__content">
                                 <div class="row">
-                                    <div class="col-12 col-sm-4 mt-3">
+                                    <div class="col-12 col-md-4 col-sm-6 mt-3">
                                         <div class="form-check form-switch ps-0">
                                             <input class="multisteps-form__input form-check-input" type="checkbox" id="respiratory-failure">
                                             <label class="form-check-label text-body ms-3 text-truncate mb-0" for="respiratory-failure">Insuficiencia Respiratoria</label>
                                         </div>
                                     </div>
-                                    <div class="col-12 col-sm-4 mt-3">
+                                    <div class="col-12 col-md-4 col-sm-6 mt-3">
                                         <div class="form-check form-switch ps-0">
                                             <input class="multisteps-form__input form-check-input" type="checkbox" id="ards">
                                             <div class="d-flex align-items-center">
@@ -143,67 +143,61 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-12 col-sm-4 mt-3">
+                                    <div class="col-12 col-md-4 col-sm-6 mt-3">
                                         <div class="form-check form-switch ps-0">
                                             <input class="multisteps-form__input form-check-input" type="checkbox" id="sepsis-shock">
                                             <label class="form-check-label text-body ms-3 text-truncate mb-0" for="sepsis-shock">Shock Séptico</label>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-12 col-sm-4 mt-3">
+                                    <div class="col-12 col-md-4 col-sm-6 mt-3">
                                         <div class="form-check form-switch  ps-0">
                                             <input class="multisteps-form__input form-check-input" type="checkbox" id="fever">
                                             <label class="form-check-label text-body ms-3 text-truncate mb-0" for="fever">Fiebre</label>
                                         </div>
                                     </div>
-                                    <div class="col-12 col-sm-4 mt-3">
+                                    <div class="col-12 col-md-4 col-sm-6 mt-3">
                                         <div class="form-check form-switch ps-0">
                                             <input class="multisteps-form__input form-check-input" type="checkbox" id="cough">
                                             <label class="form-check-label text-body ms-3 text-truncate  mb-0" for="cough">Tos</label>
                                         </div>
                                     </div>
-                                    <div class="col-12 col-sm-4 mt-3">
+                                    <div class="col-12 col-md-4 col-sm-6 mt-3">
                                         <div class="form-check form-switch ps-0">
                                             <input class="multisteps-form__input form-check-input" type="checkbox" id="sore-throat">
                                             <label class="form-check-label text-body ms-3 text-truncate  mb-0" for="sore-throat">Dolor de garganta</label>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-12 col-sm-4 mt-3">
+                                    <div class="col-12 col-md-4 col-sm-6 mt-3">
                                         <div class="form-check form-switch ps-0">
                                             <input class="multisteps-form__input form-check-input" type="checkbox" id="headache">
                                             <label class="form-check-label text-body ms-3 text-truncate mb-0" for="headache">Dolor de cabeza</label>
                                         </div>
                                     </div>
-                                    <div class="col-12 col-sm-4 mt-3">
+                                    <div class="col-12 col-md-4 col-sm-6 mt-3">
                                         <div class="form-check form-switch ps-0">
                                             <input class="multisteps-form__input form-check-input" type="checkbox" id="fatigue">
                                             <label class="form-check-label text-body ms-3 text-truncate mb-0" for="fatigue">Fatiga</label>
                                         </div>
                                     </div>
-                                    <div class="col-12 col-sm-4 mt-3">
+                                    <div class="col-12 col-md-4 col-sm-6 mt-3">
                                         <div class="form-check form-switch ps-0">
                                             <input class="multisteps-form__input form-check-input" type="checkbox" id="dyspnea">
                                             <label class="form-check-label text-body ms-3 text-truncate mb-0" for="dyspnea">Disnea</label>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-12 col-sm-4 mt-3">
+                                    <div class="col-12 col-md-4 col-sm-6 mt-3">
                                         <div class="form-check form-switch ps-0">
                                             <input class="multisteps-form__input form-check-input" type="checkbox" id="nausea">
                                             <label class="form-check-label text-body ms-3 text-truncate mb-0" for="nausea">Nauseas</label>
                                         </div>
                                     </div>
-                                    <div class="col-12 col-sm-4 mt-3">
+                                    <div class="col-12 col-md-4 col-sm-6 mt-3">
                                         <div class="form-check form-switch ps-0 ">
                                             <input class="multisteps-form__input form-check-input" type="checkbox" id="vomit">
                                             <label class="form-check-label text-body ms-3 text-truncate mb-0" for="vomit">Vómito</label>
                                         </div>
                                     </div>
-                                    <div class="col-12 col-sm-4 mt-3">
+                                    <div class="col-12 col-md-4 col-sm-6 mt-3">
                                         <div class="form-check form-switch ps-0">
                                             <input class="multisteps-form__input form-check-input" type="checkbox" id="diarrhea">
                                             <label class="form-check-label text-body ms-3 text-truncate mb-0" for="diarrhea">Diarrea</label>

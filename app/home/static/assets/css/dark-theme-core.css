@@ -247,6 +247,10 @@ body.dark-page .form-switch .form-check-input:after {
   background-color:  #fff !important;
 } 
 
+body.dark-page .form-control::placeholder {
+  color: #5a6b88 !important;
+}
+
 body.dark-page .form-control{
   color: #fff !important;
 }

@@ -2388,10 +2388,10 @@ progress {
   color: #adb5bd;
   opacity: 1;
 }
-.form-control:disabled, .form-control[readonly] {
+/* .form-control:disabled, .form-control[readonly] {
   background-color: #e9ecef;
   opacity: 1;
-}
+} */
 .form-control::file-selector-button {
   padding: 0.5rem 0.75rem;
   margin: -0.5rem -0.75rem;
@@ -18087,7 +18087,7 @@ textarea.form-control-lg {
   left: auto !important;
 }
 .dropdown .dropdown-menu.dropdown-menu-end:before {
-  right: 28px;
+  right: 32px;
   left: auto;
 }
 .dropdown.dropdown-subitem:hover .dropdown-item + .dropdown-menu:before {
@@ -19900,9 +19900,7 @@ hr.horizontal.gray-light {
 .navbar-vertical.bg-white {
   box-shadow: 0 20px 27px 0 rgba(0, 0, 0, 0.05);
 }
-.navbar-vertical.bg-white .navbar-nav .nav-link.active {
-  box-shadow: none;
-}
+
 .navbar-vertical.bg-white .navbar-nav .nav-link .icon {
   background-image: linear-gradient(310deg, #e9ecef 0%, #e9ecef 100%);
 }
