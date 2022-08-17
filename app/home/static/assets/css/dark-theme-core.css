@@ -37,14 +37,17 @@ body.dark-page .table {
 }
 
 body.dark-page .dropdown-menu {
-  background-color: #283149;
+  background-color: #344767;
   color: #d7d7d7 !important;
 }
 body.dark-page .dropdown-menu:before {
-  color: #283149 !important;
+  color: #344767 !important;
 }
 body.dark-page .dropdown-menu a {
   color: #d7d7d7 !important;
+}
+body.dark-page .dropdown-menu i {
+  color: #fff !important;
 }
 body.dark-page .dropdown-menu .dropdown-item:hover, body.dark-page .dropdown-menu .dropdown-item:focus {
   background-color: #404B69;
