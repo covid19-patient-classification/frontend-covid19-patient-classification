@@ -1,13 +1,16 @@
 from app.dashboard import blueprint
-from flask import render_template, redirect
+from flask import abort, redirect, render_template
 
 
 @blueprint.route('/')
-@blueprint.route('/index')
 def index():
-    return render_template('home/dashboard.html', segment='dashboard')
+    try:
+        return render_template('home/dashboard.html', segment='dashboard')
+    except Exception:
+        abort(500)
 
 
 @blueprint.route('/dashboard')
+@blueprint.route('/index')
 def dashboard():
     return redirect('/')

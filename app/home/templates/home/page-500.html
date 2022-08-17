@@ -1,0 +1,29 @@
+{% extends 'layouts/base-error.html' %}
+
+{% block title %} Error 500 {% endblock title %}
+
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block body_class %} error-page {% endblock %}
+
+{% block content %}
+
+    <main class="main-content mt-0">
+        <section class="d-flex justify-content-center align-items-center vh-100">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-6 my-auto">
+                        <h1 class="display-1 text-bolder text-gradient text-warning fadeIn1 fadeInBottom mt-5">Error 500</h1>
+                        <h2 class="fadeIn3 fadeInBottom opacity-8">Algo salió mal</h2>
+                        <p class="lead opacity-6 fadeIn2 fadeInBottom">Le sugerimos que vaya a la página de inicio mientras resolvemos este problema.</p>
+                        <a href="{{ url_for('dashboard_blueprint.index') }}" type="button" class="btn bg-gradient-warning mt-4 fadeIn2 fadeInBottom">Ir a la página de inicio</a>
+                    </div>
+                    <div class="col-lg-6 my-auto position-relative">
+                        <img class="w-100 fadeIn1 fadeInBottom" src="/static/assets/img/error-500.png" alt="500-error">
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+{% endblock content %}
