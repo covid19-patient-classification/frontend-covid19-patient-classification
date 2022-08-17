@@ -77,12 +77,6 @@
   box-sizing: border-box;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  :root {
-    scroll-behavior: smooth;
-  }
-}
-
 body {
   margin: 0;
   font-family: var(--bs-body-font-family);
@@ -7559,7 +7553,7 @@ textarea.form-control-lg {
 }
 
 .top-2 {
-  top: 2% !important;
+  top: 2.2% !important;
 }
 
 .top-3 {
@@ -23279,7 +23273,7 @@ Github: https://github.com/fiduswriter/Simple-DataTables
   .active
   a {
   background: transparent;
-  background-image: linear-gradient(310deg, #7928ca 0%, #ff0080 100%);
+  background-image: linear-gradient(310deg, #7928ca 0%, #ff0080 100%) !important;
   box-shadow: 0 3px 5px -1px rgba(0, 0, 0, 0.09),
       0 2px 3px -1px rgba(0, 0, 0, 0.07);
   color: #fff;
@@ -23293,7 +23287,7 @@ Github: https://github.com/fiduswriter/Simple-DataTables
   .dataTable-pagination-list
   .active
   a:hover {
-  background-image: linear-gradient(310deg, #7928ca 0%, #ff0080 100%);
+  background-image: linear-gradient(310deg, #7928ca 0%, #ff0080 100%) !important;
 }
 
 .dataTable-wrapper.no-footer .dataTable-container {
