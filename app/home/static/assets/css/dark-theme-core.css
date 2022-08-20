@@ -208,7 +208,7 @@ body.dark-page .flatpickr-day.nextMonthDay,
 body.dark-page .flatpickr-day.notAllowed, 
 body.dark-page .flatpickr-day.notAllowed.prevMonthDay, 
 body.dark-page .flatpickr-day.notAllowed.nextMonthDay  {
-  opacity: 0.5 !important;
+  opacity: 0.1 !important;
 }
 
 body.dark-page .flatpickr-months .flatpickr-prev-month svg path,

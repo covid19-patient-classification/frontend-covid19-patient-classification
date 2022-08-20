@@ -21479,6 +21479,7 @@ p {
 .flatpickr-months .flatpickr-prev-month:hover,
 .flatpickr-months .flatpickr-next-month:hover {
   color: #959ea9;
+  cursor: pointer;
 }
 
 .flatpickr-months .flatpickr-prev-month:hover svg,
