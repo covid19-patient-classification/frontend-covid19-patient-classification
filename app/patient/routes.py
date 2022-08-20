@@ -4,7 +4,7 @@ from flask import render_template, jsonify
 
 @blueprint.route('/new-patient')
 def index():
-    return render_template('home/new-patient.html', segment='patient')
+    return render_template('home/new-patient.html', segment='patient', page_name='Clasificar Paciente')
 
 
 @blueprint.route('/classify-patient', methods=['POST'])
