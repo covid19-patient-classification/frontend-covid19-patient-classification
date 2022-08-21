@@ -23049,7 +23049,8 @@ Github: https://github.com/fiduswriter/Simple-DataTables
 }
 
 .dataTable-sorter {
-  display: inline-block;
+  display: flex;
+  align-items: center;
   height: 100%;
   position: relative;
   width: 100%;
