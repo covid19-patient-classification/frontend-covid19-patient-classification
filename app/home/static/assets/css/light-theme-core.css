@@ -3151,11 +3151,8 @@ textarea.form-control-lg {
   border-color: var(--bs-btn-hover-border-color);
 }
 .btn-check:focus + .btn, .btn:focus {
-  color: var(--bs-btn-hover-color);
-  background-color: var(--bs-btn-hover-bg);
   border-color: var(--bs-btn-hover-border-color);
   outline: 0;
-  box-shadow: var(--bs-btn-focus-box-shadow);
 }
 .btn-check:checked + .btn, .btn-check:active + .btn, .btn:active, .btn.active, .btn.show {
   color: var(--bs-btn-active-color);
@@ -4953,6 +4950,7 @@ textarea.form-control-lg {
   vertical-align: baseline;
   border-radius: var(--bs-badge-border-radius, 0);
 }
+
 .badge:empty {
   display: none;
 }
@@ -5935,6 +5933,7 @@ textarea.form-control-lg {
 }
 .tooltip.show {
   opacity: var(--bs-tooltip-opacity);
+  z-index: 11111;
 }
 .tooltip .tooltip-arrow {
   display: block;
