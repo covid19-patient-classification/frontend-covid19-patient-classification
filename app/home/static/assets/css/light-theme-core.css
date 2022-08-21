@@ -3151,11 +3151,8 @@ textarea.form-control-lg {
   border-color: var(--bs-btn-hover-border-color);
 }
 .btn-check:focus + .btn, .btn:focus {
-  color: var(--bs-btn-hover-color);
-  background-color: var(--bs-btn-hover-bg);
   border-color: var(--bs-btn-hover-border-color);
   outline: 0;
-  box-shadow: var(--bs-btn-focus-box-shadow);
 }
 .btn-check:checked + .btn, .btn-check:active + .btn, .btn:active, .btn.active, .btn.show {
   color: var(--bs-btn-active-color);
@@ -4953,6 +4950,7 @@ textarea.form-control-lg {
   vertical-align: baseline;
   border-radius: var(--bs-badge-border-radius, 0);
 }
+
 .badge:empty {
   display: none;
 }
@@ -5935,6 +5933,7 @@ textarea.form-control-lg {
 }
 .tooltip.show {
   opacity: var(--bs-tooltip-opacity);
+  z-index: 11111;
 }
 .tooltip .tooltip-arrow {
   display: block;
@@ -21479,6 +21478,7 @@ p {
 .flatpickr-months .flatpickr-prev-month:hover,
 .flatpickr-months .flatpickr-next-month:hover {
   color: #959ea9;
+  cursor: pointer;
 }
 
 .flatpickr-months .flatpickr-prev-month:hover svg,
@@ -23049,7 +23049,8 @@ Github: https://github.com/fiduswriter/Simple-DataTables
 }
 
 .dataTable-sorter {
-  display: inline-block;
+  display: flex;
+  align-items: center;
   height: 100%;
   position: relative;
   width: 100%;

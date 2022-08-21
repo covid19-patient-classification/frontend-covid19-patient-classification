@@ -37,21 +37,15 @@
                                 <div class="grid-two-form mt-3">
                                     <div>
                                         <div class="d-flex align-items-center mb-2">
-                                            <label>Cédula</label>
-                                            <button type="button" class="btn btn-icon-only btn-rounded btn-outline-secondary mb-0 ms-2 btn-sm d-flex align-items-center justify-content-center" data-bs-toggle="tooltip" data-bs-placement="right" title="Identificación del paciente" data-bs-original-title="Saturación de oxígeno">
-                                                <i class="fas fa-info" aria-hidden="true"></i>
-                                            </button>
+                                            <label>Identificación</label>
                                         </div>
                                         <div class="input-group">
-                                            <input class="multisteps-form__input form-control" type="text" placeholder="E.j. 1104999535" required />
+                                            <input class="multisteps-form__input form-control" type="text" placeholder="E.j. 1104XXXXXX" required />
                                         </div>
                                     </div>
                                     <div>
                                         <div class="d-flex align-items-center mb-2">
                                             <label>Nombres y Apellidos</label>
-                                            <button type="button" class="btn btn-icon-only btn-rounded btn-outline-secondary mb-0 ms-2 btn-sm d-flex align-items-center justify-content-center" data-bs-toggle="tooltip" data-bs-placement="right" title="Nombres y Apellidos completos del paciente" data-bs-original-title="Presión parcial de oxígeno">
-                                                <i class="fas fa-info" aria-hidden="true"></i>
-                                            </button>
                                         </div>
                                         <div class="input-group">
                                             <input class="multisteps-form__input form-control" type="text" placeholder="E.j. Antonio Manuel Ponce Armijos" required />
@@ -70,7 +64,27 @@
                                     <div>
                                         <div class="d-flex align-items-center mb-2">
                                             <label>Saturación de O<sub>2</sub></label>
-                                            <button type="button" class="btn btn-icon-only btn-rounded btn-outline-secondary mb-0 ms-2 btn-sm d-flex align-items-center justify-content-center" data-bs-toggle="tooltip" data-bs-placement="right" title="Saturación de oxígeno" data-bs-original-title="Saturación de oxígeno">
+                                            <button type="button" class="btn btn-icon-only btn-rounded btn-outline-secondary mb-0 ms-2 btn-sm d-flex align-items-center justify-content-center" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-html="true" data-bs-title="
+                                                <b>Saturación de oxígeno</b>
+                                                <div class='d-flex mt-2'>
+                                                    <span class='badge badge-md badge-dot text-justify p-0'>
+                                                        <i class=' bg-gradient-success ms-0'></i>
+                                                        <span class='text-xxs'>95 - 100% Normal</span>
+                                                    </span>
+                                                </div>
+                                                <div class='d-flex mt-2'>
+                                                    <span class='badge badge-md badge-dot text-justify p-0'>
+                                                        <i class='bg-gradient-warning ms-0'></i>
+                                                        <span class='text-xxs'>90 - 94% Bajo</span>
+                                                    </span>
+                                                </div>
+                                                <div class='d-flex mt-2'>
+                                                    <span class='badge badge-md badge-dot text-justify p-0'>
+                                                        <i class='bg-gradient-danger ms-0'></i>
+                                                        <span class='text-xxs'>< 90% Crítico</span>
+                                                    </span>
+                                                </div>
+                                                ">
                                                 <i class="fas fa-info" aria-hidden="true"></i>
                                             </button>
                                         </div>
@@ -82,36 +96,76 @@
                                     <div>
                                         <div class="d-flex align-items-center mb-2">
                                             <label>Presión parcial de 0<sub>2</sub></label>
-                                            <button type="button" class="btn btn-icon-only btn-rounded btn-outline-secondary mb-0 ms-2 btn-sm d-flex align-items-center justify-content-center" data-bs-toggle="tooltip" data-bs-placement="right" title="Presión parcial de oxígeno" data-bs-original-title="Presión parcial de oxígeno">
+                                            <button type="button" class="btn btn-icon-only btn-rounded btn-outline-secondary mb-0 ms-2 btn-sm d-flex align-items-center justify-content-center" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-html="true" data-bs-title="
+                                                <b>Presión parcial de oxígeno</b>
+                                                <div class='d-flex mt-2'>
+                                                    <span class='badge badge-md badge-dot text-justify p-0'>
+                                                        <i class=' bg-gradient-success ms-0'></i>
+                                                        <span class='text-xxs'>61 - 100% Normal</span>
+                                                    </span>
+                                                </div>
+                                                <div class='d-flex mt-2'>
+                                                    <span class='badge badge-md badge-dot text-justify p-0'>
+                                                        <i class='bg-gradient-warning ms-0'></i>
+                                                        <span class='text-xxs'>50 - 60% Bajo</span>
+                                                    </span>
+                                                </div>
+                                                <div class='d-flex mt-2'>
+                                                    <span class='badge badge-md badge-dot text-justify p-0'>
+                                                        <i class='bg-gradient-danger ms-0'></i>
+                                                        <span class='text-xxs'>< 50% Crítico</span>
+                                                    </span>
+                                                </div>
+                                                ">
                                                 <i class="fas fa-info" aria-hidden="true"></i>
                                             </button>
                                         </div>
                                         <div class="input-group">
-                                            <input class="multisteps-form__input form-control" type="number" min="0" max="100" required />
+                                            <input class="multisteps-form__input form-control" id="pao2" type="number" min="0" max="100" required />
                                             <span class="input-group-text">%</span>
                                         </div>
                                     </div>
                                     <div>
                                         <div class="d-flex align-items-center mb-2">
                                             <label>Fracción de O<sub>2</sub></label>
-                                            <button type="button" class="btn btn-icon-only btn-rounded btn-outline-secondary mb-0 ms-2 btn-sm d-flex align-items-center justify-content-center" data-bs-toggle="tooltip" data-bs-placement="right" title="Fraccción de oxígeno" data-bs-original-title="Fraccción de oxígeno">
+                                            <button type="button" class="btn btn-icon-only btn-rounded btn-outline-secondary mb-0 ms-2 btn-sm d-flex align-items-center justify-content-center" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-html="true" data-bs-title="
+                                                <b>Fraccción de oxígeno</b>
+                                                <div class='d-flex mt-2'>
+                                                    <span class='badge badge-md badge-dot text-justify p-0'>
+                                                        <i class=' bg-gradient-success ms-0'></i>
+                                                        <span class='text-xxs'>1 - 20% Normal</span>
+                                                    </span>
+                                                </div>
+                                                <div class='d-flex mt-2'>
+                                                    <span class='badge badge-md badge-dot text-justify p-0'>
+                                                        <i class='bg-gradient-warning ms-0'></i>
+                                                        <span class='text-xxs'>21 - 40% Bajo</span>
+                                                    </span>
+                                                </div>
+                                                <div class='d-flex mt-2'>
+                                                    <span class='badge badge-md badge-dot text-justify p-0'>
+                                                        <i class='bg-gradient-danger ms-0'></i>
+                                                        <span class='text-xxs'> 40% Crítico</span>
+                                                    </span>
+                                                </div>
+                                                ">
                                                 <i class="fas fa-info" aria-hidden="true"></i>
                                             </button>
                                         </div>
                                         <div class="input-group">
-                                            <input class="multisteps-form__input form-control" type="number" min="0" max="100" required />
+                                            <input class="multisteps-form__input form-control" id="fio2" type="number" min="1" max="100" required />
                                             <span class="input-group-text">%</span>
                                         </div>
                                     </div>
                                     <div>
                                         <div class="d-flex align-items-center mb-2">
-                                            <label>Presión Arterial / Proporción de 0<sub>2</sub></label>
-                                            <button type="button" class="btn btn-icon-only btn-rounded btn-outline-secondary mb-0 ms-2 btn-sm d-flex align-items-center justify-content-center" data-bs-toggle="tooltip" data-bs-placement="left" title="Relación entre la Presión Parcial de oxígeno y la Fracción de oxígeno inspirado" data-bs-original-title="Relación entre la Presión Parcial de oxígeno y la Fracción de oxígeno inspirado">
+                                            <label>Relación P/F</label>
+                                            <button type="button" class="btn btn-icon-only btn-rounded btn-outline-secondary mb-0 ms-2 btn-sm d-flex align-items-center justify-content-center" data-bs-toggle="tooltip" data-bs-placement="right" title="Relación entre la Presión Parcial de oxígeno y la Fracción de oxígeno inspirado">
                                                 <i class="fas fa-info" aria-hidden="true"></i>
                                             </button>
                                         </div>
                                         <div class="input-group">
-                                            <input class="multisteps-form__input form-control" type="number" min="0" readonly />
+                                            <input class="multisteps-form__input form-control" id="pf-ratio" type="number" min="0" readonly />
                                             <span class="input-group-text">mm Hg</span>
                                         </div>
                                     </div>
@@ -137,7 +191,7 @@
                                             <input class="multisteps-form__input form-check-input" type="checkbox" id="ards">
                                             <div class="d-flex align-items-center">
                                                 <label class="form-check-label text-body ms-3 text-truncate mb-0" for="ards">ARDS</label>
-                                                <button type="button" class="btn btn-icon-only btn-rounded btn-outline-secondary mb-0 ms-2 btn-sm d-flex align-items-center justify-content-center" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Hace referencia si el paciente presenta el síndrome de dificultad respiratoria aguda" data-bs-original-title="ARDS">
+                                                <button type="button" class="btn btn-icon-only btn-rounded btn-outline-secondary mb-0 ms-2 btn-sm d-flex align-items-center justify-content-center" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Hace referencia si el paciente presenta el síndrome de dificultad respiratoria aguda">
                                                     <i class="fas fa-info" aria-hidden="true"></i>
                                                 </button>
                                             </div>
