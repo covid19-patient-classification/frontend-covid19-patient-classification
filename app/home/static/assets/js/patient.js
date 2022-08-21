@@ -1,4 +1,15 @@
 const patientForm = document.getElementById('patient-form');
+const pao2Input = document.getElementById('pao2');
+const fio2Input = document.getElementById('fio2');
+const pfRatioInput = document.getElementById('pf-ratio');
+
+pao2Input.addEventListener('keyup', () => {
+    calculatePfRatio();
+});
+
+fio2Input.addEventListener('keyup', () => {
+    calculatePfRatio();
+});
 
 patientForm.addEventListener('submit', (event) => {
     if (patientForm.checkValidity()) {
@@ -8,6 +19,16 @@ patientForm.addEventListener('submit', (event) => {
     }
     event.preventDefault();
 });
+
+function calculatePfRatio() {
+    var pao2 = pao2Input.value;
+    var fio2 = fio2Input.value;
+
+    if (pao2 >= 0 && pao2 <= 100 && fio2 >= 1 && fio2 <= 100) {
+        var pfRatio = (pao2 / fio2) * 100;
+        pfRatioInput.value = pfRatio;
+    }
+}
 
 function sendPatient() {
     $.ajax({
@@ -66,7 +87,7 @@ function successAlert() {
     });
 }
 
-function displayTimeLineHTML(){
+function displayTimeLineHTML() {
     return `
         <div class="container-fluid py-4">
             <div class="row gx-4 text-sm-start">
@@ -150,5 +171,5 @@ function displayTimeLineHTML(){
                 </div>
             </div>
         </div>
-    `
+    `;
 }
