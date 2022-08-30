@@ -19887,7 +19887,7 @@ hr.horizontal.gray-light {
 .navbar-vertical .navbar-nav > .nav-item .nav-link.active,
 .navbar-vertical .navbar-nav > .nav-item .nav-link:hover {
   color: #344767;
-  background-color: #fff;
+  background-image: linear-gradient(310deg, #e9ecef 0%, #e9ecef 100%);
 }
 .navbar-vertical .navbar-nav > .nav-item .nav-link.active .icon, 
 .navbar-vertical .navbar-nav > .nav-item .nav-link:hover .icon {
