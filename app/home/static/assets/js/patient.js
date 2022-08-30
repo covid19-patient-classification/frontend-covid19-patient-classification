@@ -1,4 +1,21 @@
 const patientForm = document.getElementById('patient-form');
+const sato2Tooltip = document.getElementById('sato2-tooltip');
+const pao2Input = document.getElementById('pao2');
+const paa2Tooltip = document.getElementById('pao2-tooltip');
+const fio2Input = document.getElementById('fio2');
+const fio2Tooltip = document.getElementById('fio2-tooltip');
+const pfRatioInput = document.getElementById('pf-ratio');
+
+initializeClinicalTooltips();
+
+
+pao2Input.addEventListener('keyup', () => {
+    calculatePfRatio();
+});
+
+fio2Input.addEventListener('keyup', () => {
+    calculatePfRatio();
+});
 
 patientForm.addEventListener('submit', (event) => {
     if (patientForm.checkValidity()) {
@@ -8,6 +25,29 @@ patientForm.addEventListener('submit', (event) => {
     }
     event.preventDefault();
 });
+
+function initializeClinicalTooltips(){
+    setBoostrapTooltip(sato2Tooltip, '95 - 100%', '90 - 94%', '<90%') // SatO2 tooltip
+    setBoostrapTooltip(paa2Tooltip, '61 - 100%', '50 - 60%', '<50%') // PaO2 tooltip
+    setBoostrapTooltip(fio2Tooltip, '1 - 20%', '21 - 40%', '>40%') // FiO2 tooltip
+}
+
+function setBoostrapTooltip(tooltipId, normalValue, lowValue, criticalValue){
+    return new bootstrap.Tooltip(tooltipId, {
+        html: true,
+        title: displayTooltipHTML(normalValue, lowValue, criticalValue),
+    })
+}
+
+function calculatePfRatio() {
+    var pao2 = pao2Input.value;
+    var fio2 = fio2Input.value;
+
+    if (pao2 >= 0 && pao2 <= 100 && fio2 >= 1 && fio2 <= 100) {
+        var pfRatio = (pao2 / fio2) * 100;
+        pfRatioInput.value = pfRatio;
+    }
+}
 
 function sendPatient() {
     $.ajax({
@@ -66,7 +106,32 @@ function successAlert() {
     });
 }
 
-function displayTimeLineHTML(){
+function displayTooltipHTML(normalValue, lowValue, criticalValue){
+    return `
+        <b>Saturación de oxígeno</b>
+        <div class='d-flex mt-2'>
+            <span class='badge badge-md badge-dot text-justify p-0'>
+                <i class=' bg-gradient-success ms-0'></i>
+                <span class='text-xxs'>`+normalValue+ ` Normal</span>
+            </span>
+        </div>
+        <div class='d-flex mt-2'>
+            <span class='badge badge-md badge-dot text-justify p-0'>
+                <i class='bg-gradient-warning ms-0'></i>
+                <span class='text-xxs'>`+lowValue +` Bajo</span>
+            </span>
+        </div>
+        <div class='d-flex mt-2'>
+            <span class='badge badge-md badge-dot text-justify p-0'>
+                <i class='bg-gradient-danger ms-0'></i>
+                <span class='text-xxs'>`+criticalValue+ ` Crítico</span>
+            </span>
+        </div>                                         
+    `;
+}
+
+
+function displayTimeLineHTML() {
     return `
         <div class="container-fluid py-4">
             <div class="row gx-4 text-sm-start">
@@ -150,5 +215,5 @@ function displayTimeLineHTML(){
                 </div>
             </div>
         </div>
-    `
+    `;
 }
