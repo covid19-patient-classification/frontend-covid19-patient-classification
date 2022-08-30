@@ -211,6 +211,10 @@ body.dark-page .flatpickr-day.notAllowed.nextMonthDay  {
   opacity: 0.1 !important;
 }
 
+body.dark-page .flatpickr-calendar .flatpickr-day.inRange {
+  box-shadow: -5px 0 0 #3e4778b0, 5px 0 0 #3e4778b0 !important;
+}
+
 body.dark-page .flatpickr-months .flatpickr-prev-month svg path,
 body.dark-page .flatpickr-months .flatpickr-next-month svg path {
   fill: #F4F7FE;
