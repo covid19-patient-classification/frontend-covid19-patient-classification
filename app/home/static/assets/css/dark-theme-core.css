@@ -79,7 +79,7 @@ body.dark-page .navbar-main.blur .sidenav-toggler-line.bg-dark {
 }
 body.dark-page .sidenav .nav-link.active,
 body.dark-page .sidenav .nav-link:hover {
-  background-color: #404B69 !important;
+  background-image: linear-gradient(310deg, #404B69 0%, #404B69 100%) !important;
   color: #fff !important;
 }
 
