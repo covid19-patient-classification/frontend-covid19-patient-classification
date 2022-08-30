@@ -19942,6 +19942,10 @@ hr.horizontal.gray-light {
   background-image: linear-gradient(310deg, #e9ecef 0%, #e9ecef 100%);
 }
 
+.nav-icon:hover {
+  cursor: pointer;
+}
+
 .nav-icon i {
   color: #3A416F;
 }
