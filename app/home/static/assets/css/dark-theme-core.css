@@ -273,4 +273,25 @@ body.dark-page .timeline-step {
 }
 
 
+body.dark-page .skeleton {
+  -webkit-animation: skeleton-dark-loading 1s linear infinite alternate !important;
+  animation: skeleton-dark-loading 1s linear infinite alternate !important;
+}
 
+@-webkit-keyframes skeleton-dark-loading{
+  0% {
+    background-color: #697ea1;
+  }
+  100% {
+    background-color: #4d5c75;
+  }
+}
+
+@keyframes skeleton-dark-loading {
+  0% {
+    background-color: #697ea1;
+  }
+  100% {
+    background-color: #4d5c75;
+  }
+}
