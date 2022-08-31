@@ -23439,6 +23439,15 @@ Github: https://github.com/fiduswriter/Simple-DataTables
   border-radius: 0.25rem;
 }
 
+.skeleton-chart {
+  border-radius: 1rem;
+}
+
+.skeleton-table {
+  border-radius: 1rem;
+  min-height: 20rem;;
+}
+
 .skeleton-body {
   height: 2rem;
 }
