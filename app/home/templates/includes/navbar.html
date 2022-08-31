@@ -4,10 +4,10 @@
             <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
                 <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="javascript:;">Páginas</a></li>
                 <li class="breadcrumb-item text-sm text-dark active" aria-current="page">
-                    {% if segment == 'dashboard' %}
-                        <i class="bi bi-grid-1x2-fill me-1"></i> 
-                    {% elif segment == 'patient' %}
-                        <i class="fas fa-hospital-user me-1"></i>
+                    {% if 'dashboard' in segment %}
+                        <i class="bi bi-grid-1x2-fill me-1 text-xs"></i> 
+                    {% elif 'patient' in segment %}
+                        <i class="fas fa-hospital-user me-1 text-xs"></i>
                     {% endif %}
                 </li>
             </ol>
