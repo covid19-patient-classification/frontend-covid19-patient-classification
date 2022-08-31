@@ -23401,3 +23401,84 @@ Github: https://github.com/fiduswriter/Simple-DataTables
   color: #fff;
   background-image: linear-gradient(135deg, #8f97a9 0%, #2f364c 100%);
 }
+
+/*
+  ======================================================
+  
+  SKELETON LOADING
+
+  =====================================================
+*/
+
+.skeleton {
+  -webkit-animation: skeleton-light-loading 1s linear infinite alternate !important;
+  animation: skeleton-light-loading 1s linear infinite alternate !important;
+}
+
+@-webkit-keyframes skeleton-light-loading {
+  0% {
+    background-color: #c2cfd6;
+  }
+  100% {
+    background-color: #f0f3f5;
+  }
+}
+
+@keyframes skeleton-light-loading{
+  0% {
+    background-color: #c2cfd6;
+  }
+  100% {
+    background-color: #f0f3f5;
+  }
+}
+
+.skeleton-text {
+  height: 1rem;
+  margin-bottom: 0.5rem;
+  border-radius: 0.25rem;
+}
+
+.skeleton-body {
+  height: 2rem;
+}
+
+.skeleton-w-10 {
+  width: 10%;
+}
+
+.skeleton-w-20 {
+  width: 20%;
+}
+
+.skeleton-w-30 {
+  width: 30%;
+}
+
+.skeleton-w-40 {
+  width: 40%;
+}
+
+.skeleton-w-50 {
+  width: 50%;
+}
+
+.skeleton-w-60 {
+  width: 60%;
+}
+
+.skeleton-w-70 {
+  width: 70%;
+}
+
+.skeleton-w-80 {
+  width: 80%;
+}
+
+.skeleton-w-90 {
+  width: 90%;
+}
+
+.skeleton-w-100 {
+  width: 100%;
+}
