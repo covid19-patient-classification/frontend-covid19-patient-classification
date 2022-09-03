@@ -1,3 +1,75 @@
+$.ajax({
+    url: '/initial-dashboard-data',
+    type: 'GET',
+    success: (response) => {
+        console.log(response);
+        setPatientCard(response.moderate_patients, 'moderate');
+        setPatientCard(response.serius_patients, 'serius');
+        setPatientCard(response.critical_patients, 'critical');
+        
+    },
+});
+
+function setPatientCard(data, typeOfPatient){
+    var label = document.getElementById(`${typeOfPatient}-label`);
+    label.innerHTML = data.label;
+    removeSkeletonClasses(label);
+
+    var dropdownContainer = document.getElementById(`${typeOfPatient}-dropdown-container`);
+    var dropdownLabel = document.getElementById(`${typeOfPatient}-dropdown-label`);
+    var moderateDropdownFilters = document.getElementById(`${typeOfPatient}-dropdown-filters`);
+    dropdownLabel.innerHTML = data.date;
+    moderateDropdownFilters.classList.remove('d-none');
+    removeSkeletonClasses(dropdownContainer);
+    
+    var statusContainer = document.getElementById(`${typeOfPatient}-status-container`);
+    var status = document.getElementById(`${typeOfPatient}-status`);
+    status.innerHTML = data.weekly_ranking.total;
+    removeSkeletonClasses(statusContainer);
+
+    var percentageContainer = document.getElementById(`${typeOfPatient}-percentage-container`);
+    var percentage = data.weekly_ranking.percentage;
+    var percentageLabel = data.weekly_ranking.percentage_label;
+    setPatientPercentage(typeOfPatient, percentage, percentageLabel);
+    removeSkeletonClasses(percentageContainer);
+
+}
+
+function setPatientPercentage(typeOfPatient, percentage, percentageLabel) {
+    var percentageStatus = document.getElementById(`${typeOfPatient}-percentage`);
+    if (percentage >= 0) {
+        percentageStatus.innerHTML = `+${percentage}%`;
+        percentageStatus.classList.add('text-danger');
+    } else {
+        percentageStatus.innerHTML = `${percentage}%`;
+        percentageStatus.classList.add('text-success');
+    }
+
+    percentageStatus.innerHTML += `<span class="font-weight-normal opacity-8 text-dark" id="moderate-percentage-label"> ${percentageLabel}</span>`;
+}
+
+let skeletonClasses = [
+    'skeleton',
+    'skeleton-text',
+    'skeleton-chart',
+    'skeleton-table',
+    'skeleton-body',
+    'skeleton-w-10',
+    'skeleton-w-20',
+    'skeleton-w-30',
+    'skeleton-w-40',
+    'skeleton-w-50',
+    'skeleton-w-60',
+    'skeleton-w-70',
+    'skeleton-w-90',
+    'skeleton-w-90',
+    'skeleton-w-100',
+];
+
+function removeSkeletonClasses(element){
+    element.classList.remove(...skeletonClasses)
+}
+
 moderatePatientColor = '#10739E';
 seriusPatientColor = '#CF8913';
 criticalPatientColor = '#9D443D';
@@ -313,5 +385,5 @@ const dataTableBasic = new simpleDatatables.DataTable('#datatable-patients', {
     lengthMenu: [
         [5, 10, 25, 50, -1],
         [5, 10, 25, 50, 'Todos'],
-    ]
+    ],
 });

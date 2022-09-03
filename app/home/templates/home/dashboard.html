@@ -11,23 +11,23 @@
             <div class="card">
                 <div class="card-body p-3">
                     <div class="d-flex justify-content-between">
-                        <p class="skeleton skeleton-text skeleton-w-50 text-sm mb-1 text-capitalize font-weight-bold"></p>
-                        <div class="skeleton skeleton-text skeleton-w-30 dropdown text-end">
-                            <a href="javascript:;" class="filter-date cursor-pointer text-secondary d-none" id="dropdown-filters" data-bs-toggle="dropdown" aria-expanded="false">
-                                <span class="text-xs opacity-8 text-dark"></span>
+                        <p class="skeleton skeleton-text skeleton-w-50 text-sm mb-1 text-capitalize font-weight-bold" id="moderate-label"></p>
+                        <div class="skeleton skeleton-text skeleton-w-30 dropdown text-end" id="moderate-dropdown-container">
+                            <a href="javascript:;" class="filter-date cursor-pointer text-secondary d-none" id="moderate-dropdown-filters" data-bs-toggle="dropdown" aria-expanded="false">
+                                <span class="text-xs opacity-8 text-dark" id="moderate-dropdown-label"></span>
                             </a>
-                            <ul class="dropdown-menu dropdown-menu-end dropdown-filter px-2 py-3" aria-labelledby="dropdown-filters">
+                            <ul class="dropdown-menu dropdown-menu-end dropdown-filter px-2 py-3" aria-labelledby="moderate-dropdown-filters">
                                 <li><a class="dropdown-item border-radius-md" href="javascript:;">Últimos 7 días</a></li>
                                 <li><a class="dropdown-item border-radius-md" href="javascript:;">Semana pasada</a></li>
                                 <li><a class="dropdown-item border-radius-md" href="javascript:;">Últimos 30 días</a></li>
                             </ul>
                         </div>
                     </div>
-                    <div class="skeleton skeleton-text skeleton-w-20 text-start">
-                        <h5 class=" font-weight-bolder mb-0" id="moderate-status"></h5>
+                    <div class="skeleton skeleton-text skeleton-w-20 text-start" id="moderate-status-container">
+                        <h5 class="font-weight-bolder mb-0" id="moderate-status"></h5>
                     </div>
-                    <div class="skeleton skeleton-text skeleton-w-40 text-start">
-                        <span class="text-sm text-end text-danger font-weight-bolder mt-auto mb-0">
+                    <div class="skeleton skeleton-text skeleton-w-40 text-start" id="moderate-percentage-container">
+                        <span class="text-sm text-end font-weight-bolder mt-auto mb-0" id="moderate-percentage">
                             <span class="font-weight-normal opacity-8 text-dark"></span>
                         </span>
                     </div>
@@ -36,23 +36,23 @@
             <div class="card">
                 <div class="card-body p-3">
                     <div class="d-flex justify-content-between">
-                        <p class="skeleton skeleton-text skeleton-w-50 text-sm mb-1 text-capitalize font-weight-bold"></p>
-                        <div class="skeleton skeleton-text skeleton-w-30 dropdown text-end">
-                            <a href="javascript:;" class="filter-date cursor-pointer text-secondary d-none" id="dropdown-filters" data-bs-toggle="dropdown" aria-expanded="false">
-                                <span class="text-xs opacity-8 text-dark"></span>
+                        <p class="skeleton skeleton-text skeleton-w-50 text-sm mb-1 text-capitalize font-weight-bold" id="serius-label"></p>
+                        <div class="skeleton skeleton-text skeleton-w-30 dropdown text-end" id="serius-dropdown-container">
+                            <a href="javascript:;" class="filter-date cursor-pointer text-secondary d-none" id="serius-dropdown-filters" data-bs-toggle="dropdown" aria-expanded="false">
+                                <span class="text-xs opacity-8 text-dark" id="serius-dropdown-label"></span>
                             </a>
-                            <ul class="dropdown-menu dropdown-menu-end dropdown-filter px-2 py-3" aria-labelledby="dropdown-filters">
+                            <ul class="dropdown-menu dropdown-menu-end dropdown-filter px-2 py-3" aria-labelledby="serius-dropdown-filters">
                                 <li><a class="dropdown-item border-radius-md" href="javascript:;">Últimos 7 días</a></li>
                                 <li><a class="dropdown-item border-radius-md" href="javascript:;">Semana pasada</a></li>
                                 <li><a class="dropdown-item border-radius-md" href="javascript:;">Últimos 30 días</a></li>
                             </ul>
                         </div>
                     </div>
-                    <div class="skeleton skeleton-text skeleton-w-20 text-start">
-                        <h5 class=" font-weight-bolder mb-0" id="serius-status"></h5>
+                    <div class="skeleton skeleton-text skeleton-w-20 text-start" id="serius-status-container">
+                        <h5 class="font-weight-bolder mb-0" id="serius-status"></h5>
                     </div>
-                    <div class="skeleton skeleton-text skeleton-w-40 text-start">
-                        <span class="text-sm text-end text-danger font-weight-bolder mt-auto mb-0">
+                    <div class="skeleton skeleton-text skeleton-w-40 text-start" id="serius-percentage-container">
+                        <span class="text-sm text-end font-weight-bolder mt-auto mb-0" id="serius-percentage">
                             <span class="font-weight-normal opacity-8 text-dark"></span>
                         </span>
                     </div>
@@ -61,23 +61,23 @@
             <div class="card">
                 <div class="card-body p-3">
                     <div class="d-flex justify-content-between">
-                        <p class="skeleton skeleton-text skeleton-w-50 text-sm mb-1 text-capitalize font-weight-bold"></p>
-                        <div class="skeleton skeleton-text skeleton-w-30 dropdown text-end">
-                            <a href="javascript:;" class="filter-date cursor-pointer text-secondary d-none" id="dropdown-filters" data-bs-toggle="dropdown" aria-expanded="false">
-                                <span class="text-xs opacity-8 text-dark"></span>
+                        <p class="skeleton skeleton-text skeleton-w-50 text-sm mb-1 text-capitalize font-weight-bold" id="critical-label"></p>
+                        <div class="skeleton skeleton-text skeleton-w-30 dropdown text-end" id="critical-dropdown-container">
+                            <a href="javascript:;" class="filter-date cursor-pointer text-secondary d-none" id="critical-dropdown-filters" data-bs-toggle="dropdown" aria-expanded="false">
+                                <span class="text-xs opacity-8 text-dark" id="critical-dropdown-label"></span>
                             </a>
-                            <ul class="dropdown-menu dropdown-menu-end dropdown-filter px-2 py-3" aria-labelledby="dropdown-filters">
+                            <ul class="dropdown-menu dropdown-menu-end dropdown-filter px-2 py-3" aria-labelledby="critical-dropdown-filters">
                                 <li><a class="dropdown-item border-radius-md" href="javascript:;">Últimos 7 días</a></li>
                                 <li><a class="dropdown-item border-radius-md" href="javascript:;">Semana pasada</a></li>
                                 <li><a class="dropdown-item border-radius-md" href="javascript:;">Últimos 30 días</a></li>
                             </ul>
                         </div>
                     </div>
-                    <div class="skeleton skeleton-text skeleton-w-20 text-start">
+                    <div class="skeleton skeleton-text skeleton-w-20 text-start" id="critical-status-container">
                         <h5 class="font-weight-bolder mb-0" id="critical-status"></h5>
                     </div>
-                    <div class="skeleton skeleton-text skeleton-w-40 text-start">
-                        <span class="text-sm text-end text-danger font-weight-bolder mt-auto mb-0">
+                    <div class="skeleton skeleton-text skeleton-w-40 text-start" id="critical-percentage-container">
+                        <span class="text-sm text-end font-weight-bolder mt-auto mb-0" id="critical-percentage">
                             <span class="font-weight-normal opacity-8 text-dark"></span>
                         </span>
                     </div>
