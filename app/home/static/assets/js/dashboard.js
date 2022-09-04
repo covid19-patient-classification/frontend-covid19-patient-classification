@@ -248,6 +248,56 @@ function createTotalPatientChart(data){
     setCoutUp(totalChartStatus, data.total_patients);
     totalChartLabel.classList.remove('d-none');
     removeSkeletonClasses(totalChartContainer);
+    createTotalTable(data.moderate_patients, data.serius_patients, data.critical_patients);
+}
+
+function createTotalTable(moderatePatients, seriusPatients, criticalPatients){
+    var totalChartContainer = document.getElementById('total-table-container');
+    var totalTable = document.getElementById('total-table');
+    totalTable.innerHTML += `
+        <tbody>
+            <tr>
+                <td>
+                    <div class="d-flex px-2 py-0">
+                        <span class="badge moderate-bg me-3"> </span>
+                        <div class="d-flex flex-column justify-content-center">
+                            <h6 class="mb-0 text-sm">${moderatePatients.label}</h6>
+                        </div>
+                    </div>
+                </td>
+                <td class="align-middle text-center text-sm">
+                    <span class="text-body text-xs font-weight-bold" id="donut-moderate-status"> ${moderatePatients.total} </span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="d-flex px-2 py-0">
+                        <span class="badge serius-bg me-3"> </span>
+                        <div class="d-flex flex-column justify-content-center">
+                            <h6 class="mb-0 text-sm">${seriusPatients.label}</h6>
+                        </div>
+                    </div>
+                </td>
+                <td class="align-middle text-center text-sm">
+                    <span class="text-body text-xs font-weight-bold" id="donut-serius-status"> ${seriusPatients.total} </span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="d-flex px-2 py-0">
+                        <span class="badge critical-bg me-3"> </span>
+                        <div class="d-flex flex-column justify-content-center">
+                            <h6 class="mb-0 text-sm">${criticalPatients.label}</h6>
+                        </div>
+                    </div>
+                </td>
+                <td class="align-middle text-center text-sm">
+                    <span class="text-body text-xs font-weight-bold" id="donut-critical-status"> ${criticalPatients.total} </span>
+                </td>
+            </tr>                                   
+        </tbody>
+    `;
+    removeSkeletonClasses(totalChartContainer);
 }
 
 // Chart line Patients by datepicker
