@@ -1,52 +1,7 @@
-$.ajax({
-    url: '/initial-dashboard-data',
-    type: 'GET',
-    success: (response) => {
-        console.log(response);
-        setPatientCard(response.moderate_patients, 'moderate');
-        setPatientCard(response.serius_patients, 'serius');
-        setPatientCard(response.critical_patients, 'critical');
-        
-    },
-});
-
-function setPatientCard(data, typeOfPatient){
-    var label = document.getElementById(`${typeOfPatient}-label`);
-    label.innerHTML = data.label;
-    removeSkeletonClasses(label);
-
-    var dropdownContainer = document.getElementById(`${typeOfPatient}-dropdown-container`);
-    var dropdownLabel = document.getElementById(`${typeOfPatient}-dropdown-label`);
-    var moderateDropdownFilters = document.getElementById(`${typeOfPatient}-dropdown-filters`);
-    dropdownLabel.innerHTML = data.date;
-    moderateDropdownFilters.classList.remove('d-none');
-    removeSkeletonClasses(dropdownContainer);
-    
-    var statusContainer = document.getElementById(`${typeOfPatient}-status-container`);
-    var status = document.getElementById(`${typeOfPatient}-status`);
-    status.innerHTML = data.weekly_ranking.total;
-    removeSkeletonClasses(statusContainer);
-
-    var percentageContainer = document.getElementById(`${typeOfPatient}-percentage-container`);
-    var percentage = data.weekly_ranking.percentage;
-    var percentageLabel = data.weekly_ranking.percentage_label;
-    setPatientPercentage(typeOfPatient, percentage, percentageLabel);
-    removeSkeletonClasses(percentageContainer);
-
-}
-
-function setPatientPercentage(typeOfPatient, percentage, percentageLabel) {
-    var percentageStatus = document.getElementById(`${typeOfPatient}-percentage`);
-    if (percentage >= 0) {
-        percentageStatus.innerHTML = `+${percentage}%`;
-        percentageStatus.classList.add('text-danger');
-    } else {
-        percentageStatus.innerHTML = `${percentage}%`;
-        percentageStatus.classList.add('text-success');
-    }
-
-    percentageStatus.innerHTML += `<span class="font-weight-normal opacity-8 text-dark" id="moderate-percentage-label"> ${percentageLabel}</span>`;
-}
+'use strict';
+const moderatePatientColor = '#10739E';
+const seriusPatientColor = '#CF8913';
+const criticalPatientColor = '#9D443D';
 
 let skeletonClasses = [
     'skeleton',
@@ -66,15 +21,64 @@ let skeletonClasses = [
     'skeleton-w-100',
 ];
 
-function removeSkeletonClasses(element){
-    element.classList.remove(...skeletonClasses)
+$.ajax({
+    url: '/initial-dashboard-data',
+    type: 'GET',
+    success: (response) => {
+        console.log(response);
+        setPatientCard(response.moderate_patients, 'moderate');
+        setPatientCard(response.serius_patients, 'serius');
+        setPatientCard(response.critical_patients, 'critical');
+
+        // Create weekly chart
+        createWeeklyPatientChart(response.moderate_patients, response.serius_patients, response.critical_patients);
+    },
+});
+
+function setPatientCard(data, typeOfPatient) {
+    var label = document.getElementById(`${typeOfPatient}-label`);
+    label.innerHTML = data.label;
+    removeSkeletonClasses(label);
+
+    var dropdownContainer = document.getElementById(`${typeOfPatient}-dropdown-container`);
+    var dropdownLabel = document.getElementById(`${typeOfPatient}-dropdown-label`);
+    var moderateDropdownFilters = document.getElementById(`${typeOfPatient}-dropdown-filters`);
+    dropdownLabel.innerHTML = data.date;
+    moderateDropdownFilters.classList.remove('d-none');
+    removeSkeletonClasses(dropdownContainer);
+
+    var statusContainer = document.getElementById(`${typeOfPatient}-status-container`);
+    var status = document.getElementById(`${typeOfPatient}-status`);
+    setCoutUp(status, data.weekly_ranking.total);
+    removeSkeletonClasses(statusContainer);
+
+    var percentageContainer = document.getElementById(`${typeOfPatient}-percentage-container`);
+    var percentage = data.weekly_ranking.percentage;
+    var percentageLabel = data.weekly_ranking.percentage_label;
+    setPatientPercentage(typeOfPatient, percentage, percentageLabel);
+    removeSkeletonClasses(percentageContainer);
 }
 
-moderatePatientColor = '#10739E';
-seriusPatientColor = '#CF8913';
-criticalPatientColor = '#9D443D';
+function setPatientPercentage(typeOfPatient, percentage, percentageLabel) {
+    var percentageStatus = document.getElementById(
+        `${typeOfPatient}-percentage`
+    );
+    if (percentage >= 0) {
+        percentageStatus.innerHTML = `+${percentage}%`;
+        percentageStatus.classList.add('text-danger');
+    } else {
+        percentageStatus.innerHTML = `${percentage}%`;
+        percentageStatus.classList.add('text-success');
+    }
 
-patientsStatus = [
+    percentageStatus.innerHTML += `<span class="font-weight-normal opacity-8 text-dark" id="moderate-percentage-label"> ${percentageLabel}</span>`;
+}
+
+function removeSkeletonClasses(element) {
+    element.classList.remove(...skeletonClasses);
+}
+
+const patientsStatus = [
     'moderate-status',
     'serius-status',
     'critical-status',
@@ -85,20 +89,105 @@ patientsStatus = [
     'line-total-status',
 ];
 
+function setCoutUp(element, value) {
+    element.setAttribute('countTo', value);
+    if (element) {
+        const countUp = new CountUp(element, element.getAttribute('countTo'));
+        if (!countUp.error) {
+            countUp.start();
+        } else {
+            console.error(countUp.error);
+        }
+    }
+}
+
+// Chart bar Patients by week
+function createWeeklyPatientChart(moderatePatients, seriusPatients, criticalPatients) {
+    var weeklyChartContainer = document.getElementById('weekly-chart-container');
+    var weeklyPatientChart= document.getElementById('weekly-patient-chart').getContext('2d');
+
+    new Chart(weeklyPatientChart, {
+        type: 'bar',
+        data: {
+            labels: moderatePatients.weekly_ranking.labels,
+            datasets: [
+                {
+                    label: moderatePatients.label,
+                    tension: 1,
+                    borderWidth: 0,
+                    borderRadius: 5,
+                    backgroundColor: moderatePatientColor,
+                    data: moderatePatients.weekly_ranking.values,
+                    maxBarThickness: 20,
+                },
+                {
+                    label: seriusPatients.label,
+                    tension: 1,
+                    borderWidth: 0,
+                    borderRadius: 5,
+                    backgroundColor: seriusPatientColor,
+                    data: seriusPatients.weekly_ranking.values,
+                    maxBarThickness: 20,
+                },
+                {
+                    label: criticalPatients.label,
+                    tension: 1,
+                    borderWidth: 0,
+                    borderRadius: 5,
+                    backgroundColor: criticalPatientColor,
+                    data: criticalPatients.weekly_ranking.values,
+                    maxBarThickness: 20,
+                },
+            ],
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    display: false,
+                },
+            },
+            scales: {
+                y: {
+                    grid: {
+                        drawBorder: false,
+                        display: false,
+                        drawOnChartArea: false,
+                        drawTicks: false,
+                    },
+                    ticks: {
+                        display: false,
+                    },
+                    stacked: true,
+                },
+                x: {
+                    grid: {
+                        drawBorder: false,
+                        display: false,
+                        drawOnChartArea: false,
+                        drawTicks: false,
+                    },
+                    ticks: {
+                        beginAtZero: true,
+                        font: {
+                            size: 12,
+                            family: 'Open Sans',
+                            style: 'normal',
+                        },
+                        color: '#9ca2b7',
+                    },
+                    stacked: true,
+                },
+            },
+        },
+    });
+    removeSkeletonClasses(weeklyChartContainer);
+}
+
 // patientsStatus.forEach((patientStatus) => {
 //     var element = document.getElementById(patientStatus);
-//     element.setAttribute('countTo', 40);
-//     if (element) {
-//         const countUp = new CountUp(
-//             patientStatus,
-//             element.getAttribute('countTo')
-//         );
-//         if (!countUp.error) {
-//             countUp.start();
-//         } else {
-//             console.error(countUp.error);
-//         }
-//     }
+
 // });
 
 // Chart Doughnut Total patients classified
@@ -166,86 +255,6 @@ gradientStroke1.addColorStop(0, 'rgba(16, 115, 158,0)');
 //                 ticks: {
 //                     display: false,
 //                 },
-//             },
-//         },
-//     },
-// });
-
-// Chart bar Patients by week
-var ctx2 = document.getElementById('chart-week-patients').getContext('2d');
-
-// new Chart(ctx2, {
-//     type: 'bar',
-//     data: {
-//         labels: ['18', '19', '20', '21', '22', '23', '24'],
-//         datasets: [
-//             {
-//                 label: 'Pacientes moderados',
-//                 tension: 1,
-//                 borderWidth: 0,
-//                 borderRadius: 5,
-//                 backgroundColor: moderatePatientColor,
-//                 data: [10, 10, 5, 7, 5, 5, 5],
-//                 maxBarThickness: 20,
-//             },
-//             {
-//                 label: 'Pacientes graves',
-//                 tension: 1,
-//                 borderWidth: 0,
-//                 borderRadius: 5,
-//                 backgroundColor: seriusPatientColor,
-//                 data: [3, 3, 3, 5, 3, 3, 3],
-//                 maxBarThickness: 20,
-//             },
-//             {
-//                 label: 'Pacientes críticos',
-//                 tension: 1,
-//                 borderWidth: 0,
-//                 borderRadius: 5,
-//                 backgroundColor: criticalPatientColor,
-//                 data: [2, 3, 3, 3, 3, 3, 3],
-//                 maxBarThickness: 20,
-//             },
-//         ],
-//     },
-//     options: {
-//         responsive: true,
-//         maintainAspectRatio: false,
-//         plugins: {
-//             legend: {
-//                 display: false,
-//             },
-//         },
-//         scales: {
-//             y: {
-//                 grid: {
-//                     drawBorder: false,
-//                     display: false,
-//                     drawOnChartArea: false,
-//                     drawTicks: false,
-//                 },
-//                 ticks: {
-//                     display: false,
-//                 },
-//                 stacked: true,
-//             },
-//             x: {
-//                 grid: {
-//                     drawBorder: false,
-//                     display: false,
-//                     drawOnChartArea: false,
-//                     drawTicks: false,
-//                 },
-//                 ticks: {
-//                     beginAtZero: true,
-//                     font: {
-//                         size: 12,
-//                         family: 'Open Sans',
-//                         style: 'normal',
-//                     },
-//                     color: '#9ca2b7',
-//                 },
-//                 stacked: true,
 //             },
 //         },
 //     },

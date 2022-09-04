@@ -20,7 +20,7 @@ def dashboard():
 def get_initial_dashboard_data():
     data = {
         "moderate_patients": {
-            "label": "pacientes moderados",
+            "label": "Pacientes Moderados",
             "date": "28 de agosto - 03 de septiembre",
             "total": 140,
             "weekly_ranking": {
@@ -36,7 +36,7 @@ def get_initial_dashboard_data():
             }
         },
         "serius_patients": {
-            "label": "pacientes graves",
+            "label": "Pacientes Graves",
             "date": "28 de agosto - 03 de septiembre",
             "total": 60,
             "weekly_ranking": {
@@ -52,7 +52,7 @@ def get_initial_dashboard_data():
             }
         },
         "critical_patients": {
-            "label": "pacientes críticos",
+            "label": "Pacientes Críticos",
             "date": "28 de agosto - 03 de septiembre",
             "total": 18,
             "weekly_ranking": {
