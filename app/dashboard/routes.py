@@ -32,7 +32,9 @@ def get_initial_dashboard_data():
             },
             "annual_ranking": {
                 "labels": ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre"],
-                "values": [50, 40, 300, 220, 500, 250, 400, 30, 100]
+                "values": [50, 40, 300, 220, 500, 250, 400, 30, 100],
+                "percentage": -20,
+                "percentage_label": "Desde el año anterior"
             }
         },
         "serius_patients": {

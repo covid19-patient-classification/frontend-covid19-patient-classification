@@ -118,12 +118,12 @@
                 <div class="card-body p-3">
                     <div class="row">
                         <div class="col-12 col-md-6 text-center mb-5">
-                            <div class="skeleton skeleton-chart chart mb-5" id="total-chart-container">
-                                <canvas class="chart-canvas position-relative z-index-1" id="total-patient-chart" height="197"></canvas>
+                            <div class="skeleton skeleton-chart chart mb-5" id="total-doughnut-chart-container">
+                                <canvas class="chart-canvas position-relative z-index-1" id="total-patient-doughnut-chart" height="197"></canvas>
                             </div>
                             <h4 class="font-weight-bold mt-n13">
-                                <span class="fw-bolder" id="total-chart-status"></span>
-                                <span class="d-block text-body text-sm d-none" id="total-chart-label">PACIENTES</span>
+                                <span class="fw-bolder" id="total-doughnut-chart-status"></span>
+                                <span class="d-block text-body text-sm d-none" id="total-doughnut-chart-label">PACIENTES</span>
                             </h4>
                         </div>
                         <div class="col-12 col-md-6 mt-5">
@@ -139,7 +139,7 @@
             <div class="card">
                 <div class="card-header pb-0 p-3">
                     <div class="d-flex align-items-center">
-                        <input class="mb-0 form-control datepicker" placeholder="Este año" type="text" onfocus="focused(this)" onfocusout="defocused(this)" >
+                        <input class="mb-0 form-control datepicker" placeholder="Este año" type="text" onfocus="focused(this)" onfocusout="defocused(this)">
                         <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" focusable="false" class="input-icon ms-2" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
                             <path fill="none" d="M0 0h24v24H0V0z"></path>
                             <path d="M20 3h-1V1h-2v2H7V1H5v2H4c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 18H4V10h16v11zm0-13H4V5h16v3z"></path>
@@ -156,18 +156,14 @@
                         <div class="grid-one-container">
                             <div class="row">
                                 <div class="cart-info col-sm-12 col-md-4">
-                                    <h4 class="skeleton skeleton-text skeleton-w-30 text-dark text-4xl fw-bolder" id="line-total-status">
-                                        <!-- 218 -->
-                                    </h4>
+                                    <h4 class="skeleton skeleton-text skeleton-w-30 text-dark text-4xl fw-bolder" id="total-line-chart-status"></h4>
                                     <div class="d-flex align-items-start">
-                                        <p class="skeleton skeleton-text skeleton-w-30 text-seconday text-sm me-3">
-                                            <!-- Pacientes -->
-                                        </p>
-                                        <div class="skeleton skeleton-text skeleton-w-20 d-flex align-items-center"> 
-                                            <!-- <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 520 520" focusable="false" class="text-success" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
-                                                <path d="M310.6 246.6l-127.1 128C176.4 380.9 168.2 384 160 384s-16.38-3.125-22.63-9.375l-127.1-128C.2244 237.5-2.516 223.7 2.438 211.8S19.07 192 32 192h255.1c12.94 0 24.62 7.781 29.58 19.75S319.8 237.5 310.6 246.6z"/>
-                                            </svg>
-                                            <span class="text-sm text-end text-success font-weight-bolder mt-auto mb-0">+20% </span> -->
+                                        <p class="skeleton skeleton-text skeleton-w-30 text-seconday text-sm me-3 d-none" id="total-line-chart-label">Pacientes</p>
+                                        <div class="d-flex align-items-center" id="total-line-chart-percentage"> 
+                                            <i class="ni ni-bold-down text-sm me-1 text-success"></i>
+                                            <span class="text-sm text-end text-success font-weight-bolder mt-auto mb-0">-20%</span>
+                                            <!-- <i class="ni ni-bold-up text-sm me-1 text-danger"></i>
+                                            <span class="text-sm text-end text-danger font-weight-bolder mt-auto mb-0">+20%</span> -->
                                         </div>
                                     </div>
                                 </div> 

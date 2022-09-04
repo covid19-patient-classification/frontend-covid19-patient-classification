@@ -31,10 +31,13 @@ $.ajax({
         setPatientCard(response.critical_patients, 'critical');
 
         // Create weekly chart
-        createWeeklyPatientChart(response.moderate_patients, response.serius_patients, response.critical_patients);
+        createWeeklyPatientsChart(response.moderate_patients, response.serius_patients, response.critical_patients);
 
-        // Create total chart
-        createTotalPatientChart(response);
+        // Create total doughnut chart
+        createTotalPatientsDoughnutChart(response);
+
+        // Create total line chart
+        createTotalPatientsLineChart(response);
     },
 });
 
@@ -58,14 +61,13 @@ function setPatientCard(data, typeOfPatient) {
     var percentageContainer = document.getElementById(`${typeOfPatient}-percentage-container`);
     var percentage = data.weekly_ranking.percentage;
     var percentageLabel = data.weekly_ranking.percentage_label;
-    setPatientPercentage(typeOfPatient, percentage, percentageLabel);
+    setPatientCardPercentage(typeOfPatient, percentage, percentageLabel);
     removeSkeletonClasses(percentageContainer);
 }
 
-function setPatientPercentage(typeOfPatient, percentage, percentageLabel) {
-    var percentageStatus = document.getElementById(
-        `${typeOfPatient}-percentage`
-    );
+function setPatientCardPercentage(typeOfPatient, percentage, percentageLabel) {
+    var percentageStatus = document.getElementById(`${typeOfPatient}-percentage`);
+    
     if (percentage >= 0) {
         percentageStatus.innerHTML = `+${percentage}%`;
         percentageStatus.classList.add('text-danger');
@@ -90,7 +92,7 @@ const patientsStatus = [
 
 
 // Chart bar Patients by week
-function createWeeklyPatientChart(moderatePatients, seriusPatients, criticalPatients) {
+function createWeeklyPatientsChart(moderatePatients, seriusPatients, criticalPatients) {
     var weeklyChartContainer = document.getElementById('weekly-chart-container');
     var weeklyPatientChart= document.getElementById('weekly-patient-chart').getContext('2d');
 
@@ -174,12 +176,12 @@ function createWeeklyPatientChart(moderatePatients, seriusPatients, criticalPati
 }
 
 // Chart Doughnut Total patients classified
-function createTotalPatientChart(data){
-    var totalChartContainer = document.getElementById('total-chart-container');
-    var totalPatientChart = document.getElementById('total-patient-chart').getContext('2d');
+function createTotalPatientsDoughnutChart(data){
+    var totalChartContainer = document.getElementById('total-doughnut-chart-container');
+    var totalPatientChart = document.getElementById('total-patient-doughnut-chart').getContext('2d');
     var gradientStroke1 = totalPatientChart.createLinearGradient(0, 230, 0, 50);
-    var totalChartStatus = document.getElementById('total-chart-status');
-    var totalChartLabel = document.getElementById('total-chart-label');
+    var totalChartStatus = document.getElementById('total-doughnut-chart-status');
+    var totalChartLabel = document.getElementById('total-doughnut-chart-label');
     
     gradientStroke1.addColorStop(1, 'rgba(16, 115, 158,0.2)');
     gradientStroke1.addColorStop(0.2, 'rgba(72,72,176,0.0)');
@@ -251,6 +253,7 @@ function createTotalPatientChart(data){
     createTotalTable(data.moderate_patients, data.serius_patients, data.critical_patients);
 }
 
+// Create total table in doughnut chart
 function createTotalTable(moderatePatients, seriusPatients, criticalPatients){
     var totalChartContainer = document.getElementById('total-table-container');
     var totalTable = document.getElementById('total-table');
@@ -298,6 +301,19 @@ function createTotalTable(moderatePatients, seriusPatients, criticalPatients){
         </tbody>
     `;
     removeSkeletonClasses(totalChartContainer);
+}
+
+// Total patients line chart
+function createTotalPatientsLineChart(response){
+    var totalLineChartStatus = document.getElementById('total-line-chart-status');
+    var totalLineChartLabel = document.getElementById('total-line-chart-label');
+
+    setCoutUp(totalLineChartStatus, response.total_patients);
+    totalLineChartLabel.classList.remove('d-none');
+
+    removeSkeletonClasses(totalLineChartStatus);
+    removeSkeletonClasses(totalLineChartLabel);
+
 }
 
 // Chart line Patients by datepicker
