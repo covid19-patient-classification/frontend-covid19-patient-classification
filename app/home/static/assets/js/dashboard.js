@@ -32,6 +32,9 @@ $.ajax({
 
         // Create weekly chart
         createWeeklyPatientChart(response.moderate_patients, response.serius_patients, response.critical_patients);
+
+        // Create total chart
+        createTotalPatientChart(response);
     },
 });
 
@@ -74,10 +77,6 @@ function setPatientPercentage(typeOfPatient, percentage, percentageLabel) {
     percentageStatus.innerHTML += `<span class="font-weight-normal opacity-8 text-dark" id="moderate-percentage-label"> ${percentageLabel}</span>`;
 }
 
-function removeSkeletonClasses(element) {
-    element.classList.remove(...skeletonClasses);
-}
-
 const patientsStatus = [
     'moderate-status',
     'serius-status',
@@ -89,17 +88,6 @@ const patientsStatus = [
     'line-total-status',
 ];
 
-function setCoutUp(element, value) {
-    element.setAttribute('countTo', value);
-    if (element) {
-        const countUp = new CountUp(element, element.getAttribute('countTo'));
-        if (!countUp.error) {
-            countUp.start();
-        } else {
-            console.error(countUp.error);
-        }
-    }
-}
 
 // Chart bar Patients by week
 function createWeeklyPatientChart(moderatePatients, seriusPatients, criticalPatients) {
@@ -185,80 +173,82 @@ function createWeeklyPatientChart(moderatePatients, seriusPatients, criticalPati
     removeSkeletonClasses(weeklyChartContainer);
 }
 
-// patientsStatus.forEach((patientStatus) => {
-//     var element = document.getElementById(patientStatus);
-
-// });
-
 // Chart Doughnut Total patients classified
-var ctx1 = document.getElementById('chart-total-patients').getContext('2d');
+function createTotalPatientChart(data){
+    var totalChartContainer = document.getElementById('total-chart-container');
+    var totalPatientChart = document.getElementById('total-patient-chart').getContext('2d');
+    var gradientStroke1 = totalPatientChart.createLinearGradient(0, 230, 0, 50);
+    var totalChartStatus = document.getElementById('total-chart-status');
+    var totalChartLabel = document.getElementById('total-chart-label');
+    
+    gradientStroke1.addColorStop(1, 'rgba(16, 115, 158,0.2)');
+    gradientStroke1.addColorStop(0.2, 'rgba(72,72,176,0.0)');
+    gradientStroke1.addColorStop(0, 'rgba(16, 115, 158,0)');
+    
+    new Chart(totalPatientChart, {
+        type: 'doughnut',
+        data: {
+            labels: [data.moderate_patients.label, data.serius_patients.label, data.critical_patients.label],
+            datasets: [
+                {
+                    weight: 9,
+                    cutout: 90,
+                    tension: 0.9,
+                    pointRadius: 2,
+                    borderWidth: 2,
+                    backgroundColor: [
+                        moderatePatientColor,
+                        seriusPatientColor,
+                        criticalPatientColor,
+                    ],
+                    data: [data.moderate_patients.total, data.serius_patients.total, data.critical_patients.total],
+                    fill: false,
+                },
+            ],
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    display: false,
+                },
+            },
+            interaction: {
+                intersect: false,
+                mode: 'index',
+            },
+            scales: {
+                y: {
+                    grid: {
+                        drawBorder: false,
+                        display: false,
+                        drawOnChartArea: false,
+                        drawTicks: false,
+                    },
+                    ticks: {
+                        display: false,
+                    },
+                },
+                x: {
+                    grid: {
+                        drawBorder: false,
+                        display: false,
+                        drawOnChartArea: false,
+                        drawTicks: false,
+                    },
+                    ticks: {
+                        display: false,
+                    },
+                },
+            },
+        },
+    });
 
-var gradientStroke1 = ctx1.createLinearGradient(0, 230, 0, 50);
-
-gradientStroke1.addColorStop(1, 'rgba(16, 115, 158,0.2)');
-gradientStroke1.addColorStop(0.2, 'rgba(72,72,176,0.0)');
-gradientStroke1.addColorStop(0, 'rgba(16, 115, 158,0)');
-
-// new Chart(ctx1, {
-//     type: 'doughnut',
-//     data: {
-//         labels: ['Moderados', 'Graves', 'Críticos'],
-//         datasets: [
-//             {
-//                 label: 'Paciente',
-//                 weight: 9,
-//                 cutout: 90,
-//                 tension: 0.9,
-//                 pointRadius: 2,
-//                 borderWidth: 2,
-//                 backgroundColor: [
-//                     moderatePatientColor,
-//                     seriusPatientColor,
-//                     criticalPatientColor,
-//                 ],
-//                 data: [140, 60, 18],
-//                 fill: false,
-//             },
-//         ],
-//     },
-//     options: {
-//         responsive: true,
-//         maintainAspectRatio: false,
-//         plugins: {
-//             legend: {
-//                 display: false,
-//             },
-//         },
-//         interaction: {
-//             intersect: false,
-//             mode: 'index',
-//         },
-//         scales: {
-//             y: {
-//                 grid: {
-//                     drawBorder: false,
-//                     display: false,
-//                     drawOnChartArea: false,
-//                     drawTicks: false,
-//                 },
-//                 ticks: {
-//                     display: false,
-//                 },
-//             },
-//             x: {
-//                 grid: {
-//                     drawBorder: false,
-//                     display: false,
-//                     drawOnChartArea: false,
-//                     drawTicks: false,
-//                 },
-//                 ticks: {
-//                     display: false,
-//                 },
-//             },
-//         },
-//     },
-// });
+    setCoutUp(totalChartStatus, data.total_patients);
+    totalChartLabel.classList.remove('d-none');
+    removeSkeletonClasses(totalChartContainer);
+}
 
 // Chart line Patients by datepicker
 if (document.querySelector('.datepicker')) {
@@ -270,19 +260,19 @@ if (document.querySelector('.datepicker')) {
 }
 
 var ctx3 = document.getElementById('chart-patients-line').getContext('2d');
-var gradientStroke1 = ctx1.createLinearGradient(0, 230, 0, 50);
+var gradientStroke1 = ctx3.createLinearGradient(0, 230, 0, 50);
 
 gradientStroke1.addColorStop(1, 'rgba(23, 194, 232, 0.2)');
 gradientStroke1.addColorStop(0.2, 'rgba(72,72,176,0.0)');
 gradientStroke1.addColorStop(0, 'rgba(23, 194, 232,0)');
 
-var gradientStroke2 = ctx1.createLinearGradient(0, 230, 0, 50);
+var gradientStroke2 = ctx3.createLinearGradient(0, 230, 0, 50);
 
 gradientStroke2.addColorStop(1, 'rgba(58, 65, 111,0.2)');
 gradientStroke2.addColorStop(0.2, 'rgba(72,72,176,0.0)');
 gradientStroke2.addColorStop(0, 'rgba(58, 65, 111,0)');
 
-var gradientStroke3 = ctx1.createLinearGradient(0, 230, 0, 50);
+var gradientStroke3 = ctx3.createLinearGradient(0, 230, 0, 50);
 
 gradientStroke3.addColorStop(1, 'rgba(203, 12, 159,0.2)');
 gradientStroke3.addColorStop(0.2, 'rgba(72,72,176,0.0)');
@@ -396,3 +386,19 @@ const dataTableBasic = new simpleDatatables.DataTable('#datatable-patients', {
         [5, 10, 25, 50, 'Todos'],
     ],
 });
+
+function setCoutUp(element, value) {
+    element.setAttribute('countTo', value);
+    if (element) {
+        const countUp = new CountUp(element, element.getAttribute('countTo'));
+        if (!countUp.error) {
+            countUp.start();
+        } else {
+            console.error(countUp.error);
+        }
+    }
+}
+
+function removeSkeletonClasses(element) {
+    element.classList.remove(...skeletonClasses);
+}
