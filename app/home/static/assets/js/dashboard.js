@@ -25,10 +25,10 @@ $.ajax({
     url: '/initial-dashboard-data',
     type: 'GET',
     success: (response) => {
-        console.log(response);
         var weeklyRanking = response.weekly_ranking;
         var annualRanking = response.annual_ranking;
         var totalRanking = response.total_ranking;
+        var summary = response.summary;
         var weeklyDate = weeklyRanking.date;
         var weeklyModeratePatients = weeklyRanking.values.moderate_patients;
         var weeklySeriusPatients = weeklyRanking.values.serius_patients;
@@ -39,14 +39,10 @@ $.ajax({
         setPatientCard(weeklyDate, weeklySeriusPatients, 'serius');
         setPatientCard(weeklyDate, weeklyCriticalPatients, 'critical');
 
-        // Create weekly chart
-        createWeeklyPatientsChart(weeklyRanking, weeklyModeratePatients, weeklySeriusPatients, weeklyCriticalPatients);
-
-        // // Create total doughnut chart
-        createTotalPatientsDoughnutChart(totalRanking);
-
-        // // Create total line chart
-        createTotalPatientsLineChart(annualRanking);
+        createWeeklyPatientsChart(weeklyRanking, weeklyModeratePatients, weeklySeriusPatients, weeklyCriticalPatients); // Create weekly chart
+        createTotalPatientsDoughnutChart(totalRanking); // Create total doughnut chart
+        createTotalPatientsLineChart(annualRanking); // Create total line chart
+        createSummaryTable(summary); // Create summary table
     },
 });
 
@@ -87,17 +83,6 @@ function setPatientCardPercentage(typeOfPatient, percentage, percentageLabel) {
 
     percentageStatus.innerHTML += `<span class="font-weight-normal opacity-8 text-dark" id="moderate-percentage-label"> ${percentageLabel}</span>`;
 }
-
-const patientsStatus = [
-    'moderate-status',
-    'serius-status',
-    'critical-status',
-    'total-status',
-    'donut-moderate-status',
-    'donut-serius-status',
-    'donut-critical-status',
-    'line-total-status',
-];
 
 
 // Chart bar Patients by week
@@ -478,26 +463,139 @@ function constructTotalPatientLineChart(chartLabels, moderatePatients, seriusPat
     removeSkeletonClasses(totalPatientLineChartContainer);
 }
 
+function createSummaryTable(summary){
+    var datatablePatientsContainer = document.getElementById('datable-patients-container');
+    var thead = setTheadSummaryTable();
+    var tbody = setTbodySummaryTable(summary.patients);
+
+    datatablePatientsContainer.innerHTML = `
+        <table class="table table-flush" id="datatable-patients">
+            ${thead}
+            ${tbody}
+        </table>
+    `;
+
+    setDatatablePlugin();
+    removeSkeletonClasses(datatablePatientsContainer);
+
+}
+
+function setTheadSummaryTable(){
+    return `
+        <thead class="thead-light">
+            <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Identificación</th>
+            <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Nombres y Apellidos</th>
+            <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Fecha</th>
+            <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Gravedad</th>
+            <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Saturación de 0<sub>2</sub></th>
+            <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Presión parcial de 0<sub>2</sub></th>
+            <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Fracción de 0<sub>2</sub>inspirado</th>
+            <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7" data-bs-toggle="tooltip" data-bs-placement="top" title="Relación entre la Presión Parcial de oxígeno y la Fracción de oxígeno inspirado">Relación P/F</th>
+            <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Insuficiencia respiratoria</th>
+            <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7" data-bs-toggle="tooltip" data-bs-placement="top" title="Hace referencia si el paciente presenta el síndrome de dificultad respiratoria aguda">ARDS</th>
+            <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Shock séptico</th>
+            <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Fiebre</th>
+            <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Tos</th>
+            <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Dolor de garganta</th>
+            <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Dolor de cabeza</th>
+            <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Fatiga</th>
+            <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Disnea</th>
+            <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Náuseas</th>
+            <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Vómito</th>
+            <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Diarrea</th>
+        </thead>
+    `
+}
+
+function setTbodySummaryTable(patients){
+    var tbody = '';
+    patients.forEach((patient) => {
+        tbody += `
+           <tr>
+            <td class="text-sm text-dark fw-bolder">${patient.identification}</td>
+            <td class="text-sm text-dark fw-bolder">${patient.name}</td>
+            <td class="text-sm text-dark fw-bolder">${patient.date}</td>
+            <td class="text-sm text-dark fw-bolder">${setCaseSeverityPatient(patient.case_severity)}</td>
+            <td class="text-sm text-dark fw-bolder">${patient.sato2}%</td>
+            <td class="text-sm text-dark fw-bolder">${patient.pao2}%</td>
+            <td class="text-sm text-dark fw-bolder">${patient.fio2}%</td>
+            <td class="text-sm text-dark fw-bolder">${patient.pf_ratio} mmHg</td>
+            <td>${setTdSyntomatology(patient.respiratory_failure)}</td>
+            <td>${setTdSyntomatology(patient.ards)}</td>
+            <td>${setTdSyntomatology(patient.sepsis_shock)}</td>
+            <td>${setTdSyntomatology(patient.fever)}</td>
+            <td>${setTdSyntomatology(patient.cough)}</td>
+            <td>${setTdSyntomatology(patient.sore_throat)}</td>
+            <td>${setTdSyntomatology(patient.headache)}</td>
+            <td>${setTdSyntomatology(patient.fatigue)}</td>
+            <td>${setTdSyntomatology(patient.dyspnea)}</td>
+            <td>${setTdSyntomatology(patient.nausea)}</td>
+            <td>${setTdSyntomatology(patient.vomit)}</td>
+            <td>${setTdSyntomatology(patient.diarrhea)}</td>
+           </tr> 
+        `
+    })
+    return tbody;
+}
+
+function setCaseSeverityPatient(caseSeverity){
+    var caseSeverityLower = caseSeverity.toLowerCase();
+    
+    if(caseSeverityLower === 'moderado'){
+        return `<span class="badge moderate-bg badge-sm">${caseSeverity}</span>`
+    }
+
+    if(caseSeverityLower === 'grave'){
+        return `<span class="badge serius-bg badge-sm">${caseSeverity}</span>`
+    }
+
+    return `<span class="badge critical-bg badge-sm">${caseSeverity}</span>`
+}
+
+function setTdSyntomatology(symptom){
+    if (symptom){
+        return `
+            <div class="d-flex align-items-center">
+                <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" focusable="false" class="td-icon text-danger" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+                    <path fill="none" d="M0 0h24v24H0z"></path>
+                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"></path>
+                </svg>
+                <p class="text-sm text-dark fw-bolder mb-0">SI</p>
+            </div>
+        `
+    }
+
+    return `
+        <div class="d-flex align-items-center">
+            <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" focusable="false" class="td-icon text-success" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+                <path fill="none" d="M0 0h24v24H0z"></path>
+                <path d="M12 2C6.47 2 2 6.47 2 12s4.47 10 10 10 10-4.47 10-10S17.53 2 12 2zm5 13.59L15.59 17 12 13.41 8.41 17 7 15.59 10.59 12 7 8.41 8.41 7 12 10.59 15.59 7 17 8.41 13.41 12 17 15.59z"></path>
+            </svg>
+            <p class="text-sm text-dark fw-bolder mb-0">NO</p>
+        </div>
+    `
+}
+
 // Chart line Patients by datepicker
 if (document.querySelector('.datepicker')) {
     flatpickr('.datepicker', {
         mode: 'range',
         locale: 'es',
-        // defaultDate: "2022-01-01 to 2022-07-24"
     });
 }
 
+// Set datable plugin
+function setDatatablePlugin(){
+    const dataTableBasic = new simpleDatatables.DataTable('#datatable-patients', {
+        searchable: true,
+        fixedHeight: true,
+        lengthMenu: [
+            [5, 10, 25, 50, -1],
+            [5, 10, 25, 50, 'Todos'],
+        ],
+    });
+}
 
-
-// Datatable of patients resume
-const dataTableBasic = new simpleDatatables.DataTable('#datatable-patients', {
-    searchable: true,
-    fixedHeight: true,
-    lengthMenu: [
-        [5, 10, 25, 50, -1],
-        [5, 10, 25, 50, 'Todos'],
-    ],
-});
 
 function setCoutUp(element, value) {
     element.setAttribute('countTo', value);

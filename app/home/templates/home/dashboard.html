@@ -164,16 +164,13 @@
                                 </div> 
                                 <div class="grid-badges col-sm-12 col-md-8 mt-3">
                                     <span class="skeleton skeleton-text badge badge-md badge-dot text-justify p-0" id="total-line-moderate-badge">
-                                        <i class="moderate-bg"></i>
-                                        <span class="text-dark text-xs">Pacientes moderados</span>
+                                        <span class="text-dark text-xs d-none"></span>
                                     </span>
                                     <span class="skeleton skeleton-text badge badge-md badge-dot text-justify p-0" id="total-line-serius-badge">
-                                        <i class="serius-bg"></i>
-                                        <span class="text-dark text-xs">Pacientes graves</span>
+                                        <span class="text-dark text-xs d-none"></span>
                                     </span>
                                     <span class="skeleton skeleton-text badge badge-md badge-dot text-justify p-0" id="total-line-critical-badge">
-                                        <i class="critical-bg"></i>
-                                        <span class="text-dark text-xs">Pacientes críticos</span>
+                                        <span class="text-dark text-xs d-none"></span>
                                     </span>
                                 </div>
                             </div>
@@ -208,7 +205,7 @@
                     </div>
                 </div>
                 <div class="card-body p-3">
-                    <div class="skeleton skeleton-table table-responsive">
+                    <div class="skeleton skeleton-table table-responsive" id="datable-patients-container">
                         <!-- <table class="table table-flush" id="datatable-patients">
                             <thead class="thead-light">
                                 <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Identificación</th>
