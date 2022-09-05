@@ -1,3 +1,7 @@
+'use strict';
+
+document.body.addEventListener('load', startTime());
+
 function startTime() {
     var today = new Date();
     var hr = today.getHours();
@@ -40,7 +44,7 @@ function startTime() {
 
     var time = setTimeout(function () {
         startTime();
-    }, 500);
+    }, 1000);
 }
 
 function checkTime(i) {

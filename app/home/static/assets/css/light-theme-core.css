@@ -8009,8 +8009,8 @@ textarea.form-control-lg {
   min-width: 100vw !important;
 }
 
-.min-wh-150 {
-  min-width: 150px;
+.min-wh-170 {
+  min-width: 170px;
 }
 
 .h-25 {
@@ -8899,6 +8899,10 @@ textarea.form-control-lg {
 
 .mt-n12 {
   margin-top: -16rem !important;
+}
+
+.mt-n13 {
+  margin-top: -11rem !important;
 }
 
 .me-n1 {
@@ -17930,7 +17934,11 @@ textarea.form-control-lg {
     width: 100%;
     height: 100%;
   }
-  .dropdown:not(.dropdown-hover) .dropdown-menu {
+  .dropdown:not(.dropdown-hover) .dropdown-menu.dropdown-filter {
+    margin-top: 0px !important;
+  }
+  .dropdown:not(.dropdown-hover) .dropdown-menu,  
+  .dropdown:not(.dropdown-hover) .dropdown-menu.dropdown-filter-icon {
     margin-top: 8px !important;
   }
   .dropdown .dropdown-menu:before {
@@ -18018,7 +18026,11 @@ textarea.form-control-lg {
     color: #fff;
     transition: top 0.35s ease;
   }
-  :not(.navbar) .dropdown:not(.dropdown-hover) .dropdown-menu {
+  :not(.navbar) .dropdown:not(.dropdown-hover) .dropdown-menu.dropdown-filter {
+    margin-top: 0px !important;
+  }
+  :not(.navbar) .dropdown:not(.dropdown-hover) .dropdown-menu,
+  :not(.navbar) .dropdown:not(.dropdown-hover) .dropdown-menu.dropdown-filter-icon {
     margin-top: 8px !important;
   }
   .position-sticky .dropdown:not(.dropdown-hover) .dropdown-menu {
@@ -18077,6 +18089,12 @@ textarea.form-control-lg {
 .dropdown .dropdown-menu.dropdown-menu-end:before {
   right: 49px !important;
   left: auto;
+}
+.dropdown .dropdown-menu.dropdown-menu-end.dropdown-filter {
+  right: 0 !important;
+}
+.dropdown .dropdown-menu.dropdown-menu-end.dropdown-filter:before {
+  right: 15px !important;
 }
 .dropdown.dropdown-subitem:hover .dropdown-item + .dropdown-menu:before {
   left: -8px;
@@ -19802,7 +19820,7 @@ hr.horizontal.gray-light {
 }
 
 .sidenav-header {
-  height: 4.875rem;
+  height: 5.875rem;
 }
 
 .sidenav-footer .card.card-background:after {
@@ -22126,19 +22144,19 @@ span.flatpickr-weekday {
   border: none;
 }
 .flatpickr-calendar .flatpickr-day.inRange {
-  background: rgba(94, 114, 228, 0.28);
+  background: #5e72e447;;
   border: none;
   box-shadow: -5px 0 0 #D7DCF8, 5px 0 0 #D7DCF8;
 }
 .flatpickr-calendar .flatpickr-day:not(.selected):hover, .flatpickr-calendar .flatpickr-day:not(.selected):focus {
-  background: rgba(94, 114, 228, 0.28);
+  background: #5e72e447;;
   border: none;
 }
 .flatpickr-calendar .flatpickr-time input:hover,
 .flatpickr-calendar .flatpickr-time .flatpickr-am-pm:hover,
 .flatpickr-calendar .flatpickr-time input:focus,
 .flatpickr-calendar .flatpickr-time .flatpickr-am-pm:focus {
-  background: rgba(94, 114, 228, 0.28);
+  background: #5e72e447;;
 }
 
 .flatpickr.form-control {
@@ -23386,4 +23404,94 @@ Github: https://github.com/fiduswriter/Simple-DataTables
 .bg-gradient-form.prev {
   color: #fff;
   background-image: linear-gradient(135deg, #8f97a9 0%, #2f364c 100%);
+}
+
+/*
+  ======================================================
+  
+  SKELETON LOADING
+
+  =====================================================
+*/
+
+.skeleton {
+  -webkit-animation: skeleton-light-loading 1s linear infinite alternate !important;
+  animation: skeleton-light-loading 1s linear infinite alternate !important;
+}
+
+@-webkit-keyframes skeleton-light-loading {
+  0% {
+    background-color: #c2cfd6;
+  }
+  100% {
+    background-color: #e9ecef;
+  }
+}
+
+@keyframes skeleton-light-loading{
+  0% {
+    background-color: #c2cfd6;
+  }
+  100% {
+    background-color: #e9ecef;
+  }
+}
+
+.skeleton-text {
+  height: 1rem;
+  margin-bottom: 0.5rem;
+  border-radius: 0.25rem;
+}
+
+.skeleton-chart {
+  border-radius: 1rem;
+}
+
+.skeleton-table {
+  border-radius: 1rem;
+  min-height: 20rem;;
+}
+
+.skeleton-body {
+  height: 2rem;
+}
+
+.skeleton-w-10 {
+  width: 10%;
+}
+
+.skeleton-w-20 {
+  width: 20%;
+}
+
+.skeleton-w-30 {
+  width: 30%;
+}
+
+.skeleton-w-40 {
+  width: 40%;
+}
+
+.skeleton-w-50 {
+  width: 50%;
+}
+
+.skeleton-w-60 {
+  width: 60%;
+}
+
+.skeleton-w-70 {
+  width: 70%;
+}
+
+.skeleton-w-80 {
+  width: 80%;
+}
+
+.skeleton-w-90 {
+  width: 90%;
+}
+
+.skeleton-w-100 {
+  width: 100%;
 }

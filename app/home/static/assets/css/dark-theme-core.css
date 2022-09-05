@@ -211,6 +211,10 @@ body.dark-page .flatpickr-day.notAllowed.nextMonthDay  {
   opacity: 0.1 !important;
 }
 
+body.dark-page .flatpickr-calendar .flatpickr-day.inRange {
+  box-shadow: -5px 0 0 #3e4778b0, 5px 0 0 #3e4778b0 !important;
+}
+
 body.dark-page .flatpickr-months .flatpickr-prev-month svg path,
 body.dark-page .flatpickr-months .flatpickr-next-month svg path {
   fill: #F4F7FE;
@@ -269,4 +273,25 @@ body.dark-page .timeline-step {
 }
 
 
+body.dark-page .skeleton {
+  -webkit-animation: skeleton-dark-loading 1s linear infinite alternate !important;
+  animation: skeleton-dark-loading 1s linear infinite alternate !important;
+}
 
+@-webkit-keyframes skeleton-dark-loading{
+  0% {
+    background-color: #697ea1;
+  }
+  100% {
+    background-color: #4d5c75;
+  }
+}
+
+@keyframes skeleton-dark-loading {
+  0% {
+    background-color: #697ea1;
+  }
+  100% {
+    background-color: #4d5c75;
+  }
+}
