@@ -26,22 +26,31 @@ $.ajax({
     type: 'GET',
     success: (response) => {
         console.log(response);
-        setPatientCard(response.moderate_patients, 'moderate');
-        setPatientCard(response.serius_patients, 'serius');
-        setPatientCard(response.critical_patients, 'critical');
+        var weeklyRanking = response.weekly_ranking;
+        var annualRanking = response.annual_ranking;
+        var totalRanking = response.total_ranking;
+        var weeklyDate = weeklyRanking.date;
+        var weeklyModeratePatients = weeklyRanking.values.moderate_patients;
+        var weeklySeriusPatients = weeklyRanking.values.serius_patients;
+        var weeklyCriticalPatients = weeklyRanking.values.critical_patients;
+
+        // Initial statistics
+        setPatientCard(weeklyDate, weeklyModeratePatients, 'moderate');
+        setPatientCard(weeklyDate, weeklySeriusPatients, 'serius');
+        setPatientCard(weeklyDate, weeklyCriticalPatients, 'critical');
 
         // Create weekly chart
-        createWeeklyPatientsChart(response.moderate_patients, response.serius_patients, response.critical_patients);
+        createWeeklyPatientsChart(weeklyRanking, weeklyModeratePatients, weeklySeriusPatients, weeklyCriticalPatients);
 
-        // Create total doughnut chart
-        createTotalPatientsDoughnutChart(response);
+        // // Create total doughnut chart
+        createTotalPatientsDoughnutChart(totalRanking);
 
-        // Create total line chart
-        createTotalPatientsLineChart(response);
+        // // Create total line chart
+        createTotalPatientsLineChart(annualRanking);
     },
 });
 
-function setPatientCard(data, typeOfPatient) {
+function setPatientCard(weeklyDate, data, typeOfPatient) {
     var label = document.getElementById(`${typeOfPatient}-label`);
     label.innerHTML = data.label;
     removeSkeletonClasses(label);
@@ -49,18 +58,18 @@ function setPatientCard(data, typeOfPatient) {
     var dropdownContainer = document.getElementById(`${typeOfPatient}-dropdown-container`);
     var dropdownLabel = document.getElementById(`${typeOfPatient}-dropdown-label`);
     var moderateDropdownFilters = document.getElementById(`${typeOfPatient}-dropdown-filters`);
-    dropdownLabel.innerHTML = data.date;
+    dropdownLabel.innerHTML = weeklyDate;
     moderateDropdownFilters.classList.remove('d-none');
     removeSkeletonClasses(dropdownContainer);
 
     var statusContainer = document.getElementById(`${typeOfPatient}-status-container`);
     var status = document.getElementById(`${typeOfPatient}-status`);
-    setCoutUp(status, data.weekly_ranking.total);
+    setCoutUp(status, data.total);
     removeSkeletonClasses(statusContainer);
 
     var percentageContainer = document.getElementById(`${typeOfPatient}-percentage-container`);
-    var percentage = data.weekly_ranking.percentage;
-    var percentageLabel = data.weekly_ranking.percentage_label;
+    var percentage = data.percentage;
+    var percentageLabel = data.percentage_label;
     setPatientCardPercentage(typeOfPatient, percentage, percentageLabel);
     removeSkeletonClasses(percentageContainer);
 }
@@ -92,14 +101,14 @@ const patientsStatus = [
 
 
 // Chart bar Patients by week
-function createWeeklyPatientsChart(moderatePatients, seriusPatients, criticalPatients) {
+function createWeeklyPatientsChart(weeklyRanking, moderatePatients, seriusPatients, criticalPatients) {
     var weeklyChartContainer = document.getElementById('weekly-chart-container');
     var weeklyPatientChart= document.getElementById('weekly-patient-chart').getContext('2d');
 
     new Chart(weeklyPatientChart, {
         type: 'bar',
         data: {
-            labels: moderatePatients.weekly_ranking.labels,
+            labels: weeklyRanking.labels,
             datasets: [
                 {
                     label: moderatePatients.label,
@@ -107,7 +116,7 @@ function createWeeklyPatientsChart(moderatePatients, seriusPatients, criticalPat
                     borderWidth: 0,
                     borderRadius: 5,
                     backgroundColor: moderatePatientColor,
-                    data: moderatePatients.weekly_ranking.values,
+                    data: moderatePatients.data,
                     maxBarThickness: 20,
                 },
                 {
@@ -116,7 +125,7 @@ function createWeeklyPatientsChart(moderatePatients, seriusPatients, criticalPat
                     borderWidth: 0,
                     borderRadius: 5,
                     backgroundColor: seriusPatientColor,
-                    data: seriusPatients.weekly_ranking.values,
+                    data: seriusPatients.data,
                     maxBarThickness: 20,
                 },
                 {
@@ -125,7 +134,7 @@ function createWeeklyPatientsChart(moderatePatients, seriusPatients, criticalPat
                     borderWidth: 0,
                     borderRadius: 5,
                     backgroundColor: criticalPatientColor,
-                    data: criticalPatients.weekly_ranking.values,
+                    data: criticalPatients.data,
                     maxBarThickness: 20,
                 },
             ],
@@ -176,7 +185,10 @@ function createWeeklyPatientsChart(moderatePatients, seriusPatients, criticalPat
 }
 
 // Chart Doughnut Total patients classified
-function createTotalPatientsDoughnutChart(data){
+function createTotalPatientsDoughnutChart(totalRanking){
+    var moderatePatients = totalRanking.values.moderate_patients;
+    var seriusPatients = totalRanking.values.serius_patients
+    var criticalPatients = totalRanking.values.critical_patients
     var totalChartContainer = document.getElementById('total-doughnut-chart-container');
     var totalPatientChart = document.getElementById('total-patient-doughnut-chart').getContext('2d');
     var gradientStroke1 = totalPatientChart.createLinearGradient(0, 230, 0, 50);
@@ -190,7 +202,7 @@ function createTotalPatientsDoughnutChart(data){
     new Chart(totalPatientChart, {
         type: 'doughnut',
         data: {
-            labels: [data.moderate_patients.label, data.serius_patients.label, data.critical_patients.label],
+            labels: [moderatePatients.label, seriusPatients.label, criticalPatients.label],
             datasets: [
                 {
                     weight: 9,
@@ -203,7 +215,7 @@ function createTotalPatientsDoughnutChart(data){
                         seriusPatientColor,
                         criticalPatientColor,
                     ],
-                    data: [data.moderate_patients.total, data.serius_patients.total, data.critical_patients.total],
+                    data: [moderatePatients.total, seriusPatients.total, criticalPatients.total],
                     fill: false,
                 },
             ],
@@ -247,10 +259,10 @@ function createTotalPatientsDoughnutChart(data){
         },
     });
 
-    setCoutUp(totalChartStatus, data.total_patients);
+    setCoutUp(totalChartStatus, totalRanking.total);
     totalChartLabel.classList.remove('d-none');
     removeSkeletonClasses(totalChartContainer);
-    createTotalTable(data.moderate_patients, data.serius_patients, data.critical_patients);
+    createTotalTable(moderatePatients, seriusPatients, criticalPatients);
 }
 
 // Create total table in doughnut chart
@@ -304,16 +316,166 @@ function createTotalTable(moderatePatients, seriusPatients, criticalPatients){
 }
 
 // Total patients line chart
-function createTotalPatientsLineChart(response){
+function createTotalPatientsLineChart(annualRanking){
+    var moderatePatients = annualRanking.values.moderate_patients;
+    var seriusPatients = annualRanking.values.serius_patients;
+    var criticalPatients = annualRanking.values.critical_patients;
     var totalLineChartStatus = document.getElementById('total-line-chart-status');
     var totalLineChartLabel = document.getElementById('total-line-chart-label');
+    var totalLineChartPercentage = document.getElementById('total-line-chart-percentage');
 
-    setCoutUp(totalLineChartStatus, response.total_patients);
+    setCoutUp(totalLineChartStatus, annualRanking.total);
     totalLineChartLabel.classList.remove('d-none');
+    totalLineChartPercentage.innerHTML += setTotalPatientPercentage(totalLineChartPercentage, annualRanking.total_percentage);
+
+    // Legend of line chart
+    setLegendTotalPatientLineChart('moderate', moderatePatients.label);
+    setLegendTotalPatientLineChart('serius', seriusPatients.label);
+    setLegendTotalPatientLineChart('critical', criticalPatients.label);
+
+    // Construct chart
+    constructTotalPatientLineChart(annualRanking.labels, moderatePatients, seriusPatients, criticalPatients);
 
     removeSkeletonClasses(totalLineChartStatus);
     removeSkeletonClasses(totalLineChartLabel);
+    removeSkeletonClasses(totalLineChartPercentage);
 
+}
+
+function setTotalPatientPercentage(element, percentage) {
+    
+    if (percentage >= 0) {
+       return `
+            <i class="ni ni-bold-up text-sm me-1 text-danger"></i>
+            <span class="text-sm text-end text-danger font-weight-bolder mt-auto mb-0">+${percentage}%</span>
+        `;
+    } else {
+        return `
+            <i class="ni ni-bold-down text-sm me-1 text-success"></i>
+            <span class="text-sm text-end text-success font-weight-bolder mt-auto mb-0">${percentage}%</span>
+        `;
+    }
+}
+
+function setLegendTotalPatientLineChart(typeOfPatient, patientLabel){
+    var totalLinepatientBadgeContainer = document.getElementById(`total-line-${typeOfPatient}-badge`);
+    totalLinepatientBadgeContainer.innerHTML = `
+        <i class="${typeOfPatient}-bg"></i>
+        <span class="text-dark text-xs">${patientLabel}</span>
+    `
+    removeSkeletonClasses(totalLinepatientBadgeContainer);
+}
+
+function constructTotalPatientLineChart(chartLabels, moderatePatients, seriusPatients, criticalPatients){
+    var totalPatientLineChartContainer = document.getElementById('total-line-chart-container');
+    var totalPatientLineChart = document.getElementById('total-line-chart').getContext('2d');
+    var gradientStroke1 = totalPatientLineChart.createLinearGradient(0, 230, 0, 50);
+    var gradientStroke2 = totalPatientLineChart.createLinearGradient(0, 230, 0, 50);
+    var gradientStroke3 = totalPatientLineChart.createLinearGradient(0, 230, 0, 50);
+
+    // Set gradients colors
+    gradientStroke1.addColorStop(1, 'rgba(23, 194, 232, 0.2)');
+    gradientStroke1.addColorStop(0.2, 'rgba(72,72,176,0.0)');
+    gradientStroke1.addColorStop(0, 'rgba(23, 194, 232,0)');
+    gradientStroke2.addColorStop(1, 'rgba(58, 65, 111,0.2)');
+    gradientStroke2.addColorStop(0.2, 'rgba(72,72,176,0.0)');
+    gradientStroke2.addColorStop(0, 'rgba(58, 65, 111,0)');
+    gradientStroke3.addColorStop(1, 'rgba(203, 12, 159,0.2)');
+    gradientStroke3.addColorStop(0.2, 'rgba(72,72,176,0.0)');
+    gradientStroke3.addColorStop(0, 'rgba(203, 12, 159,0)');
+
+    new Chart(totalPatientLineChart, {
+        type: 'line',
+        data: {
+            labels: chartLabels,
+            datasets: [
+                {
+                    label: moderatePatients.label,
+                    tension: 0.4,
+                    borderWidth: 0,
+                    pointRadius: 2,
+                    pointBackgroundColor: moderatePatientColor,
+                    borderColor: moderatePatientColor,
+                    borderWidth: 3,
+                    backgroundColor: gradientStroke1,
+                    fill: true,
+                    data: moderatePatients.data,
+                    maxBarThickness: 6,
+                },
+                {
+                    label: seriusPatients.label,
+                    tension: 0.4,
+                    borderWidth: 0,
+                    pointRadius: 2,
+                    pointBackgroundColor: seriusPatientColor,
+                    borderColor: seriusPatientColor,
+                    borderWidth: 3,
+                    backgroundColor: gradientStroke2,
+                    fill: true,
+                    data: seriusPatients.data,
+                    maxBarThickness: 6,
+                },
+                {
+                    label: criticalPatients.label,
+                    tension: 0.4,
+                    borderWidth: 0,
+                    pointRadius: 2,
+                    pointBackgroundColor: criticalPatientColor,
+                    borderColor: criticalPatientColor,
+                    borderWidth: 3,
+                    backgroundColor: gradientStroke3,
+                    fill: true,
+                    data: criticalPatients.data,
+                    maxBarThickness: 6,
+                },
+            ],
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    display: false,
+                },
+            },
+            interaction: {
+                intersect: false,
+                mode: 'index',
+            },
+            scales: {
+                y: {
+                    grid: {
+                        drawBorder: false,
+                        display: false,
+                        drawOnChartArea: false,
+                        drawTicks: false,
+                    },
+                    ticks: {
+                        display: false,
+                    },
+                },
+                x: {
+                    grid: {
+                        drawBorder: false,
+                        display: false,
+                        drawOnChartArea: false,
+                        drawTicks: false,
+                    },
+                    ticks: {
+                        beginAtZero: true,
+                        font: {
+                            size: 12,
+                            family: 'Open Sans',
+                            style: 'normal',
+                        },
+                        color: '#9ca2b7',
+                    },
+                },
+            },
+        },
+    });
+    
+    removeSkeletonClasses(totalPatientLineChartContainer);
 }
 
 // Chart line Patients by datepicker
@@ -325,123 +487,7 @@ if (document.querySelector('.datepicker')) {
     });
 }
 
-var ctx3 = document.getElementById('chart-patients-line').getContext('2d');
-var gradientStroke1 = ctx3.createLinearGradient(0, 230, 0, 50);
 
-gradientStroke1.addColorStop(1, 'rgba(23, 194, 232, 0.2)');
-gradientStroke1.addColorStop(0.2, 'rgba(72,72,176,0.0)');
-gradientStroke1.addColorStop(0, 'rgba(23, 194, 232,0)');
-
-var gradientStroke2 = ctx3.createLinearGradient(0, 230, 0, 50);
-
-gradientStroke2.addColorStop(1, 'rgba(58, 65, 111,0.2)');
-gradientStroke2.addColorStop(0.2, 'rgba(72,72,176,0.0)');
-gradientStroke2.addColorStop(0, 'rgba(58, 65, 111,0)');
-
-var gradientStroke3 = ctx3.createLinearGradient(0, 230, 0, 50);
-
-gradientStroke3.addColorStop(1, 'rgba(203, 12, 159,0.2)');
-gradientStroke3.addColorStop(0.2, 'rgba(72,72,176,0.0)');
-gradientStroke3.addColorStop(0, 'rgba(203, 12, 159,0)');
-
-// new Chart(ctx3, {
-//     type: 'line',
-//     data: {
-//         labels: [
-//             'Enero',
-//             'Febrero',
-//             'Marzo',
-//             'Abril',
-//             'Mayo',
-//             'Junio',
-//             'Julio',
-//         ],
-//         datasets: [
-//             {
-//                 label: 'Pacientes moderados',
-//                 tension: 0.4,
-//                 borderWidth: 0,
-//                 pointRadius: 2,
-//                 pointBackgroundColor: moderatePatientColor,
-//                 borderColor: moderatePatientColor,
-//                 borderWidth: 3,
-//                 backgroundColor: gradientStroke1,
-//                 fill: true,
-//                 data: [50, 40, 300, 220, 500, 250, 400],
-//                 maxBarThickness: 6,
-//             },
-//             {
-//                 label: 'Pacientes graves',
-//                 tension: 0.4,
-//                 borderWidth: 0,
-//                 pointRadius: 2,
-//                 pointBackgroundColor: seriusPatientColor,
-//                 borderColor: seriusPatientColor,
-//                 borderWidth: 3,
-//                 backgroundColor: gradientStroke2,
-//                 fill: true,
-//                 data: [30, 90, 40, 140, 290, 290, 340],
-//                 maxBarThickness: 6,
-//             },
-//             {
-//                 label: 'Pacientes críticos',
-//                 tension: 0.4,
-//                 borderWidth: 0,
-//                 pointRadius: 2,
-//                 pointBackgroundColor: criticalPatientColor,
-//                 borderColor: criticalPatientColor,
-//                 borderWidth: 3,
-//                 backgroundColor: gradientStroke3,
-//                 fill: true,
-//                 data: [40, 80, 70, 90, 30, 90, 140],
-//                 maxBarThickness: 6,
-//             },
-//         ],
-//     },
-//     options: {
-//         responsive: true,
-//         maintainAspectRatio: false,
-//         plugins: {
-//             legend: {
-//                 display: false,
-//             },
-//         },
-//         interaction: {
-//             intersect: false,
-//             mode: 'index',
-//         },
-//         scales: {
-//             y: {
-//                 grid: {
-//                     drawBorder: false,
-//                     display: false,
-//                     drawOnChartArea: false,
-//                     drawTicks: false,
-//                 },
-//                 ticks: {
-//                     display: false,
-//                 },
-//             },
-//             x: {
-//                 grid: {
-//                     drawBorder: false,
-//                     display: false,
-//                     drawOnChartArea: false,
-//                     drawTicks: false,
-//                 },
-//                 ticks: {
-//                     beginAtZero: true,
-//                     font: {
-//                         size: 12,
-//                         family: 'Open Sans',
-//                         style: 'normal',
-//                     },
-//                     color: '#9ca2b7',
-//                 },
-//             },
-//         },
-//     },
-// });
 
 // Datatable of patients resume
 const dataTableBasic = new simpleDatatables.DataTable('#datatable-patients', {

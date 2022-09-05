@@ -159,32 +159,27 @@
                                     <h4 class="skeleton skeleton-text skeleton-w-30 text-dark text-4xl fw-bolder" id="total-line-chart-status"></h4>
                                     <div class="d-flex align-items-start">
                                         <p class="skeleton skeleton-text skeleton-w-30 text-seconday text-sm me-3 d-none" id="total-line-chart-label">Pacientes</p>
-                                        <div class="d-flex align-items-center" id="total-line-chart-percentage"> 
-                                            <i class="ni ni-bold-down text-sm me-1 text-success"></i>
-                                            <span class="text-sm text-end text-success font-weight-bolder mt-auto mb-0">-20%</span>
-                                            <!-- <i class="ni ni-bold-up text-sm me-1 text-danger"></i>
-                                            <span class="text-sm text-end text-danger font-weight-bolder mt-auto mb-0">+20%</span> -->
-                                        </div>
+                                        <div class="skeleton skeleton-text skeleton-w-10 d-flex align-items-center" id="total-line-chart-percentage"></div>
                                     </div>
                                 </div> 
                                 <div class="grid-badges col-sm-12 col-md-8 mt-3">
-                                    <span class="skeleton skeleton-text badge badge-md badge-dot text-justify p-0">
-                                        <!-- <i class="moderate-bg ms-0"></i>
-                                        <span class="text-dark text-xs">Pacientes moderados</span> -->
+                                    <span class="skeleton skeleton-text badge badge-md badge-dot text-justify p-0" id="total-line-moderate-badge">
+                                        <i class="moderate-bg"></i>
+                                        <span class="text-dark text-xs">Pacientes moderados</span>
                                     </span>
-                                    <span class="skeleton skeleton-text badge badge-md badge-dot text-justify p-0">
-                                        <!-- <i class="serius-bg"></i>
-                                        <span class="text-dark text-xs">Pacientes graves</span> -->
+                                    <span class="skeleton skeleton-text badge badge-md badge-dot text-justify p-0" id="total-line-serius-badge">
+                                        <i class="serius-bg"></i>
+                                        <span class="text-dark text-xs">Pacientes graves</span>
                                     </span>
-                                    <span class="skeleton skeleton-text badge badge-md badge-dot text-justify p-0">
-                                        <!-- <i class="critical-bg"></i>
-                                        <span class="text-dark text-xs">Pacientes críticos</span> -->
+                                    <span class="skeleton skeleton-text badge badge-md badge-dot text-justify p-0" id="total-line-critical-badge">
+                                        <i class="critical-bg"></i>
+                                        <span class="text-dark text-xs">Pacientes críticos</span>
                                     </span>
                                 </div>
                             </div>
                             
-                            <div class="skeleton skeleton-chart chart">
-                                <canvas id="chart-patients-line" class="chart-canvas" height="300"></canvas>
+                            <div class="skeleton skeleton-chart chart" id="total-line-chart-container">
+                                <canvas id="total-line-chart" class="chart-canvas" height="300"></canvas>
                             </div>
                         </div> 
                     </div>
