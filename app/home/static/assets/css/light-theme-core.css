@@ -22832,7 +22832,7 @@ pre[class*=language-] {
   font-family: Font Awesome\ 5 Free;
   font-weight: 700;
   content: "\f107";
-  margin-left: auto;
+  margin-left: 0.3rem;
   transition: all .2s ease-in-out;
 }
 
