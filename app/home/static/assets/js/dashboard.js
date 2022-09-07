@@ -1,4 +1,5 @@
 'use strict';
+
 const moderatePatientColor = '#10739E';
 const seriusPatientColor = '#CF8913';
 const criticalPatientColor = '#9D443D';
@@ -43,7 +44,8 @@ $.ajax({
         createTotalPatientsDoughnutChart(totalRanking); // Create total doughnut chart
         createTotalPatientsLineChart(annualRanking); // Create total line chart
         createSummaryTable(summary); // Create summary table
-    },
+        initializeTooltips();
+    }
 });
 
 function setPatientCard(weeklyDate, data, typeOfPatient) {
@@ -464,48 +466,21 @@ function constructTotalPatientLineChart(chartLabels, moderatePatients, seriusPat
 }
 
 function createSummaryTable(summary){
-    var datatablePatientsContainer = document.getElementById('datable-patients-container');
-    var thead = setTheadSummaryTable();
+    var datatablePatientsContainer = document.getElementById('datatable-patients-container');
+    var dataTablePatients = document.getElementById('datatable-patients');
     var tbody = setTbodySummaryTable(summary.patients);
 
-    datatablePatientsContainer.innerHTML = `
-        <table class="table table-flush" id="datatable-patients">
-            ${thead}
+    dataTablePatients.innerHTML += `
+        <tbody>
             ${tbody}
-        </table>
+        </tbody>
     `;
 
-    setDatatablePlugin();
+    dataTablePatients.classList.remove('d-none');
     removeSkeletonClasses(datatablePatientsContainer);
-
+    setDatatablePlugin();
 }
 
-function setTheadSummaryTable(){
-    return `
-        <thead class="thead-light">
-            <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Identificación</th>
-            <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Nombres y Apellidos</th>
-            <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Fecha</th>
-            <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Gravedad</th>
-            <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Saturación de 0<sub>2</sub></th>
-            <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Presión parcial de 0<sub>2</sub></th>
-            <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Fracción de 0<sub>2</sub>inspirado</th>
-            <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7" data-bs-toggle="tooltip" data-bs-placement="top" title="Relación entre la Presión Parcial de oxígeno y la Fracción de oxígeno inspirado">Relación P/F</th>
-            <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Insuficiencia respiratoria</th>
-            <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7" data-bs-toggle="tooltip" data-bs-placement="top" title="Hace referencia si el paciente presenta el síndrome de dificultad respiratoria aguda">ARDS</th>
-            <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Shock séptico</th>
-            <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Fiebre</th>
-            <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Tos</th>
-            <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Dolor de garganta</th>
-            <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Dolor de cabeza</th>
-            <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Fatiga</th>
-            <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Disnea</th>
-            <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Náuseas</th>
-            <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Vómito</th>
-            <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Diarrea</th>
-        </thead>
-    `
-}
 
 function setTbodySummaryTable(patients){
     var tbody = '';
@@ -607,6 +582,16 @@ function setCoutUp(element, value) {
             console.error(countUp.error);
         }
     }
+}
+
+// initialization of Tooltips
+function initializeTooltips(){
+    var tooltipTriggerList = [].slice.call(
+        document.querySelectorAll('[data-bs-toggle="tooltip"]')
+    );
+    var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+        return new bootstrap.Tooltip(tooltipTriggerEl, {});
+    });
 }
 
 function removeSkeletonClasses(element) {

@@ -5,6 +5,8 @@ const paa2Tooltip = document.getElementById('pao2-tooltip');
 const fio2Input = document.getElementById('fio2');
 const fio2Tooltip = document.getElementById('fio2-tooltip');
 const pfRatioInput = document.getElementById('pf-ratio');
+const pfRatioTooltip = document.getElementById('pf-ratio-tooltip');
+const ardsTooltip = document.getElementById('ards-tooltip');
 
 initializeClinicalTooltips();
 
@@ -30,6 +32,8 @@ function initializeClinicalTooltips(){
     setBoostrapTooltip(sato2Tooltip, '95 - 100%', '90 - 94%', '<90%') // SatO2 tooltip
     setBoostrapTooltip(paa2Tooltip, '61 - 100%', '50 - 60%', '<50%') // PaO2 tooltip
     setBoostrapTooltip(fio2Tooltip, '1 - 20%', '21 - 40%', '>40%') // FiO2 tooltip
+    setGeneralTooltip(pfRatioTooltip) // P/F Ratio tootltip
+    setGeneralTooltip(ardsTooltip) // ARDS tooltip
 }
 
 function setBoostrapTooltip(tooltipId, normalValue, lowValue, criticalValue){
@@ -216,4 +220,8 @@ function displayTimeLineHTML() {
             </div>
         </div>
     `;
+}
+
+function setGeneralTooltip(tooltipId){
+    return new bootstrap.Tooltip(tooltipId, {});
 }
