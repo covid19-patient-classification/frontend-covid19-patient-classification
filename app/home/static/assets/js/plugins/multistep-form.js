@@ -130,6 +130,7 @@ const setFormHeight = () => {
   formHeight(activePanel);
 };
 
+let prevActiveStep = 0;
 //STEPS BAR CLICK FUNCTION
 DOMstrings.stepsBar.addEventListener('click', e => {
 
@@ -142,13 +143,15 @@ DOMstrings.stepsBar.addEventListener('click', e => {
 
   //get active button step number
   const activeStep = getActiveStep(eventTarget);
-
-  //set all steps before clicked (and clicked too) to active
-  setActiveStep(activeStep);
-
-  //open active panel
-  setActivePanel(activeStep);
-
+  if(activeStep > prevActiveStep){
+    console.log('aqui hacemos validacion');
+    setActiveStep(activeStep);
+    setActivePanel(activeStep);
+  }else{
+    setActiveStep(activeStep);
+    setActivePanel(activeStep);
+  }
+  prevActiveStep = activeStep;
 });
 
 //PREV/NEXT BTNS CLICK
@@ -169,14 +172,14 @@ DOMstrings.stepsForm.addEventListener('click', e => {
   //set active step and active panel onclick
   if (eventTarget.classList.contains(`${DOMstrings.stepPrevBtnClass}`)) {
     activePanelNum--;
-
+    setActiveStep(activePanelNum);
+    setActivePanel(activePanelNum);
   } else {
     activePanelNum++;
-
+    console.log('aqui hacemos validacion');
+    setActiveStep(activePanelNum);
+    setActivePanel(activePanelNum);
   }
-
-  setActiveStep(activePanelNum);
-  setActivePanel(activePanelNum);
 
 });
 
