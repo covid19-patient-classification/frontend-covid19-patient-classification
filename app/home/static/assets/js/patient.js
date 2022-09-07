@@ -139,7 +139,7 @@ function displayTimeLineHTML() {
     return `
         <div class="container-fluid py-4">
             <div class="row gx-4 text-sm-start">
-                <h6 class="text-start">Es un paciente <span class="badge serius-bg badge-sm">Grave</span></h6>
+                <h6 class="text-start">Es un paciente <span class="badge serius-bg badge-md">Grave</span></h6>
                 <div class="timeline timeline-one-side mt-3 ps-3" data-timeline-axis-style="dashed">
                     <div class="timeline-block mb-4">
                         <span class="timeline-step">
