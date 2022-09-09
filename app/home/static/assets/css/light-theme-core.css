@@ -2876,7 +2876,7 @@ textarea.form-control-lg {
   text-align: center;
   white-space: nowrap;
   background-color: #e9ecef;
-  border: 1px solid #d2d6da;
+  border: 1px solid #d2d6da !important;
   border-radius: 0.5rem;
   right: 0;
 }
@@ -18266,7 +18266,7 @@ textarea.form-control-lg {
   position: absolute;
   border-left: 0;
   border-right: 1px solid #d2d6da;
-  z-index: 1;
+  z-index: 3;
 }
 .input-group .input-group-text {
   border-right: 0;
@@ -18386,7 +18386,7 @@ textarea.form-control-lg {
 
 label,
 .form-label {
-  font-size: 0.75rem;
+  font-size: 0.85rem;
   font-weight: 700;
   color: #344767;
   margin-left: 0.25rem;
