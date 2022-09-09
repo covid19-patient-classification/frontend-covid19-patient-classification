@@ -113,7 +113,8 @@ const setFormHeight = () => {
     formHeight(activePanel);
 };
 
-let prevActiveStep = 0;
+let currentActiveStep = 0;
+
 //STEPS BAR CLICK FUNCTION
 DOMstrings.stepsBar.addEventListener('click', (e) => {
     //check if click target is a step button
@@ -125,15 +126,15 @@ DOMstrings.stepsBar.addEventListener('click', (e) => {
 
     //get active button step number
     const activeStep = getActiveStep(eventTarget);
-    if (activeStep > prevActiveStep) {
-        console.log('aqui hacemos validacion');
+    if (activeStep > currentActiveStep) {
+        //validateForm();
         setActiveStep(activeStep);
         setActivePanel(activeStep);
     } else {
         setActiveStep(activeStep);
         setActivePanel(activeStep);
     }
-    prevActiveStep = activeStep;
+    currentActiveStep = activeStep;
 });
 
 //PREV/NEXT BTNS CLICK
@@ -158,23 +159,59 @@ DOMstrings.stepsForm.addEventListener('click', (e) => {
     //set active step and active panel onclick
     if (eventTarget.classList.contains(`${DOMstrings.stepPrevBtnClass}`)) {
         activePanelNum--;
-        setActiveStep(activePanelNum);
-        setActivePanel(activePanelNum);
     } else {
-        activePanelNum++;
-        console.log('aqui hacemos validacion');
-        console.log(DOMstrings.stepFormPanels);
-        setActiveStep(activePanelNum);
-        setActivePanel(activePanelNum);
+        try{
+            var formPanel = DOMstrings.stepFormPanels[currentActiveStep];
+            checkValidate(formPanel);
+            activePanelNum++;
+            
+        }catch(e){
+            formPanel.classList.add('was-validated');
+        }
     }
+    setActiveStep(activePanelNum);
+    setActivePanel(activePanelNum);
+    currentActiveStep = activePanelNum;
 });
 
-// Validate form
-function validateForm() {
-    var form = document.getElementById('patient-form');
-    form.classList.add('was-validated');
+function checkValidate(form){
+    var inputs = Array.from(form.getElementsByTagName('input'));
+    var isValid = true;
+    inputs.forEach((elem) => {
+        if(elem.type === 'text'){
+            isValid = validateTextInput(elem);
+        }
+        if (elem.type === 'number'){
+            isValid = validateNumberInput(elem);
+        }
+
+        if(!isValid){
+            throw new Error('Invalid validation');
+            
+        }
+    })
+
+    return isValid;
 }
 
+function validateTextInput(input){
+    return isNotEmpty(input);
+}
+
+function validateNumberInput(input){
+    var value = parseInt(input.value)
+    if(isNotEmpty(input)){
+        return value >= parseInt(input.min)  && value <= parseInt(input.max);
+    }
+    return false; 
+}
+
+function isNotEmpty(input){
+    if(input.value == ""){
+        return false;
+    }
+    return true;
+}
 
 //SETTING PROPER FORM HEIGHT ONLOAD
 window.addEventListener('load', setFormHeight, false);

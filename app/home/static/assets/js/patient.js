@@ -50,6 +50,8 @@ function calculatePfRatio() {
     if (pao2 >= 0 && pao2 <= 100 && fio2 >= 1 && fio2 <= 100) {
         var pfRatio = (pao2 / fio2) * 100;
         pfRatioInput.value = pfRatio;
+    }else{
+        pfRatioInput.value = "";
     }
 }
 
@@ -85,7 +87,7 @@ function emptyFormAlert() {
     Swal.fire({
         icon: 'error',
         title: 'Campos faltantes',
-        text: 'Debe agregar todas las variables clínicas',
+        text: 'Debe agregar valores en los datos generales y variables clinicas',
         confirmButtonText: 'Aceptar',
     });
 }
