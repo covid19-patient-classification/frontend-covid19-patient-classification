@@ -127,10 +127,15 @@ DOMstrings.stepsBar.addEventListener('click', (e) => {
     //get active button step number
     const activeStep = getActiveStep(eventTarget);
     if (activeStep > currentActiveStep) {
-        //validateForm();
-        setActiveStep(activeStep);
-        setActivePanel(activeStep);
-    } else {
+        try{
+            var formPanel = DOMstrings.stepFormPanels[currentActiveStep];
+            checkValidate(formPanel);
+            setActiveStep(activeStep);
+            setActivePanel(activeStep);
+        }catch(e){
+            formPanel.classList.add('was-validated');
+        }
+    }else{
         setActiveStep(activeStep);
         setActivePanel(activeStep);
     }
