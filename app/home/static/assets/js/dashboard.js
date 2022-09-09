@@ -192,11 +192,12 @@ function createTotalPatientsDoughnutChart(totalRanking){
             labels: [moderatePatients.label, seriusPatients.label, criticalPatients.label],
             datasets: [
                 {
-                    weight: 9,
+                    weight: 10,
                     cutout: 90,
                     tension: 0.9,
                     pointRadius: 2,
-                    borderWidth: 2,
+                    borderWidth: 1,
+                    borderRadius: 5,
                     backgroundColor: [
                         moderatePatientColor,
                         seriusPatientColor,
