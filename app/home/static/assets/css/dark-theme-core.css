@@ -129,6 +129,24 @@ body.dark-page .input-group-text{
   border: 0 !important;
 }
 
+body.dark-page .was-validated .form-control:invalid, .form-control.is-invalid {
+  border-color: #EE5D50 !important;
+}
+
+body.dark-page .was-validated .form-control:invalid:focus, .form-control.is-invalid:focus {
+  border-color: #EE5D50 !important;
+  box-shadow: 0 0 0 1px #EE5D50 !important;
+}
+
+body.dark-page .was-validated .form-control:valid, .form-control.is-valid{
+  border-color: #01B574 !important;
+}
+
+body.dark-page .was-validated .form-control:valid:focus, .form-control.is-valid:focus {
+  border-color: #01B574 !important;
+  box-shadow: 0 0 0 1px #01B574 !important;
+}
+
 body.dark-page .dataTable-wrapper .dataTable-top .dataTable-search input:focus {
   color: #d7d7d7 !important;
   background-color: rgba(40, 49, 73, 0.6);
@@ -153,18 +171,9 @@ body.dark-page .dataTable-wrapper .dataTable-bottom .dataTable-pagination .dataT
   background: #344767;
 }
 
-
 body.dark-page .dataTables-empty {
   color: #fff;
 }
-
-/* body.dark-page .dataTable-sorter::before {
-  border-top: 4px solid #fff;
-}
-
-body.dark-page .dataTable-sorter::after {
-  border-bottom: 4px solid #fff;
-} */
 
 body.dark-page .flatpickr-input {
   background-color: #283149 !important;
