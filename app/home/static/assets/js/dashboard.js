@@ -1,3 +1,8 @@
+window.addEventListener('load', () => {
+    aosInit();
+    getInitialData();
+});
+
 'use strict';
 const moderatePatientColor = '#10739E';
 const seriusPatientColor = '#CF8913';
@@ -21,30 +26,33 @@ let skeletonClasses = [
     'skeleton-w-100',
 ];
 
-$.ajax({
-    url: '/initial-dashboard-data',
-    type: 'GET',
-    success: (response) => {
-        var weeklyRanking = response.weekly_ranking;
-        var annualRanking = response.annual_ranking;
-        var totalRanking = response.total_ranking;
-        var summary = response.summary;
-        var weeklyDate = weeklyRanking.date;
-        var weeklyModeratePatients = weeklyRanking.values.moderate_patients;
-        var weeklySeriusPatients = weeklyRanking.values.serius_patients;
-        var weeklyCriticalPatients = weeklyRanking.values.critical_patients;
+function getInitialData(){
+    $.ajax({
+        url: '/initial-dashboard-data',
+        type: 'GET',
+        success: (response) => {
+            var weeklyRanking = response.weekly_ranking;
+            var annualRanking = response.annual_ranking;
+            var totalRanking = response.total_ranking;
+            var summary = response.summary;
+            var weeklyDate = weeklyRanking.date;
+            var weeklyModeratePatients = weeklyRanking.values.moderate_patients;
+            var weeklySeriusPatients = weeklyRanking.values.serius_patients;
+            var weeklyCriticalPatients = weeklyRanking.values.critical_patients;
+    
+            // Initial statistics
+            setPatientCard(weeklyDate, weeklyModeratePatients, 'moderate');
+            setPatientCard(weeklyDate, weeklySeriusPatients, 'serius');
+            setPatientCard(weeklyDate, weeklyCriticalPatients, 'critical');
+    
+            createWeeklyPatientsChart(weeklyRanking, weeklyModeratePatients, weeklySeriusPatients, weeklyCriticalPatients); // Create weekly chart
+            createTotalPatientsDoughnutChart(totalRanking); // Create total doughnut chart
+            createTotalPatientsLineChart(annualRanking); // Create total line chart
+            createSummaryTable(summary); // Create summary table
+        },
+    });
+}
 
-        // Initial statistics
-        setPatientCard(weeklyDate, weeklyModeratePatients, 'moderate');
-        setPatientCard(weeklyDate, weeklySeriusPatients, 'serius');
-        setPatientCard(weeklyDate, weeklyCriticalPatients, 'critical');
-
-        createWeeklyPatientsChart(weeklyRanking, weeklyModeratePatients, weeklySeriusPatients, weeklyCriticalPatients); // Create weekly chart
-        createTotalPatientsDoughnutChart(totalRanking); // Create total doughnut chart
-        createTotalPatientsLineChart(annualRanking); // Create total line chart
-        createSummaryTable(summary); // Create summary table
-    },
-});
 
 function setPatientCard(weeklyDate, data, typeOfPatient) {
     var label = document.getElementById(`${typeOfPatient}-label`);
@@ -611,4 +619,13 @@ function setCoutUp(element, value) {
 
 function removeSkeletonClasses(element) {
     element.classList.remove(...skeletonClasses);
+}
+
+function aosInit(){
+    AOS.init({
+        duration: 1000,
+        easing: "ease-in-out",
+        once: true,
+        mirror: false
+    }); 
 }
