@@ -18341,7 +18341,7 @@ textarea.form-control-lg {
 }
 
 .form-check-label {
-  font-size: 0.875rem;
+  font-size: 0.85rem;
   font-weight: 400;
 }
 
@@ -22763,9 +22763,7 @@ pre[class*=language-] {
 .grid-one-container, 
 .grid-two-container,
 .grid-three-container,
-.grid-badges,
-.grid-two-form,
-.grid-three-form {
+.grid-badges {
   display: grid;
   gap: 20px;
   grid-template-columns: repeat(1, minmax(0px, 1fr));
@@ -22775,7 +22773,6 @@ pre[class*=language-] {
   align-items: end;
 }
 
-
 .grid-chart {
   display: grid;
   grid-template-columns: repeat(1, minmax(150px, 1fr));
@@ -22783,14 +22780,11 @@ pre[class*=language-] {
 
 
 @media (min-width: 768px) {
-  .grid-three-container,
-  .grid-two-form {
+  .grid-three-container {
     grid-template-columns: repeat(2, minmax(0px, 1fr));
   }
 
-
-  .grid-badges,
-  .grid-three-form {
+  .grid-badges {
     grid-template-columns: repeat(3, minmax(0px, 1fr));
   }
 }
@@ -22800,10 +22794,6 @@ pre[class*=language-] {
     grid-template-columns: repeat(3, minmax(0px, 1fr));
   }
 
-  .grid-two-form,
-  .grid-three-form {
-    grid-template-columns: repeat(2, minmax(0px, 1fr));
-  }
 }
 
 @media (min-width: 1200px) {
@@ -22811,14 +22801,12 @@ pre[class*=language-] {
     grid-template-columns: repeat(1, minmax(0px, 1fr));
   }
 
-  .grid-two-container,
-  .grid-two-form{
+  .grid-two-container{
     grid-template-columns: repeat(2, minmax(0px, 1fr));
   }
 
   .grid-three-container,
-  .grid-badges,
-  .grid-three-form {
+  .grid-badges {
     grid-template-columns: repeat(3, minmax(0px, 1fr));
   }
 }
