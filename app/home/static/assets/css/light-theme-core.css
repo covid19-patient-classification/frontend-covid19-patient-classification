@@ -2875,9 +2875,9 @@ textarea.form-control-lg {
   line-height: 1.4rem;
   text-align: center;
   white-space: nowrap;
-  background-color: #e9ecef;
-  border: 1px solid #d2d6da !important;
-  border-radius: 0.5rem;
+  background-color: #fff;
+  border-top: 1px solid #d2d6da !important;
+  border-radius: 0 0.5rem 0.5rem 0 !important;
   right: 0;
 }
 
@@ -3013,6 +3013,15 @@ textarea.form-control-lg {
   z-index: 3;
 }
 
+.was-validated .input-group .form-control:valid + .input-group-text {
+  border-color: #01B574!important;
+}
+
+.was-validated .input-group .form-control:valid:focus .input-group-text {
+  border-top: 1px solid #01B574 !important;
+  box-shadow: 0 0 0 1px #01B574 !important;
+}
+
 .invalid-feedback {
   display: none;
   width: 100%;
@@ -3104,6 +3113,15 @@ textarea.form-control-lg {
 .was-validated .input-group .form-select:invalid:focus,
 .input-group .form-select.is-invalid:focus {
   z-index: 3;
+}
+
+.was-validated .input-group .form-control:invalid + .input-group-text {
+  border-color: #EE5D50 !important;
+}
+
+.was-validated .input-group .form-control:invalid:focus .input-group-text {
+  border-top: 1px solid #EE5D50 !important;
+  box-shadow: 0 0 0 1px #EE5D50 !important;
 }
 
 .btn {

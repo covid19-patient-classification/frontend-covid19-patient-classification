@@ -133,6 +133,16 @@ body.dark-page .was-validated .form-control:invalid, .form-control.is-invalid {
   border-color: #EE5D50 !important;
 }
 
+body.dark-page .was-validated .input-group .form-control:invalid + .input-group-text {
+  border-top: 1px solid #EE5D50 !important;
+  border-right: 1px solid #EE5D50 !important;
+}
+
+body.dark-page .was-validated .input-group .form-control:invalid:focus .input-group-text {
+  border-top: 1px solid #EE5D50 !important;
+  box-shadow: 0 0 0 1px #EE5D50 !important;
+}
+
 body.dark-page .was-validated .form-control:invalid:focus, .form-control.is-invalid:focus {
   border-color: #EE5D50 !important;
   box-shadow: 0 0 0 1px #EE5D50 !important;
@@ -144,6 +154,16 @@ body.dark-page .was-validated .form-control:valid, .form-control.is-valid{
 
 body.dark-page .was-validated .form-control:valid:focus, .form-control.is-valid:focus {
   border-color: #01B574 !important;
+  box-shadow: 0 0 0 1px #01B574 !important;
+}
+
+body.dark-page .was-validated .input-group .form-control:valid + .input-group-text {
+  border-top: 1px solid #01B574 !important;
+  border-right: 1px solid #01B574 !important;
+}
+
+body.dark-page .was-validated .input-group .form-control:valid:focus .input-group-text {
+  border-top: 1px solid #01B574 !important;
   box-shadow: 0 0 0 1px #01B574 !important;
 }
 
