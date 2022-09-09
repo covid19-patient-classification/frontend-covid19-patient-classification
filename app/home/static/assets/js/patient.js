@@ -10,7 +10,6 @@ const ardsTooltip = document.getElementById('ards-tooltip');
 
 initializeClinicalTooltips();
 
-
 pao2Input.addEventListener('keyup', () => {
     calculatePfRatio();
 });

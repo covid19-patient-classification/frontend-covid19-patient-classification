@@ -8,6 +8,7 @@
 {% endblock stylesheets %}
 
 {% block content %}
+    {% include 'includes/preloader.html' %}
     <div class="container-fluid py-4">
         <div class="d-flex flex-column h-100 mb-4">
             <h3 class="font-weight-bolder text-dark mb-0">Clasificación de Pacientes COVID-19</h3>
@@ -225,9 +226,10 @@
 {% endblock content %}
 
 {% block javascripts %}
-
+    <script src="./static/assets/js/plugins/vivus.min.js"></script>
     <script src="./static/assets/js/plugins/multistep-form.js"></script>
     <script src="./static/assets/js/plugins/sweetalert.min.js"></script>
+    <script src="./static/assets/js/preloader.js"></script>
     <script src="./static/assets/js/patient.js"></script>
 
 {% endblock javascripts %}

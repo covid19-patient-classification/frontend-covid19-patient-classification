@@ -141,7 +141,6 @@ DOMstrings.stepsBar.addEventListener('click', (e) => {
         setActiveStep(activeStep);
         setActivePanel(activeStep);
     }
-    console.log(currentActiveStep, activeStep);
 });
 
 //PREV/NEXT BTNS CLICK
@@ -179,7 +178,6 @@ DOMstrings.stepsForm.addEventListener('click', (e) => {
     setActiveStep(activePanelNum);
     setActivePanel(activePanelNum);
     currentActiveStep = activePanelNum;
-    console.log('aaaa',currentActiveStep);
 });
 
 function checkValidate(form){
