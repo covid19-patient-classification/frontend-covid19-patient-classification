@@ -128,9 +128,13 @@ body.dark-page input {
 
 body.dark-page input.form-control:focus {
   color: #d7d7d7 !important;
-  border-color: #fff;
+  border: 0rem solid #fff;
   outline: 0;
   box-shadow: 0 0 0 1px #fff;
+}
+
+body.dark-page .input-group-text{
+  border: 0 !important;
 }
 
 body.dark-page .dataTable-wrapper .dataTable-top .dataTable-search input:focus {

@@ -2876,7 +2876,7 @@ textarea.form-control-lg {
   text-align: center;
   white-space: nowrap;
   background-color: #e9ecef;
-  border: 1px solid #d2d6da;
+  border: 1px solid #d2d6da !important;
   border-radius: 0.5rem;
   right: 0;
 }
@@ -18266,7 +18266,7 @@ textarea.form-control-lg {
   position: absolute;
   border-left: 0;
   border-right: 1px solid #d2d6da;
-  z-index: 1;
+  z-index: 3;
 }
 .input-group .input-group-text {
   border-right: 0;
@@ -18341,7 +18341,7 @@ textarea.form-control-lg {
 }
 
 .form-check-label {
-  font-size: 0.875rem;
+  font-size: 0.85rem;
   font-weight: 400;
 }
 
@@ -18386,7 +18386,7 @@ textarea.form-control-lg {
 
 label,
 .form-label {
-  font-size: 0.75rem;
+  font-size: 0.85rem;
   font-weight: 700;
   color: #344767;
   margin-left: 0.25rem;
@@ -22763,9 +22763,7 @@ pre[class*=language-] {
 .grid-one-container, 
 .grid-two-container,
 .grid-three-container,
-.grid-badges,
-.grid-two-form,
-.grid-three-form {
+.grid-badges {
   display: grid;
   gap: 20px;
   grid-template-columns: repeat(1, minmax(0px, 1fr));
@@ -22775,7 +22773,6 @@ pre[class*=language-] {
   align-items: end;
 }
 
-
 .grid-chart {
   display: grid;
   grid-template-columns: repeat(1, minmax(150px, 1fr));
@@ -22783,14 +22780,11 @@ pre[class*=language-] {
 
 
 @media (min-width: 768px) {
-  .grid-three-container,
-  .grid-two-form {
+  .grid-three-container {
     grid-template-columns: repeat(2, minmax(0px, 1fr));
   }
 
-
-  .grid-badges,
-  .grid-three-form {
+  .grid-badges {
     grid-template-columns: repeat(3, minmax(0px, 1fr));
   }
 }
@@ -22800,10 +22794,6 @@ pre[class*=language-] {
     grid-template-columns: repeat(3, minmax(0px, 1fr));
   }
 
-  .grid-two-form,
-  .grid-three-form {
-    grid-template-columns: repeat(2, minmax(0px, 1fr));
-  }
 }
 
 @media (min-width: 1200px) {
@@ -22811,14 +22801,12 @@ pre[class*=language-] {
     grid-template-columns: repeat(1, minmax(0px, 1fr));
   }
 
-  .grid-two-container,
-  .grid-two-form{
+  .grid-two-container{
     grid-template-columns: repeat(2, minmax(0px, 1fr));
   }
 
   .grid-three-container,
-  .grid-badges,
-  .grid-three-form {
+  .grid-badges {
     grid-template-columns: repeat(3, minmax(0px, 1fr));
   }
 }
