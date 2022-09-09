@@ -58,8 +58,7 @@ body.dark-page .input-group span, body.dark-page .input-group input {
 }
 
 body.dark-page .form-control:focus {
-  border-color: #fff;
-  box-shadow: 0 0 0 1px #fff;
+  box-shadow: 0 0 0 1px #d7d7d7 !important;
 }
 
 body.dark-page .navbar-main:not(.bg-transparent) .input-group span, body.dark-page .navbar-main:not(.bg-transparent) .input-group input {
@@ -124,13 +123,6 @@ body.dark-page label, body.dark-page .form-label {
 body.dark-page input {
   background-color: rgba(40, 49, 73, 0.6);
   border-color: rgba(64, 75, 105, 0.6);
-}
-
-body.dark-page input.form-control:focus {
-  color: #d7d7d7 !important;
-  border: 0rem solid #fff;
-  outline: 0;
-  box-shadow: 0 0 0 1px #fff;
 }
 
 body.dark-page .input-group-text{

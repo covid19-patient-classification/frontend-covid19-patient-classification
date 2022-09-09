@@ -151,14 +151,9 @@ DOMstrings.stepsForm.addEventListener('click', (e) => {
     }
 
     //find active panel
-    const activePanel = findParent(
-        eventTarget,
-        `${DOMstrings.stepFormPanelClass}`
-    );
+    const activePanel = findParent(eventTarget, `${DOMstrings.stepFormPanelClass}`);
 
-    let activePanelNum = Array.from(DOMstrings.stepFormPanels).indexOf(
-        activePanel
-    );
+    let activePanelNum = Array.from(DOMstrings.stepFormPanels).indexOf(activePanel);
 
     //set active step and active panel onclick
     if (eventTarget.classList.contains(`${DOMstrings.stepPrevBtnClass}`)) {
@@ -168,7 +163,7 @@ DOMstrings.stepsForm.addEventListener('click', (e) => {
     } else {
         activePanelNum++;
         console.log('aqui hacemos validacion');
-        //validateForm();
+        console.log(DOMstrings.stepFormPanels);
         setActiveStep(activePanelNum);
         setActivePanel(activePanelNum);
     }
