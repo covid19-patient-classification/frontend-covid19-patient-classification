@@ -270,7 +270,7 @@ function createTotalTable(moderatePatients, seriusPatients, criticalPatients){
                     <div class="d-flex px-2 py-0">
                         <span class="badge moderate-bg me-3"> </span>
                         <div class="d-flex flex-column justify-content-center">
-                            <h6 class="mb-0 text-sm">${moderatePatients.label}</h6>
+                            <h6 class="mb-0 text-sm">${moderatePatients.label.split(" ")[1]}</h6>
                         </div>
                     </div>
                 </td>
@@ -283,7 +283,7 @@ function createTotalTable(moderatePatients, seriusPatients, criticalPatients){
                     <div class="d-flex px-2 py-0">
                         <span class="badge serius-bg me-3"> </span>
                         <div class="d-flex flex-column justify-content-center">
-                            <h6 class="mb-0 text-sm">${seriusPatients.label}</h6>
+                            <h6 class="mb-0 text-sm">${seriusPatients.label.split(" ")[1]}</h6>
                         </div>
                     </div>
                 </td>
@@ -296,7 +296,7 @@ function createTotalTable(moderatePatients, seriusPatients, criticalPatients){
                     <div class="d-flex px-2 py-0">
                         <span class="badge critical-bg me-3"> </span>
                         <div class="d-flex flex-column justify-content-center">
-                            <h6 class="mb-0 text-sm">${criticalPatients.label}</h6>
+                            <h6 class="mb-0 text-sm">${criticalPatients.label.split(" ")[1]}</h6>
                         </div>
                     </div>
                 </td>
