@@ -1,5 +1,11 @@
 'use strict';
 
+
+document.getElementById('back-top-top').addEventListener('click', () => {
+    document.body.scrollTop = 0;
+    document.documentElement.scrollTop = 0;
+})
+
 // Easy on scroll event listener 
 const onscroll = (el, listener) => {
     el.addEventListener('scroll', listener)
