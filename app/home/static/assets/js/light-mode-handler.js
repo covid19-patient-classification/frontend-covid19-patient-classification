@@ -3,15 +3,6 @@
 // Verify navbar blur on scroll
 navbarBlurOnScroll('navbarBlur');
 
-// initialization of Tooltips
-var tooltipTriggerList = [].slice.call(
-    document.querySelectorAll('[data-bs-toggle="tooltip"]')
-);
-var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
-    return new bootstrap.Tooltip(tooltipTriggerEl, {});
-});
-
-
 // when input is focused add focused class for style
 function focused(el) {
     if (el.parentElement.classList.contains('input-group')) {
@@ -42,32 +33,6 @@ if (document.querySelectorAll('.input-group').length != 0) {
             onfocusout: 'defocused(this)',
         })
     );
-}
-
-// Set Navbar Fixed
-function navbarFixed(el) {
-    let classes = [
-        'position-sticky',
-        'blur',
-        'shadow-blur',
-        'mt-4',
-        'left-auto',
-        'top-2',
-        'z-index-sticky',
-    ];
-    const navbar = document.getElementById('navbarBlur');
-
-    if (!el.getAttribute('checked')) {
-        navbar.classList.add(...classes);
-        navbar.setAttribute('navbar-scroll', 'true');
-        navbarBlurOnScroll('navbarBlur');
-        el.setAttribute('checked', 'true');
-    } else {
-        navbar.classList.remove(...classes);
-        navbar.setAttribute('navbar-scroll', 'false');
-        navbarBlurOnScroll('navbarBlur');
-        el.removeAttribute('checked');
-    }
 }
 
 // Navbar blur on scroll

@@ -5,6 +5,8 @@ const paa2Tooltip = document.getElementById('pao2-tooltip');
 const fio2Input = document.getElementById('fio2');
 const fio2Tooltip = document.getElementById('fio2-tooltip');
 const pfRatioInput = document.getElementById('pf-ratio');
+const pfRatioTooltip = document.getElementById('pf-ratio-tooltip');
+const ardsTooltip = document.getElementById('ards-tooltip');
 
 initializeClinicalTooltips();
 
@@ -30,6 +32,8 @@ function initializeClinicalTooltips(){
     setBoostrapTooltip(sato2Tooltip, '95 - 100%', '90 - 94%', '<90%') // SatO2 tooltip
     setBoostrapTooltip(paa2Tooltip, '61 - 100%', '50 - 60%', '<50%') // PaO2 tooltip
     setBoostrapTooltip(fio2Tooltip, '1 - 20%', '21 - 40%', '>40%') // FiO2 tooltip
+    setGeneralTooltip(pfRatioTooltip) // P/F Ratio tootltip
+    setGeneralTooltip(ardsTooltip) // ARDS tooltip
 }
 
 function setBoostrapTooltip(tooltipId, normalValue, lowValue, criticalValue){
@@ -135,7 +139,7 @@ function displayTimeLineHTML() {
     return `
         <div class="container-fluid py-4">
             <div class="row gx-4 text-sm-start">
-                <h6 class="text-start">Es un paciente <span class="badge serius-bg badge-sm">Grave</span></h6>
+                <h6 class="text-start">Es un paciente <span class="badge serius-bg badge-md">Grave</span></h6>
                 <div class="timeline timeline-one-side mt-3 ps-3" data-timeline-axis-style="dashed">
                     <div class="timeline-block mb-4">
                         <span class="timeline-step">
@@ -216,4 +220,8 @@ function displayTimeLineHTML() {
             </div>
         </div>
     `;
+}
+
+function setGeneralTooltip(tooltipId){
+    return new bootstrap.Tooltip(tooltipId, {});
 }

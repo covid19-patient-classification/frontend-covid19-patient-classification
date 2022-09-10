@@ -20,8 +20,8 @@ def dashboard():
 def get_initial_dashboard_data():
     data = {
         "weekly_ranking": {
-            "date": "30 de agosto - 05 de septiembre",
-            "labels": ["30 ago", "31 ago", "01 sep", "02 sep", "03 sep", "04 sep", "05 sep"],
+            "date": "01 - 07 de septiembre",
+            "labels": ["01 sep", "02 sep", "03 sep", "04 sep", "05 sep", "06 sep", "07 sep"],
             "values": {
                 "moderate_patients": {
                     "label": "Pacientes Moderados",
