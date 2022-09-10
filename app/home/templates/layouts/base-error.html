@@ -21,8 +21,16 @@
     </head>
 
     <body class="g-sidenav-show  bg-gray-100">
-        
+        {% include 'includes/preloader.html' %}
+
         {% block content %} {% endblock content %}
         
     </body>
+    
+    {% block javascripts %}
+        
+        <script src="{{ url_for('static', filename='assets/js/plugins/vivus.min.js') }}"></script>
+        <script src="{{ url_for('static', filename='assets/js/preloader.js') }}"></script>
+
+    {% endblock javascripts %}
 </html>
