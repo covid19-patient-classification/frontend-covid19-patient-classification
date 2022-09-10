@@ -3,8 +3,8 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <link rel="apple-touch-icon" href="./static/assets/img/covid19-patient.ico">
-        <link rel="icon" href="./static/assets/img/covid19-patient.ico">
+        <link rel="apple-touch-icon" href="{{ url_for('static', filename='assets/img/covid19-patient.ico') }}">
+        <link rel="icon" href="{{ url_for('static', filename='assets/img/covid19-patient.ico') }}">
         <title>
             Covid 19 -{% block title %} {% endblock title %} | UTPL
         </title>
@@ -13,7 +13,7 @@
             <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
             
             <!-- CSS Files -->
-            <link id="pagestyle" href="./static/assets/css/light-theme-core.css" rel="stylesheet" />
+            <link id="pagestyle" href="{{ url_for('static', filename='assets/css/light-theme-core.css') }}" rel="stylesheet" />
 
 
         <!-- Specific page css goes here! -->
