@@ -342,7 +342,7 @@ button,
 select,
 optgroup,
 textarea {
-  margin: 0;
+  margin: 0 0 0 0.25rem;
   font-family: inherit;
   font-size: inherit;
   line-height: inherit;
@@ -474,6 +474,24 @@ progress {
 [hidden] {
   display: none !important;
 }
+
+.preloader {
+  display: flex;
+  align-items: center;
+  height: 100vh;
+  left: 0;
+  position: fixed;
+  top: 0;
+  transition: height .3s linear;
+  width: 100%;
+  z-index: 9999; 
+}
+.preloader img {
+  width: 30px;
+  height: 30px; 
+}
+.preloader.show {
+  height: 0; 
 
 /*--------------------------------------------------------------
 # Back to top button
@@ -2909,9 +2927,9 @@ textarea.form-control-lg {
   line-height: 1.4rem;
   text-align: center;
   white-space: nowrap;
-  background-color: #e9ecef;
-  border: 1px solid #d2d6da !important;
-  border-radius: 0.5rem;
+  background-color: #fff;
+  border-top: 1px solid #d2d6da !important;
+  border-radius: 0 0.5rem 0.5rem 0 !important;
   right: 0;
 }
 
@@ -2959,7 +2977,7 @@ textarea.form-control-lg {
   width: 100%;
   margin-top: 0.25rem;
   font-size: 0.875em;
-  color: #66d432;
+  color: #01B574;
 }
 
 .valid-tooltip {
@@ -2984,7 +3002,7 @@ textarea.form-control-lg {
 }
 
 .was-validated .form-control:valid, .form-control.is-valid {
-  border-color: #66d432;
+  border-color: #01B574;
   padding-right: unset;
   background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 8'%3e%3cpath fill='%2366d432' d='M2.3 6.73L.6 4.53c-.4-1.04.46-1.4 1.1-.8l1.1 1.4 3.4-3.8c.6-.63 1.6-.27 1.2.7l-4 4.6c-.43.5-.8.4-1.1.1z'/%3e%3c/svg%3e");
   background-repeat: no-repeat;
@@ -2992,8 +3010,8 @@ textarea.form-control-lg {
   background-size: 1rem 1rem;
 }
 .was-validated .form-control:valid:focus, .form-control.is-valid:focus {
-  border-color: #66d432;
-  box-shadow: 0 0 0 2px rgba(102, 212, 50, 0.25);
+  border-color: #01B574;
+  box-shadow: 0 0 0 1px #01B574 !important;
 }
 
 .was-validated textarea.form-control:valid, textarea.form-control.is-valid {
@@ -3002,7 +3020,7 @@ textarea.form-control-lg {
 }
 
 .was-validated .form-select:valid, .form-select.is-valid {
-  border-color: #66d432;
+  border-color: #01B574;
 }
 .was-validated .form-select:valid:not([multiple]):not([size]), .was-validated .form-select:valid:not([multiple])[size="1"], .form-select.is-valid:not([multiple]):not([size]), .form-select.is-valid:not([multiple])[size="1"] {
   padding-right: 2.875rem;
@@ -3011,7 +3029,7 @@ textarea.form-control-lg {
   background-size: 16px 12px, 1rem 1rem;
 }
 .was-validated .form-select:valid:focus, .form-select.is-valid:focus {
-  border-color: #66d432;
+  border-color: #01B574;
   box-shadow: 0 0 0 2px rgba(102, 212, 50, 0.25);
 }
 
@@ -3020,16 +3038,16 @@ textarea.form-control-lg {
 }
 
 .was-validated .form-check-input:valid, .form-check-input.is-valid {
-  border-color: #66d432;
+  border-color: #01B574;
 }
 .was-validated .form-check-input:valid:checked, .form-check-input.is-valid:checked {
-  background-color: #66d432;
+  background-color: #01B574;
 }
 .was-validated .form-check-input:valid:focus, .form-check-input.is-valid:focus {
   box-shadow: 0 0 0 2px rgba(102, 212, 50, 0.25);
 }
 .was-validated .form-check-input:valid ~ .form-check-label, .form-check-input.is-valid ~ .form-check-label {
-  color: #66d432;
+  color: #01B574;
 }
 
 .form-check-inline .form-check-input ~ .valid-feedback {
@@ -3047,12 +3065,21 @@ textarea.form-control-lg {
   z-index: 3;
 }
 
+.was-validated .input-group .form-control:valid + .input-group-text {
+  border-color: #01B574!important;
+}
+
+.was-validated .input-group .form-control:valid:focus .input-group-text {
+  border-top: 1px solid #01B574 !important;
+  box-shadow: 0 0 0 1px #01B574 !important;
+}
+
 .invalid-feedback {
   display: none;
   width: 100%;
-  margin-top: 0.25rem;
+  margin: 0.25rem 0 0 0.25rem !important;
   font-size: 0.875em;
-  color: #fd5c70;
+  color: #EE5D50;
 }
 
 .invalid-tooltip {
@@ -3077,7 +3104,7 @@ textarea.form-control-lg {
 }
 
 .was-validated .form-control:invalid, .form-control.is-invalid {
-  border-color: #fd5c70;
+  border-color: #EE5D50 !important;
   padding-right: unset;
   background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='none' stroke='%23fd5c70' viewBox='0 0 12 12'%3e%3ccircle cx='6' cy='6' r='4.5'/%3e%3cpath stroke-linejoin='round' d='M5.8 3.6h.4L6 6.5z'/%3e%3ccircle cx='6' cy='8.2' r='.6' fill='%23fd5c70' stroke='none'/%3e%3c/svg%3e");
   background-repeat: no-repeat;
@@ -3085,8 +3112,8 @@ textarea.form-control-lg {
   background-size: 1rem 1rem;
 }
 .was-validated .form-control:invalid:focus, .form-control.is-invalid:focus {
-  border-color: #fd5c70;
-  box-shadow: 0 0 0 2px rgba(253, 92, 112, 0.25);
+  border-color: #EE5D50 !important;
+  box-shadow: 0 0 0 1px #EE5D50 !important;
 }
 
 .was-validated textarea.form-control:invalid, textarea.form-control.is-invalid {
@@ -3095,7 +3122,7 @@ textarea.form-control-lg {
 }
 
 .was-validated .form-select:invalid, .form-select.is-invalid {
-  border-color: #fd5c70;
+  border-color: #EE5D50;
 }
 .was-validated .form-select:invalid:not([multiple]):not([size]), .was-validated .form-select:invalid:not([multiple])[size="1"], .form-select.is-invalid:not([multiple]):not([size]), .form-select.is-invalid:not([multiple])[size="1"] {
   padding-right: 2.875rem;
@@ -3104,7 +3131,7 @@ textarea.form-control-lg {
   background-size: 16px 12px, 1rem 1rem;
 }
 .was-validated .form-select:invalid:focus, .form-select.is-invalid:focus {
-  border-color: #fd5c70;
+  border-color: #EE5D50;
   box-shadow: 0 0 0 2px rgba(253, 92, 112, 0.25);
 }
 
@@ -3113,16 +3140,16 @@ textarea.form-control-lg {
 }
 
 .was-validated .form-check-input:invalid, .form-check-input.is-invalid {
-  border-color: #fd5c70;
+  border-color: #EE5D50;
 }
 .was-validated .form-check-input:invalid:checked, .form-check-input.is-invalid:checked {
-  background-color: #fd5c70;
+  background-color: #EE5D50;
 }
 .was-validated .form-check-input:invalid:focus, .form-check-input.is-invalid:focus {
   box-shadow: 0 0 0 2px rgba(253, 92, 112, 0.25);
 }
 .was-validated .form-check-input:invalid ~ .form-check-label, .form-check-input.is-invalid ~ .form-check-label {
-  color: #fd5c70;
+  color: #EE5D50;
 }
 
 .form-check-inline .form-check-input ~ .invalid-feedback {
@@ -3138,6 +3165,15 @@ textarea.form-control-lg {
 .was-validated .input-group .form-select:invalid:focus,
 .input-group .form-select.is-invalid:focus {
   z-index: 3;
+}
+
+.was-validated .input-group .form-control:invalid + .input-group-text {
+  border-color: #EE5D50 !important;
+}
+
+.was-validated .input-group .form-control:invalid:focus .input-group-text {
+  border-top: 1px solid #EE5D50 !important;
+  box-shadow: 0 0 0 1px #EE5D50 !important;
 }
 
 .btn {

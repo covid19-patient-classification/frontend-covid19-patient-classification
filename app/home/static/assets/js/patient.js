@@ -10,7 +10,6 @@ const ardsTooltip = document.getElementById('ards-tooltip');
 
 initializeClinicalTooltips();
 
-
 pao2Input.addEventListener('keyup', () => {
     calculatePfRatio();
 });
@@ -50,6 +49,8 @@ function calculatePfRatio() {
     if (pao2 >= 0 && pao2 <= 100 && fio2 >= 1 && fio2 <= 100) {
         var pfRatio = (pao2 / fio2) * 100;
         pfRatioInput.value = pfRatio;
+    }else{
+        pfRatioInput.value = ""
     }
 }
 
