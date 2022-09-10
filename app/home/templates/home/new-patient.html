@@ -3,8 +3,8 @@
 {% block title %} Clasificar paciente {% endblock title %}
 
 {% block stylesheets %}
-    <link href="./static/assets/css/light-sweet-alert.css" rel="stylesheet" />
-    <link href="./static/assets/css/dark-sweet-alert.css" rel="stylesheet" />
+    <link href="{{ url_for('static', filename='assets/css/light-sweet-alert.css') }}" rel="stylesheet" />
+    <link href="{{ url_for('static', filename='assets/css/dark-sweet-alert.css') }}" rel="stylesheet" />
 {% endblock stylesheets %}
 
 {% block content %}
@@ -226,10 +226,10 @@
 {% endblock content %}
 
 {% block javascripts %}
-    <script src="./static/assets/js/plugins/vivus.min.js"></script>
-    <script src="./static/assets/js/plugins/multistep-form.js"></script>
-    <script src="./static/assets/js/plugins/sweetalert.min.js"></script>
-    <script src="./static/assets/js/preloader.js"></script>
-    <script src="./static/assets/js/patient.js"></script>
+    <script src="{{ url_for('static', filename='assets/js/plugins/vivus.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='assets/js/plugins/multistep-form.js') }}"></script>
+    <script src="{{ url_for('static', filename='assets/js/plugins/sweetalert.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='assets/js/preloader.js') }}"></script>
+    <script src="{{ url_for('static', filename='assets/js/patient.js') }}"></script>
 
 {% endblock javascripts %}
