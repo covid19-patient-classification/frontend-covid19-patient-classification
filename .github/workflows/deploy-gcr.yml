@@ -35,8 +35,7 @@ jobs:
         docker tag ${{secrets.DOCKER_IMAGE}} ${{env.DOCKER_IMAGE_LOCATION}}:lastest
         
     - name: Push the Docker image to Google Artifact Registry
-      run: |-
-        docker push ${{env.DOCKER_IMAGE_LOCATION}}:lastest
+      run: docker push ${{env.DOCKER_IMAGE_LOCATION}}:lastest
       
     - name: Deploy to Google Cloud Run
       run: gcloud run deploy ${{secrets.APP_NAME}} --image ${{env.DOCKER_IMAGE_LOCATION}}:lastest --platform managed --allow-unauthenticated --region ${{secrets.GCP_PROJECT_REGION}}
