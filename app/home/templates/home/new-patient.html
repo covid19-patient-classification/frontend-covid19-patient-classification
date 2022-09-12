@@ -1,0 +1,235 @@
+{% extends 'layouts/base.html' %}
+
+{% block title %} Clasificar paciente {% endblock title %}
+
+{% block stylesheets %}
+    <link href="{{ url_for('static', filename='assets/css/light-sweet-alert.css') }}" rel="stylesheet" />
+    <link href="{{ url_for('static', filename='assets/css/dark-sweet-alert.css') }}" rel="stylesheet" />
+{% endblock stylesheets %}
+
+{% block content %}
+    {% include 'includes/preloader.html' %}
+    <div class="container-fluid py-4">
+        <div class="d-flex flex-column h-100 mb-4">
+            <h3 class="font-weight-bolder text-dark mb-0">Clasificación de Pacientes COVID-19</h3>
+        </div>
+        <div class="patient-form-header border-radius-xl">
+            <div class="container-fluid py-2">
+                <div class="multisteps-form">
+                    <div class="row">
+                        <div class="col-12 col-lg-9 mx-auto mt-4 mb-sm-5 mb-3">
+                            <div class="multisteps-form__progress">
+                                <button class="multisteps-form__progress-btn js-active" type="button" title="Datos generales">
+                                    <span>Datos generales</span>
+                                </button>
+                                <button class="multisteps-form__progress-btn" type="button" title="Variables de Sintomatología">Variables clínicas</button>
+                                <button class="multisteps-form__progress-btn" type="button" title="Variables de Sintomatología">Variables de Sintomatología</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 col-lg-9 m-auto">
+                    <form class="multisteps-form__form mb-8 needs-validation" method="POST" id="patient-form" novalidate>
+                        <div class="card multisteps-form__panel p-3 border-radius-xl bg-white js-active" data-animation="FadeIn">
+                            <h5 class="font-weight-bolder">Datos generales</h5>
+                            <div class="multisteps-form__content">
+                                <div class="row mt-3">
+                                    <div class="col-12 col-md-6 col-sm-6 mb-2">
+                                        <label for="identification">
+                                            Identificación
+                                            <span class="text-sm text-danger"> * </span>
+                                        </label>
+                                        <input class="multisteps-form__input form-control mt-2" type="text" name="identification" id="identification" placeholder="E.j. 1104XXXXXX" required />
+                                        <div class="invalid-feedback">Por favor ingrese la identificación del paciente</div>
+                                    </div>
+                                    <div class="col-12 col-md-6 col-sm-6 mb-2">
+                                        <label for="name">
+                                            Nombres y Apellidos
+                                            <span class="text-sm text-danger"> * </span>
+                                        </label>
+                                        <input class="multisteps-form__input form-control mt-2" type="text" name="name" id="name" placeholder="E.j. Antonio Manuel Ponce Armijos" required />
+                                        <div class="invalid-feedback">Por favor ingrese los nombres del paciente</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="button-row d-flex mt-4 mb-2">
+                                <button class="btn bg-gradient-form fw-bolder ms-auto mb-0 js-btn-next" type="button" title="Siguiente">Siguiente</button>
+                            </div>
+                        </div>
+                        <div class="card multisteps-form__panel p-3 border-radius-xl bg-white" data-animation="FadeIn">
+                            <h5 class="font-weight-bolder">Variables clínicas</h5>
+                            <div class="multisteps-form__content">
+                                <div class="row mt-3">
+                                    <div class="col-12 col-md-6 col-sm-6 mb-2">
+                                        <div class="d-flex align-items-center mb-2">
+                                            <label for="sat02">
+                                                Saturación de O<sub>2</sub>
+                                                <span class="text-sm text-danger"> * </span>
+                                            </label>
+                                            <button type="button" id="sato2-tooltip" class="btn btn-icon-only btn-rounded btn-outline-secondary mb-0 ms-2 btn-sm d-flex align-items-center justify-content-center" data-bs-toggle="tooltip" data-bs-placement="right">
+                                                <i class="fas fa-info" aria-hidden="true"></i>
+                                            </button>
+                                        </div>
+                                        <div class="input-group mb-2">
+                                            <input class="multisteps-form__input form-control" name="sato2" id="sat02" type="number" min="0" max="100" placeholder="Valor entre 0 - 100" required />
+                                            <span class="input-group-text">%</span>
+                                            <div class="invalid-feedback">Ingrese la Saturación de O<sub>2</sub> entre 0 y 100</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-md-6 col-sm-6 mb-2">
+                                        <div class="d-flex align-items-center mb-2">
+                                            <label for="pao2">
+                                                Presión parcial de 0<sub>2</sub>
+                                                <span class="text-sm text-danger"> * </span>
+                                            </label>
+                                            <button type="button" id="pao2-tooltip" class="btn btn-icon-only btn-rounded btn-outline-secondary mb-0 ms-2 btn-sm d-flex align-items-center justify-content-center" data-bs-toggle="tooltip" data-bs-placement="right">
+                                                <i class="fas fa-info" aria-hidden="true"></i>
+                                            </button>
+                                        </div>
+                                        <div class="input-group mb-2">
+                                            <input class="multisteps-form__input form-control" name="pao2" id="pao2" type="number" min="0" max="100" placeholder="Valor entre 0 - 100" required />
+                                            <span class="input-group-text">%</span>
+                                            <div class="invalid-feedback">Ingrese la Presión parcial de 0<sub>2</sub> entre 0 y 100</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-md-6 col-sm-6 mb-2">
+                                        <div class="d-flex align-items-center mb-2">
+                                            <label for="fio2">
+                                                Fracción de O<sub>2</sub>
+                                                <span class="text-sm text-danger"> * </span>
+                                            </label>
+                                            <button type="button" id="fio2-tooltip" class="btn btn-icon-only btn-rounded btn-outline-secondary mb-0 ms-2 btn-sm d-flex align-items-center justify-content-center" data-bs-toggle="tooltip" data-bs-placement="right">
+                                                <i class="fas fa-info" aria-hidden="true"></i>
+                                            </button>
+                                        </div>
+                                        <div class="input-group">
+                                            <input class="multisteps-form__input form-control" name="fio2" id="fio2" type="number" min="1" max="100" placeholder="Valor entre 1 - 100" required />
+                                            <span class="input-group-text">%</span>
+                                            <div class="invalid-feedback">Ingrese la Fracción de O<sub>2</sub> entre 0 y 100</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-md-6 col-sm-6 mb-2">
+                                        <div class="d-flex align-items-center mb-2">
+                                            <label for="pf-ratio">Relación P/F</label>
+                                            <button type="button" class="btn btn-icon-only btn-rounded btn-outline-secondary mb-0 ms-2 btn-sm d-flex align-items-center justify-content-center" id="pf-ratio-tooltip" data-bs-toggle="tooltip" data-bs-placement="right" title="Campo calculado que refleja la relación entre la Presión Parcial de oxígeno y la Fracción de oxígeno inspirado">
+                                                <i class="fas fa-info" aria-hidden="true"></i>
+                                            </button>
+                                        </div>
+                                        <div class="input-group">
+                                            <input class="multisteps-form__input form-control" name="pf-ratio" id="pf-ratio" type="number" min="0" max="10000" placeholder="Valor calculado" required readonly />
+                                            <span class="input-group-text">mm Hg</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="button-row d-flex mt-4 mb-2">
+                                <button class="btn bg-gradient-form prev mb-0 js-btn-prev" type="button" title="Anterior">Anterior</button>
+                                <button class="btn bg-gradient-form fw-bolder ms-auto mb-0 js-btn-next" type="button" title="Siguiente">Siguiente</button>
+                            </div>
+                        </div>
+                        <div class="card multisteps-form__panel p-3 border-radius-xl bg-white" data-animation="FadeIn">
+                            <h5 class="font-weight-bolder">Variables de Sintomatología</h5>
+                            <div class="multisteps-form__content">
+                                <div class="row">
+                                    <div class="col-12 col-md-5 col-sm-6 mt-3">
+                                        <div class="form-check form-switch ps-0">
+                                            <input class="multisteps-form__input form-check-input" type="checkbox" name="respiratory-failure" id="respiratory-failure">
+                                            <label class="form-check-label text-body ms-3 text-truncate mb-0" for="respiratory-failure">Insuficiencia Respiratoria</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-md-4 col-sm-6 mt-3">
+                                        <div class="form-check form-switch ps-0">
+                                            <input class="multisteps-form__input form-check-input" type="checkbox" name="ards" id="ards">
+                                            <div class="d-flex align-items-center">
+                                                <label class="form-check-label text-body ms-3 text-truncate mb-0" for="ards">ARDS</label>
+                                                <button type="button" class="btn btn-icon-only btn-rounded btn-outline-secondary mb-0 ms-2 btn-sm d-flex align-items-center justify-content-center" id="ards-tooltip" data-bs-toggle="tooltip" data-bs-placement="top" title="Hace referencia si el paciente presenta el síndrome de dificultad respiratoria aguda">
+                                                    <i class="fas fa-info" aria-hidden="true"></i>
+                                                </button>
+                                            </div>
+                                        </div>                                       
+                                    </div>
+                                    <div class="col-12 col-md-3 col-sm-6 mt-3">
+                                        <div class="form-check form-switch ps-0">
+                                            <input class="multisteps-form__input form-check-input" type="checkbox" name="sepsis-shock" id="sepsis-shock">
+                                            <label class="form-check-label text-body ms-3 text-truncate mb-0" for="sepsis-shock">Shock Séptico</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-md-5 col-sm-6 mt-3">
+                                        <div class="form-check form-switch ps-0">
+                                            <input class="multisteps-form__input form-check-input" type="checkbox" name="sore-throat" id="sore-throat">
+                                            <label class="form-check-label text-body ms-3 text-truncate  mb-0" for="sore-throat">Dolor de garganta</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-md-4 col-sm-6 mt-3">
+                                        <div class="form-check form-switch  ps-0">
+                                            <input class="multisteps-form__input form-check-input" type="checkbox" name="fever" id="fever">
+                                            <label class="form-check-label text-body ms-3 text-truncate mb-0" for="fever">Fiebre</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-md-3 col-sm-6 mt-3">
+                                        <div class="form-check form-switch ps-0">
+                                            <input class="multisteps-form__input form-check-input" type="checkbox" name="cough" id="cough">
+                                            <label class="form-check-label text-body ms-3 text-truncate  mb-0" for="cough">Tos</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-md-5 col-sm-6 mt-3">
+                                        <div class="form-check form-switch ps-0">
+                                            <input class="multisteps-form__input form-check-input" type="checkbox" name="headache" id="headache">
+                                            <label class="form-check-label text-body ms-3 text-truncate mb-0" for="headache">Dolor de cabeza</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-md-4 col-sm-6 mt-3">
+                                        <div class="form-check form-switch ps-0">
+                                            <input class="multisteps-form__input form-check-input" type="checkbox" name="fatigue" id="fatigue">
+                                            <label class="form-check-label text-body ms-3 text-truncate mb-0" for="fatigue">Fatiga</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-md-3 col-sm-6 mt-3">
+                                        <div class="form-check form-switch ps-0">
+                                            <input class="multisteps-form__input form-check-input" type="checkbox" name="dyspnea" id="dyspnea">
+                                            <label class="form-check-label text-body ms-3 text-truncate mb-0" for="dyspnea">Disnea</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-md-5 col-sm-6 mt-3">
+                                        <div class="form-check form-switch ps-0">
+                                            <input class="multisteps-form__input form-check-input" type="checkbox" name="nausea" id="nausea">
+                                            <label class="form-check-label text-body ms-3 text-truncate mb-0" for="nausea">Nauseas</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-md-4 col-sm-6 mt-3">
+                                        <div class="form-check form-switch ps-0 ">
+                                            <input class="multisteps-form__input form-check-input" type="checkbox" name="vomit" id="vomit">
+                                            <label class="form-check-label text-body ms-3 text-truncate mb-0" for="vomit">Vómito</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-md-3 col-sm-6 mt-3">
+                                        <div class="form-check form-switch ps-0">
+                                            <input class="multisteps-form__input form-check-input" type="checkbox" name="diarrhea" id="diarrhea">
+                                            <label class="form-check-label text-body ms-3 text-truncate mb-0" for="diarrhea">Diarrea</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="button-row d-flex mt-5 mb-2">
+                                <button class="btn bg-gradient-form prev mb-0 js-btn-prev" type="button" title="Anterior">Anterior</button>
+                                <button class="btn bg-gradient-form fw-bolder ms-auto mb-0" type="submit" title="Enviar">Enviar</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock content %}
+
+{% block javascripts %}
+    <script src="{{ url_for('static', filename='assets/js/plugins/vivus.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='assets/js/plugins/multistep-form.js') }}"></script>
+    <script src="{{ url_for('static', filename='assets/js/plugins/sweetalert.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='assets/js/preloader.js') }}"></script>
+    <script src="{{ url_for('static', filename='assets/js/patient.js') }}"></script>
+
+{% endblock javascripts %}

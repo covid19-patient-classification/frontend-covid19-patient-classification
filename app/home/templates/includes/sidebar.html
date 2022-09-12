@@ -1,0 +1,39 @@
+<aside class="sidenav navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl mt-3 mb-4 fixed-start ms-3 " id="sidenav-main">
+    <div class="sidenav-header">
+        <i class="fas fa-times p-3 cursor-pointer text-secondary opacity-5 position-absolute end-0 top-0 d-none d-xl-none" aria-hidden="true" id="iconSidenav"></i>
+        <a class="navbar-brand m-0" href="/">
+            <svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" fill="none" viewBox="0 0 48 48"><path fill="currentColor" fill-rule="evenodd" d="M24 11C24 14.8675 20.8675 18 17 18C13.1325 18 10 14.8675 10 11C10 7.1325 13.1325 4 17 4C20.8675 4 24 7.1325 24 11ZM4 25.4C4 21.144 12.6613 19 17 19C19.6958 19 24.0602 19.8277 26.9791 21.4754C23.3942 23.3521 20.7933 26.8524 20.1529 31H4V25.4ZM30 23C30 22.4477 30.4477 22 31 22H35C35.5523 22 36 22.4477 36 23C36 23.5523 35.5523 24 35 24H34V26.0709C35.1859 26.2405 36.2759 26.7074 37.1922 27.3936L38.5858 26L38.2929 25.7071C37.9024 25.3166 37.9024 24.6834 38.2929 24.2929C38.6834 23.9024 39.3166 23.9024 39.7071 24.2929L41.7071 26.2929C42.0976 26.6834 42.0976 27.3166 41.7071 27.7071C41.3166 28.0976 40.6834 28.0976 40.2929 27.7071L40 27.4142L38.6064 28.8078C39.2926 29.7241 39.7595 30.8141 39.9291 32H42V31C42 30.4477 42.4477 30 43 30C43.5523 30 44 30.4477 44 31V35C44 35.5523 43.5523 36 43 36C42.4477 36 42 35.5523 42 35V34H39.9291C39.795 34.9374 39.4752 35.8149 39.0082 36.594L41 38.5858L41.2929 38.2929C41.6834 37.9024 42.3166 37.9024 42.7071 38.2929C43.0976 38.6834 43.0976 39.3166 42.7071 39.7071L40.7071 41.7071C40.3166 42.0976 39.6834 42.0976 39.2929 41.7071C38.9024 41.3166 38.9024 40.6834 39.2929 40.2929L39.5858 40L37.7383 38.1525C36.7233 39.0865 35.4315 39.7244 34 39.9291V42H35C35.5523 42 36 42.4477 36 43C36 43.5523 35.5523 44 35 44H31C30.4477 44 30 43.5523 30 43C30 42.4477 30.4477 42 31 42H32V39.9291C30.8141 39.7595 29.7241 39.2926 28.8078 38.6064L27.4142 40L27.7071 40.2929C28.0976 40.6834 28.0976 41.3166 27.7071 41.7071C27.3166 42.0976 26.6834 42.0976 26.2929 41.7071L24.2929 39.7071C23.9024 39.3166 23.9024 38.6834 24.2929 38.2929C24.6834 37.9024 25.3166 37.9024 25.7071 38.2929L26 38.5858L27.3936 37.1922C26.7074 36.2759 26.2405 35.1859 26.0709 34H24V35C24 35.5523 23.5523 36 23 36C22.4477 36 22 35.5523 22 35V31C22 30.4477 22.4477 30 23 30C23.5523 30 24 30.4477 24 31V32H26.0709C26.2405 30.8141 26.7074 29.7241 27.3936 28.8078L26 27.4142L25.7071 27.7071C25.3166 28.0976 24.6834 28.0976 24.2929 27.7071C23.9024 27.3166 23.9024 26.6834 24.2929 26.2929L26.2929 24.2929C26.6834 23.9024 27.3166 23.9024 27.7071 24.2929C28.0976 24.6834 28.0976 25.3166 27.7071 25.7071L27.4142 26L28.8078 27.3936C29.7241 26.7074 30.8141 26.2405 32 26.0709V24H31C30.4477 24 30 23.5523 30 23Z" clip-rule="evenodd"/></svg>
+            <span class="ms-1 font-weight-bold">Pacientes COVID-19</span>
+        </a>
+    </div>
+    <hr class="horizontal dark mt-0">
+    <div class="collapse navbar-collapse  w-auto " id="sidenav-collapse-main">
+        <ul class="navbar-nav">
+            <li class="nav-item mt-3">
+                <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">MENÚ</h6>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link {% if 'dashboard' in segment %} active {% endif %}" href="/dashboard">
+                    <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
+                        <svg width="12px" height="12px" fill="none" viewBox="0 0 16 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                            <path class="color-background" d="M0 1a1 1 0 0 1 1-1h5a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1H1a1 1 0 0 1-1-1V1zm9 0a1 1 0 0 1 1-1h5a1 1 0 0 1 1 1v5a1 1 0 0 1-1 1h-5a1 1 0 0 1-1-1V1zm0 9a1 1 0 0 1 1-1h5a1 1 0 0 1 1 1v5a1 1 0 0 1-1 1h-5a1 1 0 0 1-1-1v-5z"/>
+                        </svg>
+                    </div>
+                    <span class="nav-link-text ms-1">Dashboard</span>
+                    <span class="nav-link-tooltip">Dashboard</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link {% if 'patient' in segment %} active {% endif %} " href="/new-patient">
+                    <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
+                        <svg width="12px" height="12px" viewBox="0 0 576 512" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                            <path class="color-background" d="M272 0C298.5 0 320 21.49 320 48V367.8C281.8 389.2 256 430 256 476.9C256 489.8 259.6 501.8 265.9 512H48C21.49 512 0 490.5 0 464V384H144C152.8 384 160 376.8 160 368C160 359.2 152.8 352 144 352H0V288H144C152.8 288 160 280.8 160 272C160 263.2 152.8 256 144 256H0V48C0 21.49 21.49 0 48 0H272zM152 64C143.2 64 136 71.16 136 80V104H112C103.2 104 96 111.2 96 120V136C96 144.8 103.2 152 112 152H136V176C136 184.8 143.2 192 152 192H168C176.8 192 184 184.8 184 176V152H208C216.8 152 224 144.8 224 136V120C224 111.2 216.8 104 208 104H184V80C184 71.16 176.8 64 168 64H152zM512 272C512 316.2 476.2 352 432 352C387.8 352 352 316.2 352 272C352 227.8 387.8 192 432 192C476.2 192 512 227.8 512 272zM288 477.1C288 425.7 329.7 384 381.1 384H482.9C534.3 384 576 425.7 576 477.1C576 496.4 560.4 512 541.1 512H322.9C303.6 512 288 496.4 288 477.1V477.1z"/>
+                        </svg>
+                    </div>
+                    <span class="nav-link-text ms-1">Clasificar paciente</span>
+                    <span class="nav-link-tooltip">Clasificar paciente</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+</aside>

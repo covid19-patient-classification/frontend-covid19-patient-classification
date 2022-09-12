@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <link rel="apple-touch-icon" href="{{ url_for('static', filename='assets/img/covid19-patient.ico') }}">
+        <link rel="icon" href="{{ url_for('static', filename='assets/img/covid19-patient.ico') }}">
+        <title>
+            Covid 19 -{% block title %} {% endblock title %} | UTPL
+        </title>
+
+            <!--     Font     -->
+            <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
+            
+            <!-- CSS Files -->
+            <link id="pagestyle" href="{{ url_for('static', filename='assets/css/light-theme-core.css') }}" rel="stylesheet" />
+
+
+        <!-- Specific page css goes here! -->
+        {% block stylesheets %}{% endblock stylesheets %}
+    </head>
+
+    <body class="g-sidenav-show  bg-gray-100">
+        {% include 'includes/preloader.html' %}
+
+        {% block content %} {% endblock content %}
+        
+    </body>
+    
+    {% block javascripts %}
+        
+        <script src="{{ url_for('static', filename='assets/js/plugins/vivus.min.js') }}"></script>
+        <script src="{{ url_for('static', filename='assets/js/preloader.js') }}"></script>
+
+    {% endblock javascripts %}
+</html>

@@ -1,8 +1,15 @@
-# Flask App Skeleton
-Skeleton flask python application provided by [Carlos Castillo](http://github.com/carloscastillo10) is a project that could help beginners to quickly have a simple structure of a python-based project using the Flask framework.
+# [COVID-19 Patient Classification](https://covid19-patient-classification.herokuapp.com/) Aplication
 
-![image](https://user-images.githubusercontent.com/38107722/156813966-d61ebf15-a221-49c8-88ef-f7d281694e47.png)
---
+**Thesis project** provided by the @UTPL on **COVID-19 Patient Classification**, The project could help medical personnel to know more efficiently and quickly the severity of a patient confirmed by COVID-19. UI to a legacy Python-based project compatible with Jinja Template Engine Flask.
+
+---
+- Modular design with **Blueprints**
+- Deployment actions: HEROKU
+- Support via **Github** (issues tracker) and [email](mailto:carloscastillo090916@gmail.com).
+
+<br />
+
+> Links: [COVID-19 Patient Classification](https://covid19-patient-classification.herokuapp.com/) - LIVE Demo
 
 ## How to use it
 ```
@@ -38,12 +45,12 @@ The project is coded using blueprints, app factory pattern, dual configuration p
 < PROJECT ROOT >
    |
    |-- app/
-   |    |-- base/                                # Base Blueprint - serve app pages
+   |    |-- home/                                # Base Blueprint - serve app pages
    |         |-- static/
    |         |    |-- <css, JS, images>          # CSS files, Javascripts files
    |         |
    |         |-- templates/                      # Templates used to render pages
-   |              |-- base.html                  # Used by common pages
+   |              |-- home.html                  # Used by common pages
    |              |-- index.html                 # Default page
    |
    |         |-- __init__.py                     # Initialize the blueprint
