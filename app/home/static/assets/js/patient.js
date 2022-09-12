@@ -102,12 +102,13 @@ function errorAlert() {
 }
 
 function successAlert() {
-    let timerInterval;
     Swal.fire({
         title: 'Clasificado exitosamente',
         html: displayTimeLineHTML(),
         icon: 'success',
         confirmButtonText: 'De acuerdo',
+    }).then( () => {
+        window.location.reload(); 
     });
 }
 
