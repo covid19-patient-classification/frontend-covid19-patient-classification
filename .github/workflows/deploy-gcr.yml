@@ -12,7 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     environment: production
     env:
-      DOCKER_IMAGE_LOCATION: ${{secrets.GAR_LOCATION}}-docker.pkg.dev/${{secrets.GCP_PROJECT_ID}}/${{secrets.GAR_REPOSITORY}}/${{secrets.DOCKER_IMAGE}}
+      DOCKER_IMAGE_LOCATION: ${{secrets.GAR_REGION}}-docker.pkg.dev/${{secrets.GCP_PROJECT_ID}}/${{secrets.GAR_REPOSITORY}}/${{secrets.DOCKER_IMAGE}}
     
     if: github.event.pull_request.merged
     steps:
@@ -30,7 +30,7 @@ jobs:
           
     - name: Build Docker image
       run: |-
-        gcloud auth configure-docker ${{secrets.GAR_LOCATION}}-docker.pkg.dev
+        gcloud auth configure-docker ${{secrets.GAR_REGION}}-docker.pkg.dev
         docker build -t ${{secrets.DOCKER_IMAGE}} .
         docker tag ${{secrets.DOCKER_IMAGE}} ${{env.DOCKER_IMAGE_LOCATION}}:lastest
         
