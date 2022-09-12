@@ -9,7 +9,9 @@
 
 <br />
 
-> Links: [COVID-19 Patient Classification](https://covid19-patient-classification.herokuapp.com/) - LIVE Demo
+> Links: 
+> * [Production environment](https://covid19-patient-classification-4vsfyjixfa-uc.a.run.app/) - Google Cloud Run
+> * [Development environment](https://covid19-patient-classification.herokuapp.com/) - Heroku
 
 ## How to use it
 ```
