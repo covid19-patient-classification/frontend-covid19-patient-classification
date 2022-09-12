@@ -5,7 +5,7 @@ ENV FLASK_APP run.py
 # Copy local code to the container image
 COPY . ./
 
-
+RUN python -m pip install --upgrade pip
 RUN pip install -r requirements.txt
 
 # Install production dependencies.
