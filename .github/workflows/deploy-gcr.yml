@@ -1,0 +1,29 @@
+name: Deploy to Google Cloud Run
+
+on:
+  pull_request:
+    types: [closed]
+    branches:
+      - "main"
+
+jobs:
+  setup-build-deploy:
+    name: Setup, Build and Deploy GCR
+    runs-on: ubuntu-latest
+    environment: production
+    
+    if: github.event.pull_request.merged
+    steps:
+    - uses: actions/checkout@v2
+    
+    - id: Auth 
+      name: Authenticate to Google Cloud
+      uses: 'google-github-actions/auth@v0'
+      with:
+          credentials_json: ${{secrets.GCP_CREDENTIALS}}
+          
+    - name: Build
+      run: gcloud builds submit --tag gcr.io/$GCP_PROJECT_ID/$APP_NAME:$GITHUB_SHA
+      
+    - name: Deploy to Google Cloud Run
+      run: gcloud run deploy $APP_NAME --image gcr.io/$PROJECT_ID/$GCP_PROJECT_ID:$GITHUB_SHA --platform managed --region $GCP_PROJECT_REGION --allow-unauthenticated
