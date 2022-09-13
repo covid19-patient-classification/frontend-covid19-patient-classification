@@ -14,7 +14,7 @@ var Paths = {
 // Minify CSS
 gulp.task('minify:css', function () {
     return gulp
-        .src(Paths.CSS + '/*.css')
+    .src([Paths.CSS + '/*.css', '!' + Paths.CSS + '/*.min.css'])
         .pipe(cleanCss())
         .pipe(
             rename(function (path) {
