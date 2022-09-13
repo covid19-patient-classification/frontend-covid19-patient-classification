@@ -3,8 +3,8 @@
 {% block title %} Clasificar paciente {% endblock title %}
 
 {% block stylesheets %}
-    <link href="{{ url_for('static', filename='assets/css/light-sweet-alert.css') }}" rel="stylesheet" />
-    <link href="{{ url_for('static', filename='assets/css/dark-sweet-alert.css') }}" rel="stylesheet" />
+    <link href="{{ url_for('static', filename='assets/css/light-sweet-alert.min.css') }}" rel="stylesheet" />
+    <link href="{{ url_for('static', filename='assets/css/dark-sweet-alert.min.css') }}" rel="stylesheet" />
 {% endblock stylesheets %}
 
 {% block content %}
@@ -41,7 +41,7 @@
                                             Identificación
                                             <span class="text-sm text-danger"> * </span>
                                         </label>
-                                        <input class="multisteps-form__input form-control mt-2" type="text" name="identification" id="identification" placeholder="E.j. 1104XXXXXX" required />
+                                        <input class="multisteps-form__input form-control mt-2" type="text" name="identification" id="identification" placeholder="E.j. 1104XXXXXX" autocomplete="off" required />
                                         <div class="invalid-feedback">Por favor ingrese la identificación del paciente</div>
                                     </div>
                                     <div class="col-12 col-md-6 col-sm-6 mb-2">
@@ -49,7 +49,7 @@
                                             Nombres y Apellidos
                                             <span class="text-sm text-danger"> * </span>
                                         </label>
-                                        <input class="multisteps-form__input form-control mt-2" type="text" name="name" id="name" placeholder="E.j. Antonio Manuel Ponce Armijos" required />
+                                        <input class="multisteps-form__input form-control mt-2" type="text" name="name" id="name" placeholder="E.j. Antonio Manuel Ponce Armijos" autocomplete="off" required />
                                         <div class="invalid-feedback">Por favor ingrese los nombres del paciente</div>
                                     </div>
                                 </div>
@@ -73,7 +73,7 @@
                                             </button>
                                         </div>
                                         <div class="input-group mb-2">
-                                            <input class="multisteps-form__input form-control" name="sato2" id="sat02" type="number" min="0" max="100" placeholder="Valor entre 0 - 100" required />
+                                            <input class="multisteps-form__input form-control" name="sato2" id="sat02" type="number" min="0" max="100" placeholder="Valor entre 0 - 100" autocomplete="off" required />
                                             <span class="input-group-text">%</span>
                                             <div class="invalid-feedback">Ingrese la Saturación de O<sub>2</sub> entre 0 y 100</div>
                                         </div>
@@ -89,7 +89,7 @@
                                             </button>
                                         </div>
                                         <div class="input-group mb-2">
-                                            <input class="multisteps-form__input form-control" name="pao2" id="pao2" type="number" min="0" max="100" placeholder="Valor entre 0 - 100" required />
+                                            <input class="multisteps-form__input form-control" name="pao2" id="pao2" type="number" min="0" max="100" placeholder="Valor entre 0 - 100" autocomplete="off" required />
                                             <span class="input-group-text">%</span>
                                             <div class="invalid-feedback">Ingrese la Presión parcial de 0<sub>2</sub> entre 0 y 100</div>
                                         </div>
@@ -105,7 +105,7 @@
                                             </button>
                                         </div>
                                         <div class="input-group">
-                                            <input class="multisteps-form__input form-control" name="fio2" id="fio2" type="number" min="1" max="100" placeholder="Valor entre 1 - 100" required />
+                                            <input class="multisteps-form__input form-control" name="fio2" id="fio2" type="number" min="1" max="100" placeholder="Valor entre 1 - 100" autocomplete="off" required />
                                             <span class="input-group-text">%</span>
                                             <div class="invalid-feedback">Ingrese la Fracción de O<sub>2</sub> entre 0 y 100</div>
                                         </div>
@@ -118,7 +118,7 @@
                                             </button>
                                         </div>
                                         <div class="input-group">
-                                            <input class="multisteps-form__input form-control" name="pf-ratio" id="pf-ratio" type="number" min="0" max="10000" placeholder="Valor calculado" required readonly />
+                                            <input class="multisteps-form__input form-control" name="pf-ratio" id="pf-ratio" type="number" min="0" max="10000" placeholder="Valor calculado" autocomplete="off" required readonly />
                                             <span class="input-group-text">mm Hg</span>
                                         </div>
                                     </div>
@@ -229,7 +229,7 @@
     <script src="{{ url_for('static', filename='assets/js/plugins/vivus.min.js') }}"></script>
     <script src="{{ url_for('static', filename='assets/js/plugins/multistep-form.js') }}"></script>
     <script src="{{ url_for('static', filename='assets/js/plugins/sweetalert.min.js') }}"></script>
-    <script src="{{ url_for('static', filename='assets/js/preloader.js') }}"></script>
-    <script src="{{ url_for('static', filename='assets/js/patient.js') }}"></script>
+    <script src="{{ url_for('static', filename='assets/js/dist/preloader.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='assets/js/dist/patient.min.js') }}"></script>
 
 {% endblock javascripts %}
