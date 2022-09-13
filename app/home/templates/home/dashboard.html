@@ -3,7 +3,7 @@
 {% block title %} Dashboard {% endblock title %}
 
 {% block stylesheets %}
-    <link href="{{ url_for('static', filename='assets/css/aos.css') }}" rel="stylesheet" />
+    <link href="{{ url_for('static', filename='assets/css/aos.min.css') }}" rel="stylesheet" />
 {% endblock stylesheets %}
 
 {% block content %}
@@ -249,5 +249,5 @@
     <script src="{{ url_for('static', filename='assets/js/plugins/flatpickr.min.js') }}"></script>
     <script src="{{ url_for('static', filename='assets/js/plugins/flatpickr-es.js') }}"></script>
     <script src="{{ url_for('static', filename='assets/js/plugins/datatables.js') }}"></script>
-    <script src="{{ url_for('static', filename='assets/js/dashboard.js') }}"></script>
+    <script src="{{ url_for('static', filename='assets/js/dist/dashboard.min.js') }}"></script>
 {% endblock javascripts %} 
