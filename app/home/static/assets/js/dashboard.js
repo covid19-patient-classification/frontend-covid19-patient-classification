@@ -50,6 +50,7 @@ function getInitialData(){
             createTotalPatientsDoughnutChart(totalRanking); // Create total doughnut chart
             createTotalPatientsLineChart(annualRanking); // Create total line chart
             createSummaryTable(summary); // Create summary table
+            initializeTooltips(); // Initialize tooltips
         },
     });
 }
@@ -609,7 +610,7 @@ function aosInit(){
     AOS.init({
         duration: 1000,
         easing: "ease-in-out",
-        once: true,
+        once: false,
         mirror: false
     }); 
 }
