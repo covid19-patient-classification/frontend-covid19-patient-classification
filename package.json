@@ -1,0 +1,27 @@
+{
+  "name": "frontend-covid19-patient-classification",
+  "version": "1.0.0",
+  "description": "**Thesis project** provided by the @UTPL on **COVID-19 Patient Classification**, The project could help medical personnel to know more efficiently and quickly the severity of a patient confirmed by COVID-19. UI to a legacy Python-based project compatible with Jinja Template Engine Flask.",
+  "main": "run.py",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/covid19-patient-classification/frontend-covid19-patient-classification.git"
+  },
+  "keywords": [],
+  "author": "Carlos Castillo <carloscastillo10> (https://github.como/carloscastillo10)",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/covid19-patient-classification/frontend-covid19-patient-classification/issues",
+    "email": "carloscastillo090916@gmail.com"
+  },
+  "homepage": "https://github.com/covid19-patient-classification/frontend-covid19-patient-classification#readme",
+  "dependencies": {
+    "gulp": "^4.0.2",
+    "gulp-clean-css": "^4.3.0",
+    "gulp-rename": "^2.0.0",
+    "gulp-uglify": "^3.0.2"
+  }
+}

@@ -13,7 +13,7 @@
             <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
             
             <!-- CSS Files -->
-            <link id="pagestyle" href="{{ url_for('static', filename='assets/css/light-theme-core.css') }}" rel="stylesheet" />
+            <link id="pagestyle" href="{{ url_for('static', filename='assets/css/light-theme-core.min.css') }}" rel="stylesheet" />
 
 
         <!-- Specific page css goes here! -->
@@ -30,7 +30,7 @@
     {% block javascripts %}
         
         <script src="{{ url_for('static', filename='assets/js/plugins/vivus.min.js') }}"></script>
-        <script src="{{ url_for('static', filename='assets/js/preloader.js') }}"></script>
+        <script src="{{ url_for('static', filename='assets/js/dist/preloader.min.js') }}"></script>
 
     {% endblock javascripts %}
 </html>
