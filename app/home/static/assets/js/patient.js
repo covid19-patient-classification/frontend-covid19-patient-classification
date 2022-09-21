@@ -20,11 +20,13 @@ fio2Input.addEventListener('keyup', () => {
 
 patientForm.addEventListener('submit', (event) => {
     if (patientForm.checkValidity()) {
-        sendPatient();
+        var patientFormData = formDataToJson(event);
+        sendPatient(patientFormData);
     } else {
         emptyFormAlert();
     }
     event.preventDefault();
+    
 });
 
 function initializeClinicalTooltips(){
@@ -54,20 +56,36 @@ function calculatePfRatio() {
     }
 }
 
-function sendPatient() {
+function sendPatient(patientFormData) {
     $.ajax({
         url: '/classify-patient',
         type: 'POST',
         dataType: 'json',
+        data: patientFormData,
         beforeSend: () => {
             loadingAlert();
         },
         success: (response) => {
-            console.log(response);
             successAlert();
         },
+        error: () => {
+            errorAlert();
+        }
     });
 }
+
+function formDataToJson(event){
+    const patientFormData = new FormData(event.target);
+    const patientFormObject = Object.fromEntries(patientFormData.entries());
+    var notCheckedInputs = Array.from(document.querySelectorAll('input[type="checkbox"]:not(:checked)'));
+    if (notCheckedInputs.length > 0){
+        notCheckedInputs.map((notCheckedInput) => {
+            patientFormObject[notCheckedInput.name] = false;
+        })
+    }
+    return patientFormObject;
+}
+
 
 function loadingAlert() {
     Swal.fire({
@@ -108,7 +126,7 @@ function successAlert() {
         icon: 'success',
         confirmButtonText: 'De acuerdo',
     }).then( () => {
-        window.location.reload(); 
+        // window.location.reload(); 
     });
 }
 
