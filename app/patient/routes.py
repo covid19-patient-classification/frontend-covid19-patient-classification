@@ -1,5 +1,6 @@
 from app.patient import blueprint
-from flask import abort, render_template, jsonify, request
+from app.patient import controller as patient_controller, mapper as patient_mapper
+from flask import abort, render_template, request
 
 
 @blueprint.route('/classify-patient', methods=['GET', 'POST'])
@@ -8,7 +9,8 @@ def classify_patient():
         if request.method == 'GET':
             return render_template('home/classify-patient.html', segment='patient', page_name='Clasificar Paciente')
 
-        print(request.form.to_dict())
-        return jsonify({'type': 'critical'}, 200)
-    except Exception:
-        abort(500)
+        patient_data = patient_mapper.patient_form_to_json(request.form)
+        response = patient_controller.classify_patient(patient_data)
+        return response.json(), response.status_code
+    except Exception as e:
+        abort(500, e)
