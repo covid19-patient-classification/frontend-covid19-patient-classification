@@ -21,7 +21,7 @@ gulp.task('minify:css', function () {
                 path.extname = '.min.css';
             })
         )
-        .pipe(gulp.dest(Paths.CSS));
+        .pipe(gulp.dest(Paths.CSS + Paths.DIST));
 });
 
 // Minify JS

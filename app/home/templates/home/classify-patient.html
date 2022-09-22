@@ -3,8 +3,8 @@
 {% block title %} Clasificar paciente {% endblock title %}
 
 {% block stylesheets %}
-    <link href="{{ url_for('static', filename='assets/css/light-sweet-alert.min.css') }}" rel="stylesheet" />
-    <link href="{{ url_for('static', filename='assets/css/dark-sweet-alert.min.css') }}" rel="stylesheet" />
+    <link href="{{ url_for('static', filename='assets/css/dist/light-sweet-alert.min.css') }}" rel="stylesheet" />
+    <link href="{{ url_for('static', filename='assets/css/dist/dark-sweet-alert.min.css') }}" rel="stylesheet" />
 {% endblock stylesheets %}
 
 {% block content %}
@@ -73,7 +73,7 @@
                                             </button>
                                         </div>
                                         <div class="input-group mb-2">
-                                            <input class="multisteps-form__input form-control" name="sato2" id="sat02" type="number" min="0" max="100" placeholder="Valor entre 0 - 100" autocomplete="off" required />
+                                            <input class="multisteps-form__input form-control" name="sato2" id="sat02" type="number" min="0" max="100" step="any" placeholder="Valor entre 0 - 100" autocomplete="off" required />
                                             <span class="input-group-text">%</span>
                                             <div class="invalid-feedback">Ingrese la Saturación de O<sub>2</sub> entre 0 y 100</div>
                                         </div>
@@ -89,7 +89,7 @@
                                             </button>
                                         </div>
                                         <div class="input-group mb-2">
-                                            <input class="multisteps-form__input form-control" name="pao2" id="pao2" type="number" min="0" max="100" placeholder="Valor entre 0 - 100" autocomplete="off" required />
+                                            <input class="multisteps-form__input form-control" name="pao2" id="pao2" type="number" min="0" max="100" step="any" placeholder="Valor entre 0 - 100" autocomplete="off" required />
                                             <span class="input-group-text">%</span>
                                             <div class="invalid-feedback">Ingrese la Presión parcial de 0<sub>2</sub> entre 0 y 100</div>
                                         </div>
@@ -105,9 +105,9 @@
                                             </button>
                                         </div>
                                         <div class="input-group">
-                                            <input class="multisteps-form__input form-control" name="fio2" id="fio2" type="number" min="1" max="100" placeholder="Valor entre 1 - 100" autocomplete="off" required />
+                                            <input class="multisteps-form__input form-control" name="fio2" id="fio2" type="number" min="1" max="100" step="any" placeholder="Valor entre 1 - 100" autocomplete="off" required />
                                             <span class="input-group-text">%</span>
-                                            <div class="invalid-feedback">Ingrese la Fracción de O<sub>2</sub> entre 0 y 100</div>
+                                            <div class="invalid-feedback">Ingrese la Fracción de O<sub>2</sub> entre 1 y 100</div>
                                         </div>
                                     </div>
                                     <div class="col-12 col-md-6 col-sm-6 mb-2">
@@ -118,7 +118,7 @@
                                             </button>
                                         </div>
                                         <div class="input-group">
-                                            <input class="multisteps-form__input form-control" name="pf-ratio" id="pf-ratio" type="number" min="0" max="10000" placeholder="Valor calculado" autocomplete="off" required readonly />
+                                            <input class="multisteps-form__input form-control" name="pf-ratio" id="pf-ratio" type="number" min="0" max="10000" step="any" placeholder="Valor calculado" autocomplete="off" required readonly />
                                             <span class="input-group-text">mm Hg</span>
                                         </div>
                                     </div>
@@ -135,13 +135,13 @@
                                 <div class="row">
                                     <div class="col-12 col-md-5 col-sm-6 mt-3">
                                         <div class="form-check form-switch ps-0">
-                                            <input class="multisteps-form__input form-check-input" type="checkbox" name="respiratory-failure" id="respiratory-failure" value="true">
+                                            <input class="multisteps-form__input form-check-input" type="checkbox" name="respiratory-failure" id="respiratory-failure" value="True">
                                             <label class="form-check-label text-body ms-3 text-truncate mb-0" for="respiratory-failure">Insuficiencia Respiratoria</label>
                                         </div>
                                     </div>
                                     <div class="col-12 col-md-4 col-sm-6 mt-3">
                                         <div class="form-check form-switch ps-0">
-                                            <input class="multisteps-form__input form-check-input" type="checkbox" name="ards" id="ards" value="true">
+                                            <input class="multisteps-form__input form-check-input" type="checkbox" name="ards" id="ards" value="True">
                                             <div class="d-flex align-items-center">
                                                 <label class="form-check-label text-body ms-3 text-truncate mb-0" for="ards">ARDS</label>
                                                 <button type="button" class="btn btn-icon-only btn-rounded btn-outline-secondary mb-0 ms-2 btn-sm d-flex align-items-center justify-content-center" id="ards-tooltip" data-bs-toggle="tooltip" data-bs-placement="top" title="Hace referencia si el paciente presenta el síndrome de dificultad respiratoria aguda">
@@ -152,61 +152,61 @@
                                     </div>
                                     <div class="col-12 col-md-3 col-sm-6 mt-3">
                                         <div class="form-check form-switch ps-0">
-                                            <input class="multisteps-form__input form-check-input" type="checkbox" name="sepsis-shock" id="sepsis-shock" value="true">
+                                            <input class="multisteps-form__input form-check-input" type="checkbox" name="sepsis-shock" id="sepsis-shock" value="True">
                                             <label class="form-check-label text-body ms-3 text-truncate mb-0" for="sepsis-shock">Shock Séptico</label>
                                         </div>
                                     </div>
                                     <div class="col-12 col-md-5 col-sm-6 mt-3">
                                         <div class="form-check form-switch ps-0">
-                                            <input class="multisteps-form__input form-check-input" type="checkbox" name="sore-throat" id="sore-throat" value="true">
+                                            <input class="multisteps-form__input form-check-input" type="checkbox" name="sore-throat" id="sore-throat" value="True">
                                             <label class="form-check-label text-body ms-3 text-truncate  mb-0" for="sore-throat">Dolor de garganta</label>
                                         </div>
                                     </div>
                                     <div class="col-12 col-md-4 col-sm-6 mt-3">
                                         <div class="form-check form-switch  ps-0">
-                                            <input class="multisteps-form__input form-check-input" type="checkbox" name="fever" id="fever" value="true">
+                                            <input class="multisteps-form__input form-check-input" type="checkbox" name="fever" id="fever" value="True">
                                             <label class="form-check-label text-body ms-3 text-truncate mb-0" for="fever">Fiebre</label>
                                         </div>
                                     </div>
                                     <div class="col-12 col-md-3 col-sm-6 mt-3">
                                         <div class="form-check form-switch ps-0">
-                                            <input class="multisteps-form__input form-check-input" type="checkbox" name="cough" id="cough" value="true">
+                                            <input class="multisteps-form__input form-check-input" type="checkbox" name="cough" id="cough" value="True">
                                             <label class="form-check-label text-body ms-3 text-truncate  mb-0" for="cough">Tos</label>
                                         </div>
                                     </div>
                                     <div class="col-12 col-md-5 col-sm-6 mt-3">
                                         <div class="form-check form-switch ps-0">
-                                            <input class="multisteps-form__input form-check-input" type="checkbox" name="headache" id="headache" value="true">
+                                            <input class="multisteps-form__input form-check-input" type="checkbox" name="headache" id="headache" value="True">
                                             <label class="form-check-label text-body ms-3 text-truncate mb-0" for="headache">Dolor de cabeza</label>
                                         </div>
                                     </div>
                                     <div class="col-12 col-md-4 col-sm-6 mt-3">
                                         <div class="form-check form-switch ps-0">
-                                            <input class="multisteps-form__input form-check-input" type="checkbox" name="fatigue" id="fatigue" value="true">
+                                            <input class="multisteps-form__input form-check-input" type="checkbox" name="fatigue" id="fatigue" value="True">
                                             <label class="form-check-label text-body ms-3 text-truncate mb-0" for="fatigue">Fatiga</label>
                                         </div>
                                     </div>
                                     <div class="col-12 col-md-3 col-sm-6 mt-3">
                                         <div class="form-check form-switch ps-0">
-                                            <input class="multisteps-form__input form-check-input" type="checkbox" name="dyspnea" id="dyspnea" value="true">
+                                            <input class="multisteps-form__input form-check-input" type="checkbox" name="dyspnea" id="dyspnea" value="True">
                                             <label class="form-check-label text-body ms-3 text-truncate mb-0" for="dyspnea">Disnea</label>
                                         </div>
                                     </div>
                                     <div class="col-12 col-md-5 col-sm-6 mt-3">
                                         <div class="form-check form-switch ps-0">
-                                            <input class="multisteps-form__input form-check-input" type="checkbox" name="nausea" id="nausea" value="true">
+                                            <input class="multisteps-form__input form-check-input" type="checkbox" name="nausea" id="nausea" value="True">
                                             <label class="form-check-label text-body ms-3 text-truncate mb-0" for="nausea">Nauseas</label>
                                         </div>
                                     </div>
                                     <div class="col-12 col-md-4 col-sm-6 mt-3">
                                         <div class="form-check form-switch ps-0 ">
-                                            <input class="multisteps-form__input form-check-input" type="checkbox" name="vomit" id="vomit" value="true">
+                                            <input class="multisteps-form__input form-check-input" type="checkbox" name="vomit" id="vomit" value="True">
                                             <label class="form-check-label text-body ms-3 text-truncate mb-0" for="vomit">Vómito</label>
                                         </div>
                                     </div>
                                     <div class="col-12 col-md-3 col-sm-6 mt-3">
                                         <div class="form-check form-switch ps-0">
-                                            <input class="multisteps-form__input form-check-input" type="checkbox" name="diarrhea" id="diarrhea" value="true">
+                                            <input class="multisteps-form__input form-check-input" type="checkbox" name="diarrhea" id="diarrhea" value="True">
                                             <label class="form-check-label text-body ms-3 text-truncate mb-0" for="diarrhea">Diarrea</label>
                                         </div>
                                     </div>
@@ -230,6 +230,6 @@
     <script src="{{ url_for('static', filename='assets/js/plugins/multistep-form.js') }}"></script>
     <script src="{{ url_for('static', filename='assets/js/plugins/sweetalert.min.js') }}"></script>
     <script src="{{ url_for('static', filename='assets/js/dist/preloader.min.js') }}"></script>
-    <script src="{{ url_for('static', filename='assets/js/patient.js') }}"></script>
+    <script src="{{ url_for('static', filename='assets/js/dist/patient.min.js') }}"></script>
 
 {% endblock javascripts %}
