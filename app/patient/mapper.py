@@ -1,0 +1,21 @@
+def patient_form_to_json(patient_form):
+    return {
+        'identification': patient_form['identification'],
+        'name': patient_form['name'],
+        'sato2': patient_form['sato2'],
+        'pao2': patient_form['pao2'],
+        'fio2': patient_form['fio2'],
+        'pf_ratio': patient_form['pf-ratio'],
+        'respiratory_failure': eval(patient_form['respiratory-failure']),
+        'ards': eval(patient_form['ards']),
+        'sepsis_shock': eval(patient_form['sepsis-shock']),
+        'fever': eval(patient_form['fever']),
+        'cough': eval(patient_form['cough']),
+        'sore_throat': eval(patient_form['sore-throat']),
+        'headache': eval(patient_form['headache']),
+        'fatigue': eval(patient_form['fatigue']),
+        'dyspnea': eval(patient_form['dyspnea']),
+        'nausea': eval(patient_form['nausea']),
+        'vomit': eval(patient_form['vomit']),
+        'diarrhea': eval(patient_form['diarrhea'])
+    }
