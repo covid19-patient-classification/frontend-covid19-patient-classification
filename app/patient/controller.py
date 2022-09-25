@@ -8,5 +8,5 @@ def classify_patient(patient_data):
         'accept': 'application/json',
         'content-type': 'application/json'
     }
-    response = requests.post(f'{classify_patient_endpoint}/api/v1/patient/', json=patient_data, headers=headers_payload)
+    response = requests.post(f'{classify_patient_endpoint}/api/v1/patients/', json=patient_data, headers=headers_payload)
     return response
