@@ -41,7 +41,7 @@
                                             Identificación
                                             <span class="text-sm text-danger"> * </span>
                                         </label>
-                                        <input class="multisteps-form__input form-control mt-2" type="text" name="identification" id="identification" placeholder="E.j. 1104XXXXXX" autocomplete="off" required />
+                                        <input class="multisteps-form__input form-control mt-2" type="text" pattern="[A-Za-z0-9]{0,}" name="identification" id="identification" placeholder="E.j. 1104XXXXXX" autocomplete="off" required />
                                         <div class="invalid-feedback">Por favor ingrese la identificación del paciente</div>
                                     </div>
                                     <div class="col-12 col-md-6 col-sm-6 mb-2">
@@ -49,7 +49,7 @@
                                             Nombres y Apellidos
                                             <span class="text-sm text-danger"> * </span>
                                         </label>
-                                        <input class="multisteps-form__input form-control mt-2" type="text" name="name" id="name" placeholder="E.j. Antonio Manuel Ponce Armijos" autocomplete="off" required />
+                                        <input class="multisteps-form__input form-control mt-2" type="text" pattern="[A-Za-z].{0,}" name="name" id="name" placeholder="E.j. Antonio Manuel Ponce Armijos" autocomplete="off" required />
                                         <div class="invalid-feedback">Por favor ingrese los nombres del paciente</div>
                                     </div>
                                 </div>
