@@ -23554,3 +23554,14 @@ Github: https://github.com/fiduswriter/Simple-DataTables
 .skeleton-w-100 {
   width: 100%;
 }
+
+::-webkit-scrollbar {
+  background: #e9ecef;
+  border-radius: 1.5rem;
+}
+
+::-webkit-scrollbar-thumb:horizontal,
+::-webkit-scrollbar-thumb:vertical {
+  background: #a5b0bbc7;
+  border-radius: 1.5rem;
+}
