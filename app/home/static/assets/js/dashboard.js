@@ -140,6 +140,10 @@ function createWeeklyPatientsChart(weeklyRanking, moderatePatients, seriusPatien
                 legend: {
                     display: false,
                 },
+                tooltip: {
+                    usePointStyle: true,
+                    pointStyle: 'circle',
+                }
             },
             scales: {
                 y: {
@@ -222,10 +226,14 @@ function createTotalPatientsDoughnutChart(totalRanking){
                 legend: {
                     display: false,
                 },
+                tooltip: {
+                    usePointStyle: true,
+                    pointStyle: 'circle',
+                }
             },
             interaction: {
                 intersect: false,
-                mode: 'index',
+                mode: 'point',
             },
             scales: {
                 y: {
@@ -341,12 +349,12 @@ function setTotalPatientPercentage(element, percentage) {
     
     if (percentage >= 0) {
        return `
-            <i class="ni ni-bold-up text-sm me-1 text-danger"></i>
+            <i class="ni ni-bold-up text-sm text-danger"></i>
             <span class="text-sm text-end text-danger font-weight-bolder mt-auto mb-0">+${percentage}%</span>
         `;
     } else {
         return `
-            <i class="ni ni-bold-down text-sm me-1 text-success"></i>
+            <i class="ni ni-bold-down text-sm text-success"></i>
             <span class="text-sm text-end text-success font-weight-bolder mt-auto mb-0">${percentage}%</span>
         `;
     }
@@ -432,9 +440,13 @@ function constructTotalPatientLineChart(chartLabels, moderatePatients, seriusPat
                 legend: {
                     display: false,
                 },
+                tooltip: {
+                    usePointStyle: true,
+                    pointStyle: 'circle',
+                    position: 'nearest'
+                }
             },
             interaction: {
-                intersect: false,
                 mode: 'index',
             },
             scales: {
