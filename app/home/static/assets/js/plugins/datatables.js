@@ -792,7 +792,7 @@
           sortable: !0,
           searchable: !0,
           paging: !0,
-          perPage: 5,
+          perPage: 10,
           perPageSelect: [5, 10, 15, 20, 25, 50, 100],
           nextPrev: !0,
           firstLast: !1,
