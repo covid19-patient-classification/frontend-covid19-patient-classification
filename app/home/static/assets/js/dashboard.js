@@ -1,8 +1,3 @@
-window.addEventListener('load', () => {
-    aosInit();
-    getInitialData();
-});
-
 ('use strict');
 // import date from 'date-and-time';
 // // const es = require('date-and-time/locale/es');
@@ -700,6 +695,7 @@ function aosInit() {
     });
 }
 
+// Initial data
 function getInitialData() {
     $.ajax({
         url: '/initial-dashboard-data',
@@ -735,3 +731,32 @@ function getInitialData() {
         }
     });
 }
+
+function queryInitialData(filter){
+    $.ajax({
+        url: '/filter',
+        type: 'GET',
+        data: filter,
+        success: (response) => {
+            console.log(response);
+        }
+
+    })
+} 
+
+// Initial statistics dropdown actions
+const dropDownOptions = document.querySelectorAll('#moderate-dropdown-options li a, #serius-dropdown-options li a, #critical-dropdown-options li a');
+dropDownOptions.forEach(dropdown => {
+    dropdown.addEventListener('click', () => {
+        const filter = {
+            covid19Severity: dropdown.getAttribute('data-severity'),
+            dateRange: dropdown.getAttribute('date-range')
+        };
+        queryInitialData(filter);
+    })
+});
+
+window.addEventListener('load', () => {
+    aosInit();
+    getInitialData();
+});

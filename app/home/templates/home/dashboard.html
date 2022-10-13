@@ -20,10 +20,10 @@
                             <a href="javascript:;" class="filter-date cursor-pointer text-secondary d-flex justify-content-center align-items-center d-none" id="moderate-dropdown-filters" data-bs-toggle="dropdown" aria-expanded="false">
                                 <span class="text-xs opacity-8 text-dark" id="moderate-dropdown-label"></span>
                             </a>
-                            <ul class="dropdown-menu dropdown-menu-end dropdown-filter px-2 py-3" aria-labelledby="moderate-dropdown-filters">
-                                <li><a class="dropdown-item border-radius-md" href="javascript:;">Últimos 7 días</a></li>
-                                <li><a class="dropdown-item border-radius-md" href="javascript:;">Semana pasada</a></li>
-                                <li><a class="dropdown-item border-radius-md" href="javascript:;">Últimos 30 días</a></li>
+                            <ul class="dropdown-menu dropdown-menu-end dropdown-filter px-2 py-3" id="moderate-dropdown-options" aria-labelledby="moderate-dropdown-filters">
+                                <li><a class="dropdown-item border-radius-md" href="javascript:;" data-severity="moderate" date-range="last-seven-days">Últimos 7 días</a></li>
+                                <li><a class="dropdown-item border-radius-md" href="javascript:;" data-severity="moderate" date-range="last-week">Semana pasada</a></li>
+                                <li><a class="dropdown-item border-radius-md" href="javascript:;" data-severity="moderate" date-range="last-month">Últimos 30 días</a></li>
                             </ul>
                         </div>
                     </div>
@@ -45,10 +45,10 @@
                             <a href="javascript:;" class="filter-date cursor-pointer text-secondary d-flex justify-content-center align-items-center d-none" id="serius-dropdown-filters" data-bs-toggle="dropdown" aria-expanded="false">
                                 <span class="text-xs opacity-8 text-dark" id="serius-dropdown-label"></span>
                             </a>
-                            <ul class="dropdown-menu dropdown-menu-end dropdown-filter px-2 py-3" aria-labelledby="serius-dropdown-filters">
-                                <li><a class="dropdown-item border-radius-md" href="javascript:;">Últimos 7 días</a></li>
-                                <li><a class="dropdown-item border-radius-md" href="javascript:;">Semana pasada</a></li>
-                                <li><a class="dropdown-item border-radius-md" href="javascript:;">Últimos 30 días</a></li>
+                            <ul class="dropdown-menu dropdown-menu-end dropdown-filter px-2 py-3" id="serius-dropdown-options" aria-labelledby="serius-dropdown-filters">
+                                <li><a class="dropdown-item border-radius-md" href="javascript:;" data-severity="serius" date-range="last-seven-days">Últimos 7 días</a></li>
+                                <li><a class="dropdown-item border-radius-md" href="javascript:;" data-severity="serius" date-range="last-week">Semana pasada</a></li>
+                                <li><a class="dropdown-item border-radius-md" href="javascript:;" data-severity="serius" date-range="last-month">Últimos 30 días</a></li>
                             </ul>
                         </div>
                     </div>
@@ -70,10 +70,10 @@
                             <a href="javascript:;" class="filter-date cursor-pointer text-secondary d-flex justify-content-center align-items-center d-none" id="critical-dropdown-filters" data-bs-toggle="dropdown" aria-expanded="false">
                                 <span class="text-xs opacity-8 text-dark" id="critical-dropdown-label"></span>
                             </a>
-                            <ul class="dropdown-menu dropdown-menu-end dropdown-filter px-2 py-3" aria-labelledby="critical-dropdown-filters">
-                                <li><a class="dropdown-item border-radius-md" href="javascript:;">Últimos 7 días</a></li>
-                                <li><a class="dropdown-item border-radius-md" href="javascript:;">Semana pasada</a></li>
-                                <li><a class="dropdown-item border-radius-md" href="javascript:;">Últimos 30 días</a></li>
+                            <ul class="dropdown-menu dropdown-menu-end dropdown-filter px-2 py-3" id="critical-dropdown-options" aria-labelledby="critical-dropdown-filters">
+                                <li><a class="dropdown-item border-radius-md" href="javascript:;" data-severity="critical" date-range="last-seven-days">Últimos 7 días</a></li>
+                                <li><a class="dropdown-item border-radius-md" href="javascript:;" data-severity="critical" date-range="last-week">Semana pasada</a></li>
+                                <li><a class="dropdown-item border-radius-md" href="javascript:;" data-severity="critical" date-range="last-month">Últimos 30 días</a></li>
                             </ul>
                         </div>
                     </div>
@@ -251,5 +251,6 @@
     <script src="{{ url_for('static', filename='assets/js/plugins/datatables.js') }}"></script>
     <script src="{{ url_for('static', filename='assets/js/dist/date-and-time.min.js') }}"></script>
     <script src="{{ url_for('static', filename='assets/js/plugins/date-es.js') }}"></script>
-    <script src="{{ url_for('static', filename='assets/js/dist/dashboard.min.js') }}"></script>
+    <!-- <script src="{{ url_for('static', filename='assets/js/dist/dashboard.min.js') }}"></script> -->
+    <script src="{{ url_for('static', filename='assets/js/dashboard.js') }}"></script>
 {% endblock javascripts %} 
