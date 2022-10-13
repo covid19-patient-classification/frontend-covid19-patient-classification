@@ -1,5 +1,4 @@
-from app.patient import blueprint
-from app.patient import controller as patient_controller, mapper as patient_mapper
+from app.patient import blueprint, controller as patient_controller, mapper as patient_mapper
 from flask import abort, render_template, request
 
 
