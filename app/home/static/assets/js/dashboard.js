@@ -4,7 +4,9 @@ window.addEventListener('load', () => {
 });
 
 ('use strict');
-
+// import date from 'date-and-time';
+// // const es = require('date-and-time/locale/es');
+const formatParsed = 'D/M/YYYY, H:mm:ss';
 const moderatePatientColor = '#10739E';
 const seriusPatientColor = '#CF8913';
 const criticalPatientColor = '#9D443D';
@@ -26,6 +28,18 @@ let skeletonClasses = [
     'skeleton-w-90',
     'skeleton-w-100',
 ];
+
+date.locale('es');
+
+function capitalize(str) {
+    return str.charAt(0).toUpperCase() + str.slice(1);
+}
+
+function setDateFormat(createdAt, format) {
+    const dateFormat = date.format(new Date(createdAt), format);
+    return capitalize(dateFormat.replace('.', ''));
+}
+
 
 function setPatientCard(weeklyDate, data, typeOfPatient) {
     const label = document.getElementById(`${typeOfPatient}-label`);
@@ -551,11 +565,12 @@ function constructTotalPatientLineChart(
 }
 
 function createSummaryTable(summary) {
+    const format = 'DD MMM YYYY'
     const datatablePatientsContainer = document.getElementById(
         'datatable-patients-container'
     );
     const dataTablePatients = document.getElementById('datatable-patients');
-    const tbody = setTbodySummaryTable(summary.patients);
+    const tbody = setTbodySummaryTable(summary.patients, format);
 
     dataTablePatients.innerHTML += `
         <tbody>
@@ -568,14 +583,14 @@ function createSummaryTable(summary) {
     setDatatablePlugin();
 }
 
-function setTbodySummaryTable(patients) {
+function setTbodySummaryTable(patients, format) {
     let tbody = '';
     patients.forEach((patient) => {
         tbody += `
            <tr>
             <td class="text-sm text-dark fw-bolder">${patient.identification}</td>
             <td class="text-sm text-dark fw-bolder">${patient.name}</td>
-            <td class="text-sm text-dark fw-bolder">${patient.created_at}</td>
+            <td class="text-sm text-dark fw-bolder">${setDateFormat(patient.created_at, format)}</td>
             <td class="text-sm text-dark fw-bolder">${setCaseSeverityPatient(patient.covid19_severity)}</td>
             <td class="text-sm text-dark fw-bolder">${patient.sato2}%</td>
             <td class="text-sm text-dark fw-bolder">${patient.pao2}%</td>
@@ -715,5 +730,8 @@ function getInitialData() {
             createSummaryTable(summary); // Create summary table
             initializeTooltips(); // Initialize tooltips
         },
+        error: (error) => {
+            window.location.href = '/internal-error';
+        }
     });
 }
