@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 const patientForm = document.getElementById('patient-form');
 const sato2Tooltip = document.getElementById('sato2-tooltip');
 const pao2Input = document.getElementById('pao2');
@@ -26,7 +27,7 @@ patientForm.addEventListener('submit', (event) => {
         emptyFormAlert();
     }
     event.preventDefault();
-    
+
 });
 
 function initializeClinicalTooltips(){
@@ -129,7 +130,7 @@ function classificationDetailsAlert(response) {
         icon: 'success',
         confirmButtonText: 'De acuerdo',
     }).then( () => {
-        window.location.reload(); 
+        window.location.reload();
     });
 }
 
@@ -153,7 +154,7 @@ function displayTooltipHTML(normalValue, lowValue, criticalValue){
                 <i class='bg-gradient-danger ms-0'></i>
                 <span class='text-xxs'>`+criticalValue+ ` Crítico</span>
             </span>
-        </div>                                         
+        </div>
     `;
 }
 
@@ -254,7 +255,7 @@ function setIconTimeLine(condition) {
             <path d="M12 2C6.47 2 2 6.47 2 12s4.47 10 10 10 10-4.47 10-10S17.53 2 12 2zm5 13.59L15.59 17 12 13.41 8.41 17 7 15.59 10.59 12 7 8.41 8.41 7 12 10.59 15.59 7 17 8.41 13.41 12 17 15.59z"></path>
         </svg>
     `
-} 
+}
 
 function setIconAndTextTimeLine(condition) {
     if(condition) {
@@ -267,7 +268,7 @@ function setIconAndTextTimeLine(condition) {
         ${setIconTimeLine(condition)}
         <p class="text-sm text-secondary fw-bolder mb-0">NO</p>
     `
-} 
+}
 
 function setGeneralTooltip(tooltipId){
     return new bootstrap.Tooltip(tooltipId, {});

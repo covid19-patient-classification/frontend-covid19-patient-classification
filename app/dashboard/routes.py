@@ -21,8 +21,8 @@ def get_initial_dashboard_data():
     try:
         data = {
             "weekly_ranking": {
-                "start_date": "06 de octubre",
-                "end_date": "Hoy",
+                "start_date": "10/06/2022",
+                "end_date": "10/13/2022",
                 "labels": ["01 sep", "02 sep", "03 sep", "04 sep", "05 sep", "06 sep", "07 sep"],
                 "data": {
                     "moderate_patients": {
@@ -219,14 +219,31 @@ def get_initial_dashboard_data():
                 },
             ]}
         }
-        return jsonify(data)
-        # response = dashboard_controller.get_initial_data()
-        # return response.json(), response.status_code
+
+        # return jsonify(data)
+        response = dashboard_controller.get_initial_data()
+        return response.json(), response.status_code
     except Exception as e:
         abort(500, e)
 
 
-@blueprint.route('/filter')
-def filter_data():
-    print(request.args)
+@blueprint.route('/filter-patient-card')
+def filter_patient_card():
+    try:
+        response = dashboard_controller.filter_data(request)
+        return response.json(), response.status_code
+        # return jsonify({"data": "ok"})
+    except Exception as e:
+        abort(500, e)
+
+
+@blueprint.route('/filter-total-line-chart')
+def filter_total_line_chart():
+    dashboard_controller.filter_data(request)
+    return jsonify({"data": "ok"})
+
+
+@blueprint.route('/filter-summary-table')
+def filter_summary_table():
+    dashboard_controller.filter_data(request)
     return jsonify({"data": "ok"})
