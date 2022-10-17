@@ -19,9 +19,13 @@
   },
   "homepage": "https://github.com/covid19-patient-classification/frontend-covid19-patient-classification#readme",
   "dependencies": {
+    "eslint": "^8.25.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-prettier": "^4.2.1",
     "gulp": "^4.0.2",
     "gulp-clean-css": "^4.3.0",
     "gulp-rename": "^2.0.0",
-    "gulp-uglify": "^3.0.2"
+    "gulp-uglify": "^3.0.2",
+    "prettier": "^2.7.1"
   }
 }

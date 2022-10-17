@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 const patientForm = document.getElementById('patient-form');
 const sato2Tooltip = document.getElementById('sato2-tooltip');
 const pao2Input = document.getElementById('pao2');
@@ -8,13 +9,34 @@ const pfRatioInput = document.getElementById('pf-ratio');
 const pfRatioTooltip = document.getElementById('pf-ratio-tooltip');
 const ardsTooltip = document.getElementById('ards-tooltip');
 
+
 function initializeClinicalTooltips() {
     setBoostrapTooltip(sato2Tooltip, 'Saturación de oxígeno', '95 - 100%', '90 - 94%', '<90%'); // SatO2 tooltip
     setBoostrapTooltip(paa2Tooltip, 'Presión parcial de oxígeno', '61 - 100%', '50 - 60%', '<50%'); // PaO2 tooltip
     setBoostrapTooltip(fio2Tooltip, 'Fracción de oxígeno inspirado', '1 - 20%', '21 - 40%', '>40%'); // FiO2 tooltip
     setGeneralTooltip(pfRatioTooltip); // P/F Ratio tootltip
     setGeneralTooltip(ardsTooltip); // ARDS tooltip
-}
+
+initializeClinicalTooltips();
+
+pao2Input.addEventListener('keyup', () => {
+    calculatePfRatio();
+});
+
+fio2Input.addEventListener('keyup', () => {
+    calculatePfRatio();
+});
+
+patientForm.addEventListener('submit', (event) => {
+    if (patientForm.checkValidity()) {
+        var patientFormData = formDataToJson(event);
+        sendPatient(patientFormData);
+    } else {
+        emptyFormAlert();
+    }
+    event.preventDefault();
+
+});
 
 function setBoostrapTooltip(tooltipId, tooltipTitle, normalValue, lowValue, criticalValue) {
     return new bootstrap.Tooltip(tooltipId, {
@@ -108,7 +130,7 @@ function classificationDetailsAlert(response) {
         title: 'Clasificado exitosamente',
         html: displayTimeLineHTML(response),
         confirmButtonText: 'De acuerdo',
-    }).then(() => {
+    }).then( () => {
         window.location.reload();
     });
 }
@@ -151,9 +173,8 @@ function displayTooltipHTML(tooltipTitle, normalValue, lowValue, criticalValue) 
         criticalValue +
         ` Crítico</span>
             </span>
-        </div>                                         
-    `
-    );
+        </div>
+    `;
 }
 
 function displayTimeLineHTML(response) {
@@ -286,44 +307,3 @@ function setIconAndTextTimeLine(condition) {
 function setGeneralTooltip(tooltipId) {
     return new bootstrap.Tooltip(tooltipId, {});
 }
-
-initializeClinicalTooltips();
-
-pao2Input.addEventListener('keyup', () => {
-    calculatePfRatio();
-});
-
-fio2Input.addEventListener('keyup', () => {
-    calculatePfRatio();
-});
-
-patientForm.addEventListener('submit', (event) => {
-    if (patientForm.checkValidity()) {
-        var patientFormData = formDataToJson(event);
-        sendPatient(patientFormData);
-    } else {
-        emptyFormAlert();
-    }
-    event.preventDefault();
-});
-
-var unsaved = false;
-
-$(':input').change(function () {
-    unsaved = true;
-});
-
-function unloadPage() {
-    if (unsaved) {
-        unsavedChangesAlert();
-    }
-}
-window.onbeforeunload = unloadPage;
-
-// https: $(':input').change(() => {
-//     $(window)
-//         .unbind('unload')
-//         .bind('unload', () => {
-//             unsavedChangesAlert();
-//         });
-// });
