@@ -36,8 +36,8 @@ def filter_patient_card():
 
 @blueprint.route('/filter-total-line-chart')
 def filter_total_line_chart():
-    dashboard_controller.filter_data(request)
-    return jsonify({"data": "ok"})
+    response = dashboard_controller.filter_data(request)
+    return response.json(), response.status_code
 
 
 @blueprint.route('/filter-summary-table')

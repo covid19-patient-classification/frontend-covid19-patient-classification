@@ -25,6 +25,7 @@ let skeletonClasses = [
 
 date.locale('es');
 let patientTable;
+var totalPatientChartInstance;
 
 function capitalize(str) {
     return str.charAt(0).toUpperCase() + str.slice(1);
@@ -296,17 +297,17 @@ function createTotalTable(moderatePatients, seriusPatients, criticalPatients) {
 }
 
 // Total patients line chart
-function createTotalPatientsLineChart(annualRanking) {
-    const moderatePatients = annualRanking.data.moderate_patients;
-    const seriusPatients = annualRanking.data.serius_patients;
-    const criticalPatients = annualRanking.data.critical_patients;
+function createTotalPatientsLineChart(ranking) {
+    const moderatePatients = ranking.data.moderate_patients;
+    const seriusPatients = ranking.data.serius_patients;
+    const criticalPatients = ranking.data.critical_patients;
     const totalLineChartStatus = document.getElementById('total-line-chart-status');
     const totalLineChartLabel = document.getElementById('total-line-chart-label');
     const totalLineChartPercentage = document.getElementById('total-line-chart-percentage');
 
-    setCoutUp(totalLineChartStatus, annualRanking.total);
+    setCoutUp(totalLineChartStatus, ranking.total);
     totalLineChartLabel.classList.remove('d-none');
-    totalLineChartPercentage.innerHTML += setTotalPatientPercentage(annualRanking.total_percentage);
+    totalLineChartPercentage.innerHTML = setTotalPatientPercentage(ranking.total_percentage);
 
     // Legend of line chart
     setLegendTotalPatientLineChart('moderate', moderatePatients.label);
@@ -314,7 +315,7 @@ function createTotalPatientsLineChart(annualRanking) {
     setLegendTotalPatientLineChart('critical', criticalPatients.label);
 
     // Construct chart
-    constructTotalPatientLineChart(annualRanking.labels, moderatePatients, seriusPatients, criticalPatients);
+    constructTotalPatientLineChart(ranking.labels, moderatePatients, seriusPatients, criticalPatients);
 
     removeSkeletonClasses(totalLineChartStatus);
     removeSkeletonClasses(totalLineChartLabel);
@@ -346,6 +347,8 @@ function setLegendTotalPatientLineChart(typeOfPatient, patientLabel) {
 }
 
 function constructTotalPatientLineChart(chartLabels, moderatePatients, seriusPatients, criticalPatients) {
+    if (totalPatientChartInstance) totalPatientChartInstance.destroy();
+
     const totalPatientLineChartContainer = document.getElementById('total-line-chart-container');
     const totalPatientLineChart = document.getElementById('total-line-chart').getContext('2d');
     const gradientStroke1 = totalPatientLineChart.createLinearGradient(0, 230, 0, 50);
@@ -363,7 +366,7 @@ function constructTotalPatientLineChart(chartLabels, moderatePatients, seriusPat
     gradientStroke3.addColorStop(0.2, 'rgba(72,72,176,0.0)');
     gradientStroke3.addColorStop(0, 'rgba(203, 12, 159,0)');
 
-    new Chart(totalPatientLineChart, {
+    totalPatientChartInstance = new Chart(totalPatientLineChart, {
         type: 'line',
         data: {
             labels: chartLabels,
@@ -562,8 +565,6 @@ function setCoutUp(element, value) {
         const countUp = new CountUp(element, element.getAttribute('countTo'));
         if (!countUp.error) {
             countUp.start();
-        } else {
-            console.error(countUp.error);
         }
     }
 }
@@ -678,7 +679,7 @@ function queryTotalPatientLineChart(filter) {
         type: 'GET',
         data: filter,
         success: (response) => {
-            console.log(response);
+            createTotalPatientsLineChart(response.ranking);
         },
         error: () => {
             errorAlert();
@@ -702,11 +703,17 @@ if (document.querySelector('.datepicker')) {
         maxDate: new Date(),
         onChange: (dates) => {
             if (dates.length === 2) {
-                const filter = {
-                    startDate: setDateFormat(dates[0], 'DD-MMM-YYYY'),
-                    endDate: setDateFormat(dates[1], 'DD-MMM-YYYY'),
-                };
-                queryTotalPatientLineChart(filter);
+                const startDate = setDateFormat(dates[0], 'MM-DD-YYYY');
+                const endDate = setDateFormat(dates[1], 'MM-DD-YYYY');
+                if (startDate === endDate) {
+                    clearDatePicker();
+                } else {
+                    const filter = {
+                        startDate: startDate,
+                        endDate: endDate,
+                    };
+                    queryTotalPatientLineChart(filter);
+                }
             }
         },
         onClose: (dates) => {
@@ -717,9 +724,12 @@ if (document.querySelector('.datepicker')) {
     });
 }
 
-document.getElementById('clear-date').addEventListener('click', () => {
+function clearDatePicker() {
     document.querySelector('.datepicker')._flatpickr.clear();
     resetTotalPatientLineChart();
+}
+document.getElementById('clear-date').addEventListener('click', () => {
+    clearDatePicker();
 });
 
 // Summary table filter
