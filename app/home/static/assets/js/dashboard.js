@@ -686,11 +686,20 @@ function queryTotalPatientLineChart(filter) {
     });
 }
 
+function resetTotalPatientLineChart() {
+    dates = [];
+    const filter = {
+        startDate: setDateFormat(new Date(), 'DD-MMM-YYYY'),
+    };
+    queryTotalPatientLineChart(filter);
+}
+
 if (document.querySelector('.datepicker')) {
     flatpickr('.datepicker', {
         mode: 'range',
         locale: 'es',
         dateFormat: 'd M Y',
+        maxDate: new Date(),
         onChange: (dates) => {
             if (dates.length === 2) {
                 const filter = {
@@ -702,11 +711,16 @@ if (document.querySelector('.datepicker')) {
         },
         onClose: (dates) => {
             if (dates.length < 2) {
-                console.log('Datos iniciales');
+                resetTotalPatientLineChart();
             }
         },
     });
 }
+
+document.getElementById('clear-date').addEventListener('click', () => {
+    document.querySelector('.datepicker')._flatpickr.clear();
+    resetTotalPatientLineChart();
+});
 
 // Summary table filter
 function querySummaryTable(filter) {
