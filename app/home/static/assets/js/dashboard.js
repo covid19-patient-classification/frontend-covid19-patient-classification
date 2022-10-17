@@ -24,6 +24,7 @@ let skeletonClasses = [
 ];
 
 date.locale('es');
+let patientTable;
 
 function capitalize(str) {
     return str.charAt(0).toUpperCase() + str.slice(1);
@@ -370,11 +371,11 @@ function constructTotalPatientLineChart(chartLabels, moderatePatients, seriusPat
                 {
                     label: moderatePatients.label,
                     tension: 0.4,
-                    borderWidth: 0,
                     pointRadius: 2,
                     pointBackgroundColor: moderatePatientColor,
                     borderColor: moderatePatientColor,
                     backgroundColor: gradientStroke1,
+                    borderWidth: 3,
                     fill: true,
                     data: moderatePatients.data,
                     maxBarThickness: 6,
@@ -385,8 +386,8 @@ function constructTotalPatientLineChart(chartLabels, moderatePatients, seriusPat
                     pointRadius: 2,
                     pointBackgroundColor: seriusPatientColor,
                     borderColor: seriusPatientColor,
-                    borderWidth: 3,
                     backgroundColor: gradientStroke2,
+                    borderWidth: 3,
                     fill: true,
                     data: seriusPatients.data,
                     maxBarThickness: 6,
@@ -397,8 +398,8 @@ function constructTotalPatientLineChart(chartLabels, moderatePatients, seriusPat
                     pointRadius: 2,
                     pointBackgroundColor: criticalPatientColor,
                     borderColor: criticalPatientColor,
-                    borderWidth: 3,
                     backgroundColor: gradientStroke3,
+                    borderWidth: 3,
                     fill: true,
                     data: criticalPatients.data,
                     maxBarThickness: 6,
@@ -457,18 +458,25 @@ function constructTotalPatientLineChart(chartLabels, moderatePatients, seriusPat
     removeSkeletonClasses(totalPatientLineChartContainer);
 }
 
+function clearPatientDataTable(dataTablePatients) {
+    patientTable.clear();
+    patientTable.destroy();
+    dataTablePatients.removeChild(dataTablePatients.getElementsByTagName('tbody')[0]);
+}
+
 function createSummaryTable(summary) {
     const format = 'DD MMM YYYY';
     const datatablePatientsContainer = document.getElementById('datatable-patients-container');
     const dataTablePatients = document.getElementById('datatable-patients');
-    const tbody = setTbodySummaryTable(summary.patients, format);
 
+    if (patientTable) clearPatientDataTable(dataTablePatients);
+
+    const tbody = setTbodySummaryTable(summary.patients, format);
     dataTablePatients.innerHTML += `
         <tbody>
             ${tbody}
         </tbody>
     `;
-
     dataTablePatients.classList.remove('d-none');
     removeSkeletonClasses(datatablePatientsContainer);
     setDatatablePlugin();
@@ -545,7 +553,7 @@ function setTdSyntomatology(symptom) {
 
 // Set datable plugin
 function setDatatablePlugin() {
-    new simpleDatatables.DataTable('#datatable-patients');
+    patientTable = new simpleDatatables.DataTable('#datatable-patients');
 }
 
 function setCoutUp(element, value) {
@@ -707,7 +715,7 @@ function querySummaryTable(filter) {
         type: 'GET',
         data: filter,
         success: (response) => {
-            console.log(response);
+            createSummaryTable(response.summary);
         },
         error: () => {
             errorAlert();
