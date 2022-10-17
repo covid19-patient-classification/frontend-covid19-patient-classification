@@ -16,6 +16,7 @@ function initializeClinicalTooltips() {
     setBoostrapTooltip(fio2Tooltip, 'Fracción de oxígeno inspirado', '1 - 20%', '21 - 40%', '>40%'); // FiO2 tooltip
     setGeneralTooltip(pfRatioTooltip); // P/F Ratio tootltip
     setGeneralTooltip(ardsTooltip); // ARDS tooltip
+}
 
 initializeClinicalTooltips();
 
@@ -135,17 +136,6 @@ function classificationDetailsAlert(response) {
     });
 }
 
-function unsavedChangesAlert() {
-    Swal.fire({
-        icon: 'warning',
-        title: '¿Deseas abandonar el sitio?',
-        text: 'Es posible que los cambios que implementaste no se puedan guardar',
-        confirmButtonText: 'Abandonar',
-    }).then(() => {
-        window.location.reload();
-    });
-}
-
 function displayTooltipHTML(tooltipTitle, normalValue, lowValue, criticalValue) {
     return (
         `
@@ -174,7 +164,7 @@ function displayTooltipHTML(tooltipTitle, normalValue, lowValue, criticalValue) 
         ` Crítico</span>
             </span>
         </div>
-    `;
+    `);
 }
 
 function displayTimeLineHTML(response) {

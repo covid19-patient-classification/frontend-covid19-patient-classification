@@ -14,18 +14,18 @@
 
             <!----===== Iconscout CSS ===== -->
             <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css" />
-            
+
             <!-- Nucleo Icons -->
             <link href="{{ url_for('static', filename='assets/css/dist/nucleo-icons.min.css') }}" rel="stylesheet" />
             <link href="{{ url_for('static', filename='assets/css/dist/nucleo-svg.min.css') }}" rel="stylesheet" />
-            
+
             <!-- Font Awesome Icons -->
             <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
             <link href="{{ url_for('static', filename='assets/css/dist/nucleo-svg.min.css') }}" rel="stylesheet" />
 
             <!-- Bootstrap Icons -->
             <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
-            
+
             <!-- Sweet alert -->
             <link href="{{ url_for('static', filename='assets/css/dist/light-sweet-alert.min.css') }}" rel="stylesheet" />
             <link href="{{ url_for('static', filename='assets/css/dist/dark-sweet-alert.min.css') }}" rel="stylesheet" />
@@ -44,19 +44,19 @@
 
         <main class="main-content mt-1 main-content position-relative h-100 border-radius-lg">
 
-            <!-- NAVBAR --> 
-            {% include "includes/navbar.html" %} 
-            
+            <!-- NAVBAR -->
+            {% include "includes/navbar.html" %}
+
             {% block content %} {% endblock content %}
 
             <!-- SCROLL TOP -->
-            {% include "includes/back-to-top.html" %} 
+            {% include "includes/back-to-top.html" %}
         </main>
 
         <!-- Core JS Files -->
         {% include "includes/scripts.html" %}
 
-        <!-- Specific JS goes HERE --> 
-        {% block javascripts %}{% endblock javascripts %}  
+        <!-- Specific JS goes HERE -->
+        {% block javascripts %}{% endblock javascripts %}
     </body>
 </html>
