@@ -1,10 +1,6 @@
-window.addEventListener('load', () => {
-    aosInit();
-    getInitialData();
-});
-
-'use strict';
-
+/* eslint-disable no-undef */
+/* eslint-disable-next-line no-undef */
+('use strict');
 const moderatePatientColor = '#10739E';
 const seriusPatientColor = '#CF8913';
 const criticalPatientColor = '#9D443D';
@@ -27,77 +23,63 @@ let skeletonClasses = [
     'skeleton-w-100',
 ];
 
-function getInitialData(){
-    $.ajax({
-        url: '/initial-dashboard-data',
-        type: 'GET',
-        success: (response) => {
-            var weeklyRanking = response.weekly_ranking;
-            var annualRanking = response.annual_ranking;
-            var totalRanking = response.total_ranking;
-            var summary = response.summary;
-            var weeklyDate = weeklyRanking.date;
-            var weeklyModeratePatients = weeklyRanking.values.moderate_patients;
-            var weeklySeriusPatients = weeklyRanking.values.serius_patients;
-            var weeklyCriticalPatients = weeklyRanking.values.critical_patients;
-    
-            // Initial statistics
-            setPatientCard(weeklyDate, weeklyModeratePatients, 'moderate');
-            setPatientCard(weeklyDate, weeklySeriusPatients, 'serius');
-            setPatientCard(weeklyDate, weeklyCriticalPatients, 'critical');
-    
-            createWeeklyPatientsChart(weeklyRanking, weeklyModeratePatients, weeklySeriusPatients, weeklyCriticalPatients); // Create weekly chart
-            createTotalPatientsDoughnutChart(totalRanking); // Create total doughnut chart
-            createTotalPatientsLineChart(annualRanking); // Create total line chart
-            createSummaryTable(summary); // Create summary table
-            initializeTooltips(); // Initialize tooltips
-        },
-    });
+date.locale('es');
+let patientTable;
+var totalPatientChartInstance;
+
+function capitalize(str) {
+    return str.charAt(0).toUpperCase() + str.slice(1);
+}
+
+function setDateFormat(createdAt, format) {
+    const dateFormat = date.format(new Date(createdAt), format);
+    return capitalize(dateFormat.replace('.', ''));
 }
 
 function setPatientCard(weeklyDate, data, typeOfPatient) {
-    var label = document.getElementById(`${typeOfPatient}-label`);
+    const label = document.getElementById(`${typeOfPatient}-label`);
     label.innerHTML = data.label;
     removeSkeletonClasses(label);
 
-    var dropdownContainer = document.getElementById(`${typeOfPatient}-dropdown-container`);
-    var dropdownLabel = document.getElementById(`${typeOfPatient}-dropdown-label`);
-    var moderateDropdownFilters = document.getElementById(`${typeOfPatient}-dropdown-filters`);
+    const dropdownContainer = document.getElementById(`${typeOfPatient}-dropdown-container`);
+    const dropdownLabel = document.getElementById(`${typeOfPatient}-dropdown-label`);
+    const moderateDropdownFilters = document.getElementById(`${typeOfPatient}-dropdown-filters`);
     dropdownLabel.innerHTML = weeklyDate;
     moderateDropdownFilters.classList.remove('d-none');
     removeSkeletonClasses(dropdownContainer);
 
-    var statusContainer = document.getElementById(`${typeOfPatient}-status-container`);
-    var status = document.getElementById(`${typeOfPatient}-status`);
+    const statusContainer = document.getElementById(`${typeOfPatient}-status-container`);
+    const status = document.getElementById(`${typeOfPatient}-status`);
     setCoutUp(status, data.total);
     removeSkeletonClasses(statusContainer);
 
-    var percentageContainer = document.getElementById(`${typeOfPatient}-percentage-container`);
-    var percentage = data.percentage;
-    var percentageLabel = data.percentage_label;
+    const percentageContainer = document.getElementById(`${typeOfPatient}-percentage-container`);
+    const percentage = data.percentage;
+    const percentageLabel = data.percentage_label;
     setPatientCardPercentage(typeOfPatient, percentage, percentageLabel);
     removeSkeletonClasses(percentageContainer);
 }
 
 function setPatientCardPercentage(typeOfPatient, percentage, percentageLabel) {
-    var percentageStatus = document.getElementById(`${typeOfPatient}-percentage`);
-    
-    if (percentage >= 0) {
+    const percentageStatus = document.getElementById(`${typeOfPatient}-percentage`);
+    percentage = percentage.toFixed(0);
+    if (percentage > 0) {
         percentageStatus.innerHTML = `+${percentage}%`;
+        percentageStatus.classList.remove('text-success');
         percentageStatus.classList.add('text-danger');
     } else {
         percentageStatus.innerHTML = `${percentage}%`;
+        percentageStatus.classList.remove('text-danger');
         percentageStatus.classList.add('text-success');
     }
 
     percentageStatus.innerHTML += `<span class="font-weight-normal opacity-8 text-dark" id="moderate-percentage-label"> ${percentageLabel}</span>`;
 }
 
-
 // Chart bar Patients by week
 function createWeeklyPatientsChart(weeklyRanking, moderatePatients, seriusPatients, criticalPatients) {
-    var weeklyChartContainer = document.getElementById('weekly-chart-container');
-    var weeklyPatientChart= document.getElementById('weekly-patient-chart').getContext('2d');
+    const weeklyChartContainer = document.getElementById('weekly-chart-container');
+    const weeklyPatientChart = document.getElementById('weekly-patient-chart').getContext('2d');
 
     new Chart(weeklyPatientChart, {
         type: 'bar',
@@ -140,6 +122,10 @@ function createWeeklyPatientsChart(weeklyRanking, moderatePatients, seriusPatien
                 legend: {
                     display: false,
                 },
+                tooltip: {
+                    usePointStyle: true,
+                    pointStyle: 'circle',
+                },
             },
             scales: {
                 y: {
@@ -179,20 +165,20 @@ function createWeeklyPatientsChart(weeklyRanking, moderatePatients, seriusPatien
 }
 
 // Chart Doughnut Total patients classified
-function createTotalPatientsDoughnutChart(totalRanking){
-    var moderatePatients = totalRanking.values.moderate_patients;
-    var seriusPatients = totalRanking.values.serius_patients
-    var criticalPatients = totalRanking.values.critical_patients
-    var totalChartContainer = document.getElementById('total-doughnut-chart-container');
-    var totalPatientChart = document.getElementById('total-patient-doughnut-chart').getContext('2d');
-    var gradientStroke1 = totalPatientChart.createLinearGradient(0, 230, 0, 50);
-    var totalChartStatus = document.getElementById('total-doughnut-chart-status');
-    var totalChartLabel = document.getElementById('total-doughnut-chart-label');
-    
+function createTotalPatientsDoughnutChart(totalRanking) {
+    const moderatePatients = totalRanking.data.moderate_patients;
+    const seriusPatients = totalRanking.data.serius_patients;
+    const criticalPatients = totalRanking.data.critical_patients;
+    const totalChartContainer = document.getElementById('total-doughnut-chart-container');
+    const totalPatientChart = document.getElementById('total-patient-doughnut-chart').getContext('2d');
+    const gradientStroke1 = totalPatientChart.createLinearGradient(0, 230, 0, 50);
+    const totalChartStatus = document.getElementById('total-doughnut-chart-status');
+    const totalChartLabel = document.getElementById('total-doughnut-chart-label');
+
     gradientStroke1.addColorStop(1, 'rgba(16, 115, 158,0.2)');
     gradientStroke1.addColorStop(0.2, 'rgba(72,72,176,0.0)');
     gradientStroke1.addColorStop(0, 'rgba(16, 115, 158,0)');
-    
+
     new Chart(totalPatientChart, {
         type: 'doughnut',
         data: {
@@ -205,11 +191,7 @@ function createTotalPatientsDoughnutChart(totalRanking){
                     pointRadius: 2,
                     borderWidth: 1,
                     borderRadius: 5,
-                    backgroundColor: [
-                        moderatePatientColor,
-                        seriusPatientColor,
-                        criticalPatientColor,
-                    ],
+                    backgroundColor: [moderatePatientColor, seriusPatientColor, criticalPatientColor],
                     data: [moderatePatients.total, seriusPatients.total, criticalPatients.total],
                     fill: false,
                 },
@@ -222,10 +204,14 @@ function createTotalPatientsDoughnutChart(totalRanking){
                 legend: {
                     display: false,
                 },
+                tooltip: {
+                    usePointStyle: true,
+                    pointStyle: 'circle',
+                },
             },
             interaction: {
                 intersect: false,
-                mode: 'index',
+                mode: 'point',
             },
             scales: {
                 y: {
@@ -261,9 +247,9 @@ function createTotalPatientsDoughnutChart(totalRanking){
 }
 
 // Create total table in doughnut chart
-function createTotalTable(moderatePatients, seriusPatients, criticalPatients){
-    var totalChartContainer = document.getElementById('total-table-container');
-    var totalTable = document.getElementById('total-table');
+function createTotalTable(moderatePatients, seriusPatients, criticalPatients) {
+    const totalChartContainer = document.getElementById('total-table-container');
+    const totalTable = document.getElementById('total-table');
     totalTable.innerHTML += `
         <tbody>
             <tr>
@@ -271,7 +257,7 @@ function createTotalTable(moderatePatients, seriusPatients, criticalPatients){
                     <div class="d-flex px-2 py-0">
                         <span class="badge moderate-bg me-3"> </span>
                         <div class="d-flex flex-column justify-content-center">
-                            <h6 class="mb-0 text-sm">${moderatePatients.label.split(" ")[1]}</h6>
+                            <h6 class="mb-0 text-sm">${moderatePatients.label.split(' ')[1]}</h6>
                         </div>
                     </div>
                 </td>
@@ -284,7 +270,7 @@ function createTotalTable(moderatePatients, seriusPatients, criticalPatients){
                     <div class="d-flex px-2 py-0">
                         <span class="badge serius-bg me-3"> </span>
                         <div class="d-flex flex-column justify-content-center">
-                            <h6 class="mb-0 text-sm">${seriusPatients.label.split(" ")[1]}</h6>
+                            <h6 class="mb-0 text-sm">${seriusPatients.label.split(' ')[1]}</h6>
                         </div>
                     </div>
                 </td>
@@ -297,31 +283,31 @@ function createTotalTable(moderatePatients, seriusPatients, criticalPatients){
                     <div class="d-flex px-2 py-0">
                         <span class="badge critical-bg me-3"> </span>
                         <div class="d-flex flex-column justify-content-center">
-                            <h6 class="mb-0 text-sm">${criticalPatients.label.split(" ")[1]}</h6>
+                            <h6 class="mb-0 text-sm">${criticalPatients.label.split(' ')[1]}</h6>
                         </div>
                     </div>
                 </td>
                 <td class="align-middle text-center text-sm">
                     <span class="text-body text-xs font-weight-bold" id="donut-critical-status"> ${criticalPatients.total} </span>
                 </td>
-            </tr>                                   
+            </tr>
         </tbody>
     `;
     removeSkeletonClasses(totalChartContainer);
 }
 
 // Total patients line chart
-function createTotalPatientsLineChart(annualRanking){
-    var moderatePatients = annualRanking.values.moderate_patients;
-    var seriusPatients = annualRanking.values.serius_patients;
-    var criticalPatients = annualRanking.values.critical_patients;
-    var totalLineChartStatus = document.getElementById('total-line-chart-status');
-    var totalLineChartLabel = document.getElementById('total-line-chart-label');
-    var totalLineChartPercentage = document.getElementById('total-line-chart-percentage');
+function createTotalPatientsLineChart(ranking) {
+    const moderatePatients = ranking.data.moderate_patients;
+    const seriusPatients = ranking.data.serius_patients;
+    const criticalPatients = ranking.data.critical_patients;
+    const totalLineChartStatus = document.getElementById('total-line-chart-status');
+    const totalLineChartLabel = document.getElementById('total-line-chart-label');
+    const totalLineChartPercentage = document.getElementById('total-line-chart-percentage');
 
-    setCoutUp(totalLineChartStatus, annualRanking.total);
+    setCoutUp(totalLineChartStatus, ranking.total);
     totalLineChartLabel.classList.remove('d-none');
-    totalLineChartPercentage.innerHTML += setTotalPatientPercentage(totalLineChartPercentage, annualRanking.total_percentage);
+    totalLineChartPercentage.innerHTML = setTotalPatientPercentage(ranking.total_percentage);
 
     // Legend of line chart
     setLegendTotalPatientLineChart('moderate', moderatePatients.label);
@@ -329,44 +315,45 @@ function createTotalPatientsLineChart(annualRanking){
     setLegendTotalPatientLineChart('critical', criticalPatients.label);
 
     // Construct chart
-    constructTotalPatientLineChart(annualRanking.labels, moderatePatients, seriusPatients, criticalPatients);
+    constructTotalPatientLineChart(ranking.labels, moderatePatients, seriusPatients, criticalPatients);
 
     removeSkeletonClasses(totalLineChartStatus);
     removeSkeletonClasses(totalLineChartLabel);
     removeSkeletonClasses(totalLineChartPercentage);
-
 }
 
-function setTotalPatientPercentage(element, percentage) {
-    
+function setTotalPatientPercentage(percentage) {
+    percentage = percentage.toFixed(0);
     if (percentage >= 0) {
-       return `
-            <i class="ni ni-bold-up text-sm me-1 text-danger"></i>
+        return `
+            <i class="ni ni-bold-up text-sm text-danger"></i>
             <span class="text-sm text-end text-danger font-weight-bolder mt-auto mb-0">+${percentage}%</span>
         `;
     } else {
         return `
-            <i class="ni ni-bold-down text-sm me-1 text-success"></i>
+            <i class="ni ni-bold-down text-sm text-success"></i>
             <span class="text-sm text-end text-success font-weight-bolder mt-auto mb-0">${percentage}%</span>
         `;
     }
 }
 
-function setLegendTotalPatientLineChart(typeOfPatient, patientLabel){
-    var totalLinepatientBadgeContainer = document.getElementById(`total-line-${typeOfPatient}-badge`);
+function setLegendTotalPatientLineChart(typeOfPatient, patientLabel) {
+    const totalLinepatientBadgeContainer = document.getElementById(`total-line-${typeOfPatient}-badge`);
     totalLinepatientBadgeContainer.innerHTML = `
         <i class="${typeOfPatient}-bg"></i>
         <span class="text-dark text-xs">${patientLabel}</span>
-    `
+    `;
     removeSkeletonClasses(totalLinepatientBadgeContainer);
 }
 
-function constructTotalPatientLineChart(chartLabels, moderatePatients, seriusPatients, criticalPatients){
-    var totalPatientLineChartContainer = document.getElementById('total-line-chart-container');
-    var totalPatientLineChart = document.getElementById('total-line-chart').getContext('2d');
-    var gradientStroke1 = totalPatientLineChart.createLinearGradient(0, 230, 0, 50);
-    var gradientStroke2 = totalPatientLineChart.createLinearGradient(0, 230, 0, 50);
-    var gradientStroke3 = totalPatientLineChart.createLinearGradient(0, 230, 0, 50);
+function constructTotalPatientLineChart(chartLabels, moderatePatients, seriusPatients, criticalPatients) {
+    if (totalPatientChartInstance) totalPatientChartInstance.destroy();
+
+    const totalPatientLineChartContainer = document.getElementById('total-line-chart-container');
+    const totalPatientLineChart = document.getElementById('total-line-chart').getContext('2d');
+    const gradientStroke1 = totalPatientLineChart.createLinearGradient(0, 230, 0, 50);
+    const gradientStroke2 = totalPatientLineChart.createLinearGradient(0, 230, 0, 50);
+    const gradientStroke3 = totalPatientLineChart.createLinearGradient(0, 230, 0, 50);
 
     // Set gradients colors
     gradientStroke1.addColorStop(1, 'rgba(23, 194, 232, 0.2)');
@@ -379,7 +366,7 @@ function constructTotalPatientLineChart(chartLabels, moderatePatients, seriusPat
     gradientStroke3.addColorStop(0.2, 'rgba(72,72,176,0.0)');
     gradientStroke3.addColorStop(0, 'rgba(203, 12, 159,0)');
 
-    new Chart(totalPatientLineChart, {
+    totalPatientChartInstance = new Chart(totalPatientLineChart, {
         type: 'line',
         data: {
             labels: chartLabels,
@@ -387,12 +374,11 @@ function constructTotalPatientLineChart(chartLabels, moderatePatients, seriusPat
                 {
                     label: moderatePatients.label,
                     tension: 0.4,
-                    borderWidth: 0,
                     pointRadius: 2,
                     pointBackgroundColor: moderatePatientColor,
                     borderColor: moderatePatientColor,
-                    borderWidth: 3,
                     backgroundColor: gradientStroke1,
+                    borderWidth: 3,
                     fill: true,
                     data: moderatePatients.data,
                     maxBarThickness: 6,
@@ -400,12 +386,11 @@ function constructTotalPatientLineChart(chartLabels, moderatePatients, seriusPat
                 {
                     label: seriusPatients.label,
                     tension: 0.4,
-                    borderWidth: 0,
                     pointRadius: 2,
                     pointBackgroundColor: seriusPatientColor,
                     borderColor: seriusPatientColor,
-                    borderWidth: 3,
                     backgroundColor: gradientStroke2,
+                    borderWidth: 3,
                     fill: true,
                     data: seriusPatients.data,
                     maxBarThickness: 6,
@@ -413,12 +398,11 @@ function constructTotalPatientLineChart(chartLabels, moderatePatients, seriusPat
                 {
                     label: criticalPatients.label,
                     tension: 0.4,
-                    borderWidth: 0,
                     pointRadius: 2,
                     pointBackgroundColor: criticalPatientColor,
                     borderColor: criticalPatientColor,
-                    borderWidth: 3,
                     backgroundColor: gradientStroke3,
+                    borderWidth: 3,
                     fill: true,
                     data: criticalPatients.data,
                     maxBarThickness: 6,
@@ -432,9 +416,13 @@ function constructTotalPatientLineChart(chartLabels, moderatePatients, seriusPat
                 legend: {
                     display: false,
                 },
+                tooltip: {
+                    usePointStyle: true,
+                    pointStyle: 'circle',
+                    position: 'nearest',
+                },
             },
             interaction: {
-                intersect: false,
                 mode: 'index',
             },
             scales: {
@@ -469,36 +457,43 @@ function constructTotalPatientLineChart(chartLabels, moderatePatients, seriusPat
             },
         },
     });
-    
+
     removeSkeletonClasses(totalPatientLineChartContainer);
 }
 
-function createSummaryTable(summary){
-    var datatablePatientsContainer = document.getElementById('datatable-patients-container');
-    var dataTablePatients = document.getElementById('datatable-patients');
-    var tbody = setTbodySummaryTable(summary.patients);
+function clearPatientDataTable(dataTablePatients) {
+    patientTable.clear();
+    patientTable.destroy();
+    dataTablePatients.removeChild(dataTablePatients.getElementsByTagName('tbody')[0]);
+}
 
+function createSummaryTable(summary) {
+    const format = 'DD MMM YYYY';
+    const datatablePatientsContainer = document.getElementById('datatable-patients-container');
+    const dataTablePatients = document.getElementById('datatable-patients');
+
+    if (patientTable) clearPatientDataTable(dataTablePatients);
+
+    const tbody = setTbodySummaryTable(summary.patients, format);
     dataTablePatients.innerHTML += `
         <tbody>
             ${tbody}
         </tbody>
     `;
-
     dataTablePatients.classList.remove('d-none');
     removeSkeletonClasses(datatablePatientsContainer);
     setDatatablePlugin();
 }
 
-
-function setTbodySummaryTable(patients){
-    var tbody = '';
+function setTbodySummaryTable(patients, format) {
+    let tbody = '';
     patients.forEach((patient) => {
         tbody += `
            <tr>
             <td class="text-sm text-dark fw-bolder">${patient.identification}</td>
             <td class="text-sm text-dark fw-bolder">${patient.name}</td>
-            <td class="text-sm text-dark fw-bolder">${patient.date}</td>
-            <td class="text-sm text-dark fw-bolder">${setCaseSeverityPatient(patient.case_severity)}</td>
+            <td class="text-sm text-dark fw-bolder">${setDateFormat(patient.created_at, format)}</td>
+            <td class="text-sm text-dark fw-bolder">${setCaseSeverityPatient(patient.covid19_severity)}</td>
             <td class="text-sm text-dark fw-bolder">${patient.sato2}%</td>
             <td class="text-sm text-dark fw-bolder">${patient.pao2}%</td>
             <td class="text-sm text-dark fw-bolder">${patient.fio2}%</td>
@@ -515,28 +510,28 @@ function setTbodySummaryTable(patients){
             <td>${setTdSyntomatology(patient.nausea)}</td>
             <td>${setTdSyntomatology(patient.vomit)}</td>
             <td>${setTdSyntomatology(patient.diarrhea)}</td>
-           </tr> 
-        `
-    })
+           </tr>
+        `;
+    });
     return tbody;
 }
 
-function setCaseSeverityPatient(caseSeverity){
-    var caseSeverityLower = caseSeverity.toLowerCase();
-    
-    if(caseSeverityLower === 'moderado'){
-        return `<span class="badge moderate-bg badge-sm">${caseSeverity}</span>`
+function setCaseSeverityPatient(caseSeverity) {
+    const caseSeverityLower = caseSeverity.toLowerCase();
+
+    if (caseSeverityLower === 'moderado') {
+        return `<span class="badge moderate-bg badge-sm">${caseSeverity}</span>`;
     }
 
-    if(caseSeverityLower === 'grave'){
-        return `<span class="badge serius-bg badge-sm">${caseSeverity}</span>`
+    if (caseSeverityLower === 'grave') {
+        return `<span class="badge serius-bg badge-sm">${caseSeverity}</span>`;
     }
 
-    return `<span class="badge critical-bg badge-sm">${caseSeverity}</span>`
+    return `<span class="badge critical-bg badge-sm">${caseSeverity}</span>`;
 }
 
-function setTdSyntomatology(symptom){
-    if (symptom){
+function setTdSyntomatology(symptom) {
+    if (symptom) {
         return `
             <div class="d-flex align-items-center">
                 <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" focusable="false" class="td-icon text-danger" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
@@ -545,7 +540,7 @@ function setTdSyntomatology(symptom){
                 </svg>
                 <p class="text-sm text-dark fw-bolder mb-0">SI</p>
             </div>
-        `
+        `;
     }
 
     return `
@@ -556,29 +551,13 @@ function setTdSyntomatology(symptom){
             </svg>
             <p class="text-sm text-dark fw-bolder mb-0">NO</p>
         </div>
-    `
-}
-
-// Chart line Patients by datepicker
-if (document.querySelector('.datepicker')) {
-    flatpickr('.datepicker', {
-        mode: 'range',
-        locale: 'es',
-    });
+    `;
 }
 
 // Set datable plugin
-function setDatatablePlugin(){
-    const dataTableBasic = new simpleDatatables.DataTable('#datatable-patients', {
-        searchable: true,
-        fixedHeight: true,
-        lengthMenu: [
-            [5, 10, 25, 50, -1],
-            [5, 10, 25, 50, 'Todos'],
-        ],
-    });
+function setDatatablePlugin() {
+    patientTable = new simpleDatatables.DataTable('#datatable-patients');
 }
-
 
 function setCoutUp(element, value) {
     element.setAttribute('countTo', value);
@@ -586,18 +565,14 @@ function setCoutUp(element, value) {
         const countUp = new CountUp(element, element.getAttribute('countTo'));
         if (!countUp.error) {
             countUp.start();
-        } else {
-            console.error(countUp.error);
         }
     }
 }
 
 // initialization of Tooltips
-function initializeTooltips(){
-    var tooltipTriggerList = [].slice.call(
-        document.querySelectorAll('[data-bs-toggle="tooltip"]')
-    );
-    var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+function initializeTooltips() {
+    const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+    tooltipTriggerList.map(function (tooltipTriggerEl) {
         return new bootstrap.Tooltip(tooltipTriggerEl, {});
     });
 }
@@ -606,11 +581,184 @@ function removeSkeletonClasses(element) {
     element.classList.remove(...skeletonClasses);
 }
 
-function aosInit(){
+function aosInit() {
     AOS.init({
         duration: 1000,
-        easing: "ease-in-out",
+        easing: 'ease-in-out',
         once: false,
-        mirror: false
-    }); 
+        mirror: false,
+    });
 }
+
+function errorAlert() {
+    Swal.fire({
+        icon: 'error',
+        title: 'Error al procesar la solicitud',
+        text: 'Intente nuevamente por favor!',
+        confirmButtonText: 'Aceptar',
+        timer: 3000,
+        timerProgressBar: true,
+    });
+}
+
+function setCardDate(startDate, endDate) {
+    const currentDate = setDateFormat(new Date().toDateString(), 'MM/DD/YYYY');
+    if (currentDate === endDate) {
+        startDate = setDateFormat(startDate, 'DD de MMMM');
+        endDate = 'Hoy';
+    } else {
+        startDate = setDateFormat(startDate, 'DD de MMM');
+        endDate = setDateFormat(endDate, 'DD de MMM');
+    }
+    return `${startDate} - ${endDate}`;
+}
+
+// Initial data
+function getInitialData() {
+    $.ajax({
+        url: '/initial-dashboard-data',
+        type: 'GET',
+        success: (response) => {
+            const weeklyRanking = response.weekly_ranking;
+            const annualRanking = response.annual_ranking;
+            const totalRanking = response.total_ranking;
+            const summary = response.summary;
+            const weeklyDate = setCardDate(weeklyRanking.start_date, weeklyRanking.end_date);
+            const weeklyModeratePatients = weeklyRanking.data.moderate_patients;
+            const weeklySeriusPatients = weeklyRanking.data.serius_patients;
+            const weeklyCriticalPatients = weeklyRanking.data.critical_patients;
+
+            // Initial statistics
+            setPatientCard(weeklyDate, weeklyModeratePatients, 'moderate');
+            setPatientCard(weeklyDate, weeklySeriusPatients, 'serius');
+            setPatientCard(weeklyDate, weeklyCriticalPatients, 'critical');
+
+            createWeeklyPatientsChart(weeklyRanking, weeklyModeratePatients, weeklySeriusPatients, weeklyCriticalPatients); // Create weekly chart
+            createTotalPatientsDoughnutChart(totalRanking); // Create total doughnut chart
+            createTotalPatientsLineChart(annualRanking); // Create total line chart
+            createSummaryTable(summary); // Create summary table
+            initializeTooltips(); // Initialize tooltips
+        },
+        error: () => {
+            window.location.href = '/internal-error';
+        },
+    });
+}
+
+function queryPatientCard(filter) {
+    $.ajax({
+        url: '/filter-patient-card',
+        type: 'GET',
+        data: filter,
+        success: (response) => {
+            const cardDate = setCardDate(response.start_date, response.end_date);
+            setPatientCard(cardDate, response.data.patients, filter.covid19Severity);
+        },
+        error: () => {
+            errorAlert();
+        },
+    });
+}
+
+// Initial statistics dropdown actions
+const dropDownOptions = document.querySelectorAll('#moderate-dropdown-options li a, #serius-dropdown-options li a, #critical-dropdown-options li a');
+dropDownOptions.forEach((dropdown) => {
+    dropdown.addEventListener('click', () => {
+        const filter = {
+            covid19Severity: dropdown.getAttribute('data-severity'),
+            dateRange: dropdown.getAttribute('date-range'),
+        };
+        queryPatientCard(filter);
+    });
+});
+
+// Chart line Patients by datepicker
+function queryTotalPatientLineChart(filter) {
+    $.ajax({
+        url: '/filter-total-line-chart',
+        type: 'GET',
+        data: filter,
+        success: (response) => {
+            createTotalPatientsLineChart(response.ranking);
+        },
+        error: () => {
+            errorAlert();
+        },
+    });
+}
+
+function resetTotalPatientLineChart() {
+    dates = [];
+    const filter = {
+        startDate: setDateFormat(new Date(), 'DD-MMM-YYYY'),
+    };
+    queryTotalPatientLineChart(filter);
+}
+
+if (document.querySelector('.datepicker')) {
+    flatpickr('.datepicker', {
+        mode: 'range',
+        locale: 'es',
+        dateFormat: 'd M Y',
+        maxDate: new Date(),
+        onChange: (dates) => {
+            if (dates.length === 2) {
+                const startDate = setDateFormat(dates[0], 'MM-DD-YYYY');
+                const endDate = setDateFormat(dates[1], 'MM-DD-YYYY');
+                if (startDate === endDate) {
+                    clearDatePicker();
+                } else {
+                    const filter = {
+                        startDate: startDate,
+                        endDate: endDate,
+                    };
+                    queryTotalPatientLineChart(filter);
+                }
+            }
+        },
+        onClose: (dates) => {
+            if (dates.length < 2) {
+                resetTotalPatientLineChart();
+            }
+        },
+    });
+}
+
+function clearDatePicker() {
+    document.querySelector('.datepicker')._flatpickr.clear();
+    resetTotalPatientLineChart();
+}
+document.getElementById('clear-date').addEventListener('click', () => {
+    clearDatePicker();
+});
+
+// Summary table filter
+function querySummaryTable(filter) {
+    $.ajax({
+        url: '/filter-summary-table',
+        type: 'GET',
+        data: filter,
+        success: (response) => {
+            createSummaryTable(response.summary);
+        },
+        error: () => {
+            errorAlert();
+        },
+    });
+}
+
+const summaryDropDownOptions = document.querySelectorAll('#dropdown-table-options li a');
+summaryDropDownOptions.forEach((dropdown) => {
+    dropdown.addEventListener('click', () => {
+        const filter = {
+            covid19Severity: dropdown.getAttribute('data-severity'),
+        };
+        querySummaryTable(filter);
+    });
+});
+
+// Load
+window.addEventListener('load', () => {
+    aosInit();
+    getInitialData();
+});
