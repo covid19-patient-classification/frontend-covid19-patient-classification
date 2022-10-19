@@ -326,12 +326,12 @@ function setTotalPatientPercentage(percentage) {
     percentage = percentage.toFixed(0);
     if (percentage >= 0) {
         return `
-            <i class="ni ni-bold-up text-sm text-danger"></i>
+            <i class="ni ni-bold-up text-sm text-danger me-1"></i>
             <span class="text-sm text-end text-danger font-weight-bolder mt-auto mb-0">+${percentage}%</span>
         `;
     } else {
         return `
-            <i class="ni ni-bold-down text-sm text-success"></i>
+            <i class="ni ni-bold-down text-sm text-success me-1"></i>
             <span class="text-sm text-end text-success font-weight-bolder mt-auto mb-0">${percentage}%</span>
         `;
     }
