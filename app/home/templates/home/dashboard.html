@@ -163,10 +163,14 @@
                         <div class="grid-one-container">
                             <div class="row">
                                 <div class="cart-info col-sm-12 col-md-4">
-                                    <h4 class="skeleton skeleton-text skeleton-w-30 text-dark text-4xl fw-bolder" id="total-line-chart-status"></h4>
-                                    <div class="d-flex align-items-start">
-                                        <p class="skeleton skeleton-text skeleton-w-30 text-seconday text-sm d-none" id="total-line-chart-label">Pacientes</p>
-                                        <div class="skeleton skeleton-text skeleton-w-10 d-flex align-items-center ms-2" id="total-line-chart-percentage"></div>
+                                    <div class="d-flex align-items-end">
+                                        <h4 class="skeleton skeleton-text skeleton-w-20 text-dark text-4xl fw-bolder" id="total-line-chart-status"></h4>
+                                        <div class="skeleton skeleton-text skeleton-w-30 ms-2" id="total-line-chart-label-container">
+                                            <p class="text-secondary text-sm d-none" id="total-line-chart-label">Pacientes</p>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex align-items-end">
+                                        <div class="skeleton skeleton-text skeleton-w-50 d-flex align-items-center" id="total-line-chart-percentage"></div>
                                     </div>
                                 </div>
                                 <div class="grid-badges col-sm-12 col-md-8 mt-3">
@@ -181,7 +185,6 @@
                                     </span>
                                 </div>
                             </div>
-
                             <div class="skeleton skeleton-chart chart" id="total-line-chart-container">
                                 <canvas id="total-line-chart" class="chart-canvas" height="300"></canvas>
                             </div>
@@ -254,5 +257,6 @@
     <script src="{{ url_for('static', filename='assets/js/plugins/datatables.js') }}"></script>
     <script src="{{ url_for('static', filename='assets/js/dist/date-and-time.min.js') }}"></script>
     <script src="{{ url_for('static', filename='assets/js/plugins/date-es.js') }}"></script>
-    <script src="{{ url_for('static', filename='assets/js/dist/dashboard.min.js') }}"></script>
+    <!-- <script src="{{ url_for('static', filename='assets/js/dist/dashboard.min.js') }}"></script> -->
+    <script src="{{ url_for('static', filename='assets/js/dashboard.js') }}"></script>
 {% endblock javascripts %}
