@@ -1,5 +1,4 @@
 var gulp = require('gulp');
-var path = require('path');
 var rename = require('gulp-rename');
 var cleanCss = require('gulp-clean-css');
 var uglify = require('gulp-uglify');
