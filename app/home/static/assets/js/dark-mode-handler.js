@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 const themeSwitch = document.getElementById('theme-switch');
 const themeIndicator = document.getElementById('theme-indicator');
 const sidenav = document.getElementById('sidenav-main');

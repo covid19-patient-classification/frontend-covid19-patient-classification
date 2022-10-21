@@ -153,7 +153,7 @@ h6, .h6 {
 
 p {
   margin-top: 0;
-  margin-bottom: 1rem;
+  margin-bottom: 0.8rem;
 }
 
 abbr[title] {
@@ -22850,10 +22850,6 @@ pre[class*=language-] {
   grid-template-columns: repeat(1, minmax(0px, 1fr));
 }
 
-.grid-badges {
-  align-items: end;
-}
-
 .grid-chart {
   display: grid;
   grid-template-columns: repeat(1, minmax(150px, 1fr));
@@ -22872,7 +22868,7 @@ pre[class*=language-] {
 
 @media (min-width: 576px) {
   .grid-badges {
-    grid-template-columns: repeat(3, minmax(0px, 1fr));
+    grid-template-columns: repeat(3, minmax(10px, 1fr));
   }
 
 }
@@ -23563,4 +23559,15 @@ Github: https://github.com/fiduswriter/Simple-DataTables
 
 .skeleton-w-100 {
   width: 100%;
+}
+
+::-webkit-scrollbar {
+  background: #e9ecef;
+  border-radius: 1.5rem;
+}
+
+::-webkit-scrollbar-thumb:horizontal,
+::-webkit-scrollbar-thumb:vertical {
+  background: #a5b0bbc7;
+  border-radius: 1.5rem;
 }

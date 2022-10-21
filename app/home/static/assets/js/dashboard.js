@@ -84,7 +84,7 @@ function createWeeklyPatientsChart(weeklyRanking, moderatePatients, seriusPatien
     new Chart(weeklyPatientChart, {
         type: 'bar',
         data: {
-            labels: weeklyRanking.labels,
+            labels: getChartLabels(weeklyRanking.labels),
             datasets: [
                 {
                     label: moderatePatients.label,
@@ -303,6 +303,8 @@ function createTotalPatientsLineChart(ranking) {
     const criticalPatients = ranking.data.critical_patients;
     const totalLineChartStatus = document.getElementById('total-line-chart-status');
     const totalLineChartLabel = document.getElementById('total-line-chart-label');
+    const totalLineChartLabelContainer = document.getElementById('total-line-chart-label-container');
+    const totalLineChartLegends = document.getElementById('total-line-badges');
     const totalLineChartPercentage = document.getElementById('total-line-chart-percentage');
 
     setCoutUp(totalLineChartStatus, ranking.total);
@@ -313,12 +315,13 @@ function createTotalPatientsLineChart(ranking) {
     setLegendTotalPatientLineChart('moderate', moderatePatients.label);
     setLegendTotalPatientLineChart('serius', seriusPatients.label);
     setLegendTotalPatientLineChart('critical', criticalPatients.label);
+    totalLineChartLegends.classList.add('mb-1');
 
     // Construct chart
     constructTotalPatientLineChart(ranking.labels, moderatePatients, seriusPatients, criticalPatients);
 
     removeSkeletonClasses(totalLineChartStatus);
-    removeSkeletonClasses(totalLineChartLabel);
+    removeSkeletonClasses(totalLineChartLabelContainer);
     removeSkeletonClasses(totalLineChartPercentage);
 }
 
@@ -328,11 +331,13 @@ function setTotalPatientPercentage(percentage) {
         return `
             <i class="ni ni-bold-up text-sm text-danger me-1"></i>
             <span class="text-sm text-end text-danger font-weight-bolder mt-auto mb-0">+${percentage}%</span>
+            <span class="text-secondary text-sm ms-2">en <strong>${new Date().getFullYear()}</strong></span>
         `;
     } else {
         return `
             <i class="ni ni-bold-down text-sm text-success me-1"></i>
             <span class="text-sm text-end text-success font-weight-bolder mt-auto mb-0">${percentage}%</span>
+            <span class="text-secondary text-sm ms-2">en <strong>${new Date().getFullYear()}</strong></span>
         `;
     }
 }
@@ -344,6 +349,26 @@ function setLegendTotalPatientLineChart(typeOfPatient, patientLabel) {
         <span class="text-dark text-xs">${patientLabel}</span>
     `;
     removeSkeletonClasses(totalLinepatientBadgeContainer);
+}
+
+function validateDate(dateLabel) {
+    const currentYear = new Date().getFullYear().toString();
+    return dateLabel.includes(currentYear);
+}
+
+function getChartLabels(chartLabels) {
+    if (chartLabels.every(validateDate)) {
+        const currentYear = new Date().getFullYear().toString();
+        let = labels = [];
+        chartLabels.map((label) => {
+            if (label.includes(currentYear)) {
+                labels.push(label.replace(` ${currentYear}`, ''));
+            }
+        });
+        return labels;
+    }
+
+    return chartLabels;
 }
 
 function constructTotalPatientLineChart(chartLabels, moderatePatients, seriusPatients, criticalPatients) {
@@ -365,11 +390,10 @@ function constructTotalPatientLineChart(chartLabels, moderatePatients, seriusPat
     gradientStroke3.addColorStop(1, 'rgba(203, 12, 159,0.2)');
     gradientStroke3.addColorStop(0.2, 'rgba(72,72,176,0.0)');
     gradientStroke3.addColorStop(0, 'rgba(203, 12, 159,0)');
-
     totalPatientChartInstance = new Chart(totalPatientLineChart, {
         type: 'line',
         data: {
-            labels: chartLabels,
+            labels: getChartLabels(chartLabels),
             datasets: [
                 {
                     label: moderatePatients.label,
