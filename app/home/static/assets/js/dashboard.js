@@ -351,15 +351,24 @@ function setLegendTotalPatientLineChart(typeOfPatient, patientLabel) {
     removeSkeletonClasses(totalLinepatientBadgeContainer);
 }
 
-function getChartLabels(chartLabels) {
-    let = labels = [];
+function validateDate(dateLabel) {
     const currentYear = new Date().getFullYear().toString();
-    chartLabels.map((label) => {
-        if (label.includes(currentYear)) {
-            labels.push(label.replace(` ${currentYear}`, ''));
-        }
-    });
-    return labels;
+    return dateLabel.includes(currentYear);
+}
+
+function getChartLabels(chartLabels) {
+    if (chartLabels.every(validateDate)) {
+        const currentYear = new Date().getFullYear().toString();
+        let = labels = [];
+        chartLabels.map((label) => {
+            if (label.includes(currentYear)) {
+                labels.push(label.replace(` ${currentYear}`, ''));
+            }
+        });
+        return labels;
+    }
+
+    return chartLabels;
 }
 
 function constructTotalPatientLineChart(chartLabels, moderatePatients, seriusPatients, criticalPatients) {
@@ -381,7 +390,6 @@ function constructTotalPatientLineChart(chartLabels, moderatePatients, seriusPat
     gradientStroke3.addColorStop(1, 'rgba(203, 12, 159,0.2)');
     gradientStroke3.addColorStop(0.2, 'rgba(72,72,176,0.0)');
     gradientStroke3.addColorStop(0, 'rgba(203, 12, 159,0)');
-
     totalPatientChartInstance = new Chart(totalPatientLineChart, {
         type: 'line',
         data: {
