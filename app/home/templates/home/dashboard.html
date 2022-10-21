@@ -161,8 +161,8 @@
                 <div class="card-body p-3">
                     <div class="card-body p-3">
                         <div class="grid-one-container">
-                            <div class="row">
-                                <div class="cart-info col-sm-12 col-md-4">
+                            <div class="row align-items-end">
+                                <div class="cart-info col-sm-12 col-md-3">
                                     <div class="d-flex align-items-end">
                                         <h4 class="skeleton skeleton-text skeleton-w-20 text-dark text-4xl fw-bolder" id="total-line-chart-status"></h4>
                                         <div class="skeleton skeleton-text skeleton-w-30 ms-2" id="total-line-chart-label-container">
@@ -173,7 +173,7 @@
                                         <div class="skeleton skeleton-text skeleton-w-50 d-flex align-items-center" id="total-line-chart-percentage"></div>
                                     </div>
                                 </div>
-                                <div class="grid-badges col-sm-12 col-md-8 mt-3">
+                                <div class="grid-badges col-sm-12 col-md-9 mt-3" id="total-line-badges">
                                     <span class="skeleton skeleton-text badge badge-md badge-dot text-justify p-0" id="total-line-moderate-badge">
                                         <span class="text-dark text-xs d-none"></span>
                                     </span>
@@ -257,6 +257,5 @@
     <script src="{{ url_for('static', filename='assets/js/plugins/datatables.js') }}"></script>
     <script src="{{ url_for('static', filename='assets/js/dist/date-and-time.min.js') }}"></script>
     <script src="{{ url_for('static', filename='assets/js/plugins/date-es.js') }}"></script>
-    <!-- <script src="{{ url_for('static', filename='assets/js/dist/dashboard.min.js') }}"></script> -->
-    <script src="{{ url_for('static', filename='assets/js/dashboard.js') }}"></script>
+    <script src="{{ url_for('static', filename='assets/js/dist/dashboard.min.js') }}"></script>
 {% endblock javascripts %}
