@@ -9,7 +9,6 @@ const pfRatioInput = document.getElementById('pf-ratio');
 const pfRatioTooltip = document.getElementById('pf-ratio-tooltip');
 const ardsTooltip = document.getElementById('ards-tooltip');
 
-
 function initializeClinicalTooltips() {
     setBoostrapTooltip(sato2Tooltip, 'Saturación de oxígeno', '95 - 100%', '90 - 94%', '<90%'); // SatO2 tooltip
     setBoostrapTooltip(paa2Tooltip, 'Presión parcial de oxígeno', '61 - 100%', '50 - 60%', '<50%'); // PaO2 tooltip
@@ -36,7 +35,6 @@ patientForm.addEventListener('submit', (event) => {
         emptyFormAlert();
     }
     event.preventDefault();
-
 });
 
 function setBoostrapTooltip(tooltipId, tooltipTitle, normalValue, lowValue, criticalValue) {
@@ -79,9 +77,7 @@ function sendPatient(patientFormData) {
 function formDataToJson(event) {
     const patientFormData = new FormData(event.target);
     const patientFormObject = Object.fromEntries(patientFormData.entries());
-    var notCheckedInputs = Array.from(
-        document.querySelectorAll('input[type="checkbox"]:not(:checked)')
-    );
+    var notCheckedInputs = Array.from(document.querySelectorAll('input[type="checkbox"]:not(:checked)'));
     if (notCheckedInputs.length > 0) {
         notCheckedInputs.map((notCheckedInput) => {
             patientFormObject[notCheckedInput.name] = 'False';
@@ -131,7 +127,7 @@ function classificationDetailsAlert(response) {
         title: 'Clasificado exitosamente',
         html: displayTimeLineHTML(response),
         confirmButtonText: 'De acuerdo',
-    }).then( () => {
+    }).then(() => {
         window.location.reload();
     });
 }
@@ -164,16 +160,15 @@ function displayTooltipHTML(tooltipTitle, normalValue, lowValue, criticalValue) 
         ` Crítico</span>
             </span>
         </div>
-    `);
+    `
+    );
 }
 
 function displayTimeLineHTML(response) {
     return `
         <div class="container-fluid py-4">
             <div class="row gx-4 text-sm-start">
-                <h6 class="text-start">Es un paciente ${setSeverityTimeLine(
-                    response.covid19_severity_prediction
-                )}</h6>
+                <h6 class="text-start">Es un paciente ${setSeverityTimeLine(response.covid19_severity_prediction)}</h6>
                 <div class="timeline timeline-one-side mt-3 ps-3" data-timeline-axis-style="dashed">
                     <div class="timeline-block mb-4">
                         <span class="timeline-step">
@@ -182,12 +177,8 @@ function displayTimeLineHTML(response) {
                         <div class="timeline-content">
                             <h6 class="text-dark text-sm font-weight-bold mb-0 text-start">¿Saturación de O<sub>2</sub> < al 94%?</h6>
                             <div class="d-flex align-items-center mt-2">
-                                ${setIconTimeLine(
-                                    response.decision_rules.sato2 < 94
-                                )}
-                                <p class="text-sm text-secondary fw-bolder mt-1 mb-0">${
-                                    response.decision_rules.sato2
-                                }%</p>
+                                ${setIconTimeLine(response.decision_rules.sato2 < 94)}
+                                <p class="text-sm text-secondary fw-bolder mt-1 mb-0">${response.decision_rules.sato2}%</p>
                             </div>
                         </div>
                     </div>
@@ -198,12 +189,8 @@ function displayTimeLineHTML(response) {
                         <div class="timeline-content">
                             <h6 class="text-dark text-sm font-weight-bold mb-0 text-start">¿Presión Arterial / Fracción de O<sub>2</sub> inspirado < a 300 mmHg?</h6>
                             <div class="d-flex align-items-center mt-2">
-                                ${setIconTimeLine(
-                                    response.decision_rules.pf_ratio < 300
-                                )}
-                                <p class="text-sm text-secondary fw-bolder mt-1 mb-0">${
-                                    response.decision_rules.pf_ratio
-                                } mmHg</p>
+                                ${setIconTimeLine(response.decision_rules.pf_ratio < 300)}
+                                <p class="text-sm text-secondary fw-bolder mt-1 mb-0">${response.decision_rules.pf_ratio} mmHg</p>
                             </div>
                         </div>
                     </div>
@@ -214,9 +201,7 @@ function displayTimeLineHTML(response) {
                         <div class="timeline-content">
                             <h6 class="text-dark text-sm font-weight-bold mb-0 text-start">¿Presenta Insuficiencia Respiratoria?</h6>
                             <div class="d-flex align-items-center mt-2">
-                                ${setIconAndTextTimeLine(
-                                    response.decision_rules.respiratory_failure
-                                )}
+                                ${setIconAndTextTimeLine(response.decision_rules.respiratory_failure)}
                             </div>
                         </div>
                     </div>
@@ -227,9 +212,7 @@ function displayTimeLineHTML(response) {
                         <div class="timeline-content">
                             <h6 class="text-dark text-sm font-weight-bold mb-0 text-start">¿Presenta Síndrome de dificultad Respiratoria?</h6>
                             <div class="d-flex align-items-center mt-2">
-                                ${setIconAndTextTimeLine(
-                                    response.decision_rules.ards
-                                )}
+                                ${setIconAndTextTimeLine(response.decision_rules.ards)}
                             </div>
                         </div>
                     </div>
@@ -240,9 +223,7 @@ function displayTimeLineHTML(response) {
                         <div class="timeline-content">
                             <h6 class="text-dark text-sm font-weight-bold mb-0 text-start">¿Presenta shock séptico?</h6>
                             <div class="d-flex align-items-center mt-2">
-                                ${setIconAndTextTimeLine(
-                                    response.decision_rules.sepsis_shock
-                                )}
+                                ${setIconAndTextTimeLine(response.decision_rules.sepsis_shock)}
                             </div>
                         </div>
                     </div>

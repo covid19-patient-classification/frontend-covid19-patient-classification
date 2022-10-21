@@ -1,36 +1,39 @@
+/* eslint-disable no-undef */
 'use strict';
 
-
-document.getElementById('back-top-top').addEventListener('click', () => {
+document.getElementById('back-to-top').addEventListener('click', () => {
     document.body.scrollTop = 0;
     document.documentElement.scrollTop = 0;
-})
+});
 
-// Easy on scroll event listener 
+// Easy on scroll event listener
 const onscroll = (el, listener) => {
-    el.addEventListener('scroll', listener)
-}
+    el.addEventListener('scroll', listener);
+};
 navbarBlurOnScroll('navbarBlur');
 backToTopScroll();
 
 // Back to top button
-function backToTopScroll(){
-    
-    let backtotop = document.querySelector('.back-to-top')
+function backToTopScroll() {
+    let backtotop = document.querySelector('.back-to-top');
     if (backtotop) {
         const toggleBacktotop = () => {
-        if (window.scrollY > 100) {
-            backtotop.classList.add('active');
-        } else {
-            backtotop.classList.remove('active');
-        }
-        }
+            if (window.scrollY > 100) {
+                backtotop.classList.add('active');
+            } else {
+                backtotop.classList.remove('active');
+                var tooltip = bootstrap.Tooltip.getInstance(backtotop);
+                if (tooltip) tooltip.hide();
+
+            }
+        };
         window.addEventListener('load', toggleBacktotop);
         onscroll(document, toggleBacktotop);
     }
 }
 
 // when input is focused add focused class for style
+// eslint-disable-next-line no-unused-vars
 function focused(el) {
     if (el.parentElement.classList.contains('input-group')) {
         el.parentElement.classList.add('focused');
@@ -38,6 +41,7 @@ function focused(el) {
 }
 
 // when input is focused remove focused class for style
+// eslint-disable-next-line no-unused-vars
 function defocused(el) {
     if (el.parentElement.classList.contains('input-group')) {
         el.parentElement.classList.remove('focused');
@@ -65,19 +69,9 @@ if (document.querySelectorAll('.input-group').length != 0) {
 // Navbar blur on scroll
 function navbarBlurOnScroll(id) {
     const navbar = document.getElementById(id);
-    let navbarScrollActive = navbar
-        ? navbar.getAttribute('navbar-scroll')
-        : false;
+    let navbarScrollActive = navbar ? navbar.getAttribute('navbar-scroll') : false;
     let scrollDistance = 5;
-    let classes = [
-        'position-sticky',
-        'blur',
-        'shadow-blur',
-        'mt-4',
-        'left-auto',
-        'top-2',
-        'z-index-sticky',
-    ];
+    let classes = ['position-sticky', 'blur', 'shadow-blur', 'mt-4', 'left-auto', 'top-2', 'z-index-sticky'];
     let toggleClasses = ['shadow-none'];
 
     if (navbarScrollActive == 'true') {
@@ -112,9 +106,7 @@ function navbarBlurOnScroll(id) {
 
     function toggleNavLinksColor(type) {
         let navLinks = document.querySelectorAll('.navbar-main .nav-link');
-        let navLinksToggler = document.querySelectorAll(
-            '.navbar-main .sidenav-toggler-line'
-        );
+        let navLinksToggler = document.querySelectorAll('.navbar-main .sidenav-toggler-line');
 
         if (type === 'blur') {
             navLinks.forEach((element) => {
@@ -183,8 +175,6 @@ function toggleSidenav() {
 }
 
 // Resize navbar color depends on configurator active type of sidenav
-
-let referenceButtons = document.querySelector('[data-class]');
 
 // Deactivate sidenav type buttons on resize and small screens
 window.addEventListener('resize', sidenavTypeOnResize);

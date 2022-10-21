@@ -304,6 +304,7 @@ function createTotalPatientsLineChart(ranking) {
     const totalLineChartStatus = document.getElementById('total-line-chart-status');
     const totalLineChartLabel = document.getElementById('total-line-chart-label');
     const totalLineChartLabelContainer = document.getElementById('total-line-chart-label-container');
+    const totalLineChartLegends = document.getElementById('total-line-badges');
     const totalLineChartPercentage = document.getElementById('total-line-chart-percentage');
 
     setCoutUp(totalLineChartStatus, ranking.total);
@@ -314,6 +315,7 @@ function createTotalPatientsLineChart(ranking) {
     setLegendTotalPatientLineChart('moderate', moderatePatients.label);
     setLegendTotalPatientLineChart('serius', seriusPatients.label);
     setLegendTotalPatientLineChart('critical', criticalPatients.label);
+    totalLineChartLegends.classList.add('mb-1');
 
     // Construct chart
     constructTotalPatientLineChart(ranking.labels, moderatePatients, seriusPatients, criticalPatients);
@@ -649,7 +651,7 @@ function getInitialData() {
 
             createWeeklyPatientsChart(weeklyRanking, weeklyModeratePatients, weeklySeriusPatients, weeklyCriticalPatients); // Create weekly chart
             createTotalPatientsDoughnutChart(totalRanking); // Create total doughnut chart
-            //createTotalPatientsLineChart(annualRanking); // Create total line chart
+            createTotalPatientsLineChart(annualRanking); // Create total line chart
             createSummaryTable(summary); // Create summary table
             initializeTooltips(); // Initialize tooltips
         },

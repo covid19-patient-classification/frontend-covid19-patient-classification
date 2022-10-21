@@ -22850,8 +22850,6 @@ pre[class*=language-] {
   grid-template-columns: repeat(1, minmax(0px, 1fr));
 }
 
-
-
 .grid-chart {
   display: grid;
   grid-template-columns: repeat(1, minmax(150px, 1fr));
@@ -22870,7 +22868,7 @@ pre[class*=language-] {
 
 @media (min-width: 576px) {
   .grid-badges {
-    grid-template-columns: repeat(3, minmax(0px, 1fr));
+    grid-template-columns: repeat(3, minmax(10px, 1fr));
   }
 
 }
