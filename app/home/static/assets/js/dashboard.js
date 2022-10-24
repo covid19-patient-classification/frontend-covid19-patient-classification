@@ -1,6 +1,7 @@
 /* eslint-disable no-undef */
 /* eslint-disable-next-line no-undef */
 ('use strict');
+
 const moderatePatientColor = '#10739E';
 const seriusPatientColor = '#CF8913';
 const criticalPatientColor = '#9D443D';
@@ -492,13 +493,12 @@ function clearPatientDataTable(dataTablePatients) {
 }
 
 function createSummaryTable(summary) {
-    const format = 'DD MMM YYYY';
     const datatablePatientsContainer = document.getElementById('datatable-patients-container');
     const dataTablePatients = document.getElementById('datatable-patients');
 
     if (patientTable) clearPatientDataTable(dataTablePatients);
 
-    const tbody = setTbodySummaryTable(summary.patients, format);
+    const tbody = setTbodySummaryTable(summary.patients);
     dataTablePatients.innerHTML += `
         <tbody>
             ${tbody}
@@ -509,11 +509,10 @@ function createSummaryTable(summary) {
     setDatatablePlugin();
 }
 
-function setTbodySummaryTable(patients, format) {
-    let tbody = '';
-    patients.forEach((patient) => {
-        tbody += `
-           <tr>
+function addTrSummaryTable(patient) {
+    const format = 'DD MMM YYYY';
+    return `
+        <tr>
             <td class="text-sm text-dark fw-bolder">${patient.identification}</td>
             <td class="text-sm text-dark fw-bolder">${patient.name}</td>
             <td class="text-sm text-dark fw-bolder">${setDateFormat(patient.created_at, format)}</td>
@@ -534,8 +533,14 @@ function setTbodySummaryTable(patients, format) {
             <td>${setTdSyntomatology(patient.nausea)}</td>
             <td>${setTdSyntomatology(patient.vomit)}</td>
             <td>${setTdSyntomatology(patient.diarrhea)}</td>
-           </tr>
-        `;
+        </tr>
+    `;
+}
+
+function setTbodySummaryTable(patients) {
+    let tbody = '';
+    patients.forEach((patient) => {
+        tbody += addTrSummaryTable(patient);
     });
     return tbody;
 }
@@ -684,14 +689,22 @@ function queryPatientCard(filter) {
     });
 }
 
+let dropDownsCardSelected = {
+    moderate: { covid19Severity: 'moderate', dateRange: 'lastSevenDays' },
+    serius: { covid19Severity: 'serius', dateRange: 'lastSevenDays' },
+    critical: { covid19Severity: 'serius', dateRange: 'lastSevenDays' },
+};
+
 // Initial statistics dropdown actions
 const dropDownOptions = document.querySelectorAll('#moderate-dropdown-options li a, #serius-dropdown-options li a, #critical-dropdown-options li a');
 dropDownOptions.forEach((dropdown) => {
     dropdown.addEventListener('click', () => {
+        const covid19Severity = dropdown.getAttribute('data-severity');
         const filter = {
-            covid19Severity: dropdown.getAttribute('data-severity'),
+            covid19Severity: covid19Severity,
             dateRange: dropdown.getAttribute('date-range'),
         };
+        dropDownsCardSelected[covid19Severity] = filter;
         queryPatientCard(filter);
     });
 });
@@ -779,6 +792,38 @@ summaryDropDownOptions.forEach((dropdown) => {
         };
         querySummaryTable(filter);
     });
+});
+
+function updateCardPatient(data, typeOfPatient) {
+    let dropDownSelected = dropDownsCardSelected[typeOfPatient];
+    let dateRange = dropDownSelected.dateRange.toLowerCase();
+    if (dateRange !== 'lastweek') {
+        let status = document.getElementById(`${typeOfPatient}-status`);
+        let total = 0;
+        let percentage = 0;
+        let percentageLabel = '';
+        if (dateRange === 'lastsevendays') {
+            total = data.weekly_ranking.data.patients.total;
+            percentage = data.weekly_ranking.data.patients.percentage;
+            percentageLabel = data.weekly_ranking.data.patients.percentage_label;
+        }
+        if (dateRange === 'lastmonth') {
+            total = data.monthly_ranking.data.patients.total;
+            percentage = data.monthly_ranking.data.patients.percentage;
+            percentageLabel = data.monthly_ranking.data.patients.percentage_label;
+        }
+        setCoutUp(status, total);
+        setPatientCardPercentage(typeOfPatient, percentage, percentageLabel);
+    }
+}
+
+var socket = io.connect('https://dashboard-microservice.herokuapp.com', {
+    forceNew: true,
+});
+
+socket.on('patient', (response) => {
+    updateCardPatient(response, response.type_of_patient);
+    //
 });
 
 // Load
