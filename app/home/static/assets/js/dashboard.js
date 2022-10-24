@@ -738,6 +738,8 @@ function resetTotalPatientLineChart() {
     queryTotalPatientLineChart(filter);
 }
 
+var totalLineChartDates = null;
+
 if (document.querySelector('.datepicker')) {
     flatpickr('.datepicker', {
         mode: 'range',
@@ -750,18 +752,21 @@ if (document.querySelector('.datepicker')) {
                 const endDate = setDateFormat(dates[1], 'MM-DD-YYYY');
                 if (startDate === endDate) {
                     clearDatePicker();
+                    totalLineChartDates = null;
                 } else {
                     const filter = {
                         startDate: startDate,
                         endDate: endDate,
                     };
                     queryTotalPatientLineChart(filter);
+                    totalLineChartDates = filter;
                 }
             }
         },
         onClose: (dates) => {
-            if (dates.length < 2) {
+            if (dates.length === 1) {
                 resetTotalPatientLineChart();
+                totalLineChartDates = null;
             }
         },
     });
@@ -857,14 +862,36 @@ function updateTotalPatientsDoughnutChart(totalRanking, typeOfPatient) {
     donutSeverityStatus.innerText = +donutSeverityStatus.innerText + 1;
 }
 
+function updateTotalPatientsLineChart(ranking, typeOfPatient, createdAt) {
+    if (!totalLineChartDates) {
+        let totalLineChartStatus = document.getElementById('total-line-chart-status');
+        let totalLineChartPercentage = document.getElementById('total-line-chart-percentage');
+        let label = getChartLabels([createdAt])[0];
+        let datasetIndex = getCovid19SeverityIndex(typeOfPatient);
+        let labelIndex = checkDateExists(totalPatientLineChartInstance, label);
+
+        setCoutUp(totalLineChartStatus, ranking.total);
+        totalLineChartPercentage.innerHTML = setTotalPatientPercentage(ranking.total_percentage);
+        if (labelIndex === -1) {
+            totalPatientLineChartInstance.data.labels.push(label);
+            totalPatientLineChartInstance.data.datasets[datasetIndex].data.push(1);
+        } else {
+            let currentValue = totalPatientLineChartInstance.data.datasets[datasetIndex].data[labelIndex] || 0;
+            totalPatientLineChartInstance.data.datasets[datasetIndex].data[labelIndex] = currentValue + 1;
+        }
+        totalPatientLineChartInstance.update();
+    }
+}
+
 var socket = io.connect('https://dashboard-microservice.herokuapp.com', {
     forceNew: true,
 });
 
 socket.on('patient', (response) => {
-    updateCardPatient(response, response.type_of_patient); // Update card
-    updateWeeklyPatientsChart(response.type_of_patient, response.large_date); // Update Chart Bar
-    updateTotalPatientsDoughnutChart(response.total_ranking, response.type_of_patient); // Update Chart Doughnut Total patients
+    updateCardPatient(response, response.type_of_patient); // Update initial statistics
+    updateWeeklyPatientsChart(response.type_of_patient, response.large_date); // Update weekly chart
+    updateTotalPatientsDoughnutChart(response.total_ranking, response.type_of_patient); // Update total doughnut chart
+    updateTotalPatientsLineChart(response.annual_ranking, response.type_of_patient, response.short_date); // Update total line chart
 });
 
 // Load
