@@ -1,5 +1,5 @@
 from app.dashboard import blueprint, controller as dashboard_controller
-from flask import abort, jsonify, redirect, render_template, request
+from flask import abort, redirect, render_template, request
 
 
 @blueprint.route('/')
