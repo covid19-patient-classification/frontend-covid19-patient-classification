@@ -5,8 +5,7 @@
 const moderatePatientColor = '#10739E';
 const seriusPatientColor = '#CF8913';
 const criticalPatientColor = '#9D443D';
-
-let skeletonClasses = [
+const skeletonClasses = [
     'skeleton',
     'skeleton-text',
     'skeleton-chart',
@@ -23,10 +22,17 @@ let skeletonClasses = [
     'skeleton-w-90',
     'skeleton-w-100',
 ];
+const covid19Severities = {
+    moderate: { index: 0 },
+    serius: { index: 1 },
+    critical: { index: 2 },
+};
 
 date.locale('es');
+let weeklyPatientChartInstance;
+let totalPatientsDoughnutChartInstance;
+let totalPatientLineChartInstance;
 let patientTable;
-var totalPatientChartInstance;
 
 function capitalize(str) {
     return str.charAt(0).toUpperCase() + str.slice(1);
@@ -82,7 +88,7 @@ function createWeeklyPatientsChart(weeklyRanking, moderatePatients, seriusPatien
     const weeklyChartContainer = document.getElementById('weekly-chart-container');
     const weeklyPatientChart = document.getElementById('weekly-patient-chart').getContext('2d');
 
-    new Chart(weeklyPatientChart, {
+    weeklyPatientChartInstance = new Chart(weeklyPatientChart, {
         type: 'bar',
         data: {
             labels: getChartLabels(weeklyRanking.labels),
@@ -180,7 +186,7 @@ function createTotalPatientsDoughnutChart(totalRanking) {
     gradientStroke1.addColorStop(0.2, 'rgba(72,72,176,0.0)');
     gradientStroke1.addColorStop(0, 'rgba(16, 115, 158,0)');
 
-    new Chart(totalPatientChart, {
+    totalPatientsDoughnutChartInstance = new Chart(totalPatientChart, {
         type: 'doughnut',
         data: {
             labels: [moderatePatients.label, seriusPatients.label, criticalPatients.label],
@@ -373,7 +379,7 @@ function getChartLabels(chartLabels) {
 }
 
 function constructTotalPatientLineChart(chartLabels, moderatePatients, seriusPatients, criticalPatients) {
-    if (totalPatientChartInstance) totalPatientChartInstance.destroy();
+    if (totalPatientLineChartInstance) totalPatientLineChartInstance.destroy();
 
     const totalPatientLineChartContainer = document.getElementById('total-line-chart-container');
     const totalPatientLineChart = document.getElementById('total-line-chart').getContext('2d');
@@ -391,7 +397,7 @@ function constructTotalPatientLineChart(chartLabels, moderatePatients, seriusPat
     gradientStroke3.addColorStop(1, 'rgba(203, 12, 159,0.2)');
     gradientStroke3.addColorStop(0.2, 'rgba(72,72,176,0.0)');
     gradientStroke3.addColorStop(0, 'rgba(203, 12, 159,0)');
-    totalPatientChartInstance = new Chart(totalPatientLineChart, {
+    totalPatientLineChartInstance = new Chart(totalPatientLineChart, {
         type: 'line',
         data: {
             labels: getChartLabels(chartLabels),
@@ -817,13 +823,35 @@ function updateCardPatient(data, typeOfPatient) {
     }
 }
 
+function checkDateExists(chart, createdAt) {
+    return chart.data.labels.indexOf(createdAt);
+}
+
+function getCovid19SeverityIndex(severity) {
+    return covid19Severities[severity].index;
+}
+
+function updateWeeklyPatientsChart(weeklyRanking, typeOfPatient, createdAt) {
+    let label = getChartLabels([createdAt])[0];
+    let datasetIndex = getCovid19SeverityIndex(typeOfPatient);
+    let labelIndex = checkDateExists(weeklyPatientChartInstance, label);
+    if (labelIndex === -1) {
+        weeklyPatientChartInstance.data.labels.push(label);
+        weeklyPatientChartInstance.data.datasets[datasetIndex].data.push(1);
+    } else {
+        let currentValue = weeklyPatientChartInstance.data.datasets[datasetIndex].data[labelIndex] || 0;
+        weeklyPatientChartInstance.data.datasets[datasetIndex].data[labelIndex] = currentValue + 1;
+    }
+    weeklyPatientChartInstance.update();
+}
+
 var socket = io.connect('https://dashboard-microservice.herokuapp.com', {
     forceNew: true,
 });
 
 socket.on('patient', (response) => {
-    updateCardPatient(response, response.type_of_patient);
-    //
+    updateCardPatient(response, response.type_of_patient); // Update card
+    updateWeeklyPatientsChart(response.weekly_ranking, response.type_of_patient, response.large_date); // Update weekly chart
 });
 
 // Load
