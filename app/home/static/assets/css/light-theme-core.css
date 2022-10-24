@@ -764,6 +764,10 @@ progress {
   width: 16.6666666667%;
 }
 
+.row-gap-4 {
+  row-gap: 4rem;
+}
+
 .col-auto {
   flex: 0 0 auto;
   width: auto;

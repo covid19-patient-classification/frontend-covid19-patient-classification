@@ -831,7 +831,7 @@ function getCovid19SeverityIndex(severity) {
     return covid19Severities[severity].index;
 }
 
-function updateWeeklyPatientsChart(weeklyRanking, typeOfPatient, createdAt) {
+function updateWeeklyPatientsChart(typeOfPatient, createdAt) {
     let label = getChartLabels([createdAt])[0];
     let datasetIndex = getCovid19SeverityIndex(typeOfPatient);
     let labelIndex = checkDateExists(weeklyPatientChartInstance, label);
@@ -845,13 +845,26 @@ function updateWeeklyPatientsChart(weeklyRanking, typeOfPatient, createdAt) {
     weeklyPatientChartInstance.update();
 }
 
+function updateTotalPatientsDoughnutChart(totalRanking, typeOfPatient) {
+    let datasetIndex = getCovid19SeverityIndex(typeOfPatient);
+    let totalChartStatus = document.getElementById('total-doughnut-chart-status');
+    let currentValue = totalPatientsDoughnutChartInstance.data.datasets[0].data[datasetIndex] || 0;
+    let donutSeverityStatus = document.getElementById(`donut-${typeOfPatient}-status`);
+
+    setCoutUp(totalChartStatus, totalRanking.total);
+    totalPatientsDoughnutChartInstance.data.datasets[0].data[datasetIndex] = currentValue + 1;
+    totalPatientsDoughnutChartInstance.update();
+    donutSeverityStatus.innerText = +donutSeverityStatus.innerText + 1;
+}
+
 var socket = io.connect('https://dashboard-microservice.herokuapp.com', {
     forceNew: true,
 });
 
 socket.on('patient', (response) => {
     updateCardPatient(response, response.type_of_patient); // Update card
-    updateWeeklyPatientsChart(response.weekly_ranking, response.type_of_patient, response.large_date); // Update weekly chart
+    updateWeeklyPatientsChart(response.type_of_patient, response.large_date); // Update Chart Bar
+    updateTotalPatientsDoughnutChart(response.total_ranking, response.type_of_patient); // Update Chart Doughnut Total patients
 });
 
 // Load
