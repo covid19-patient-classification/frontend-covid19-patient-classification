@@ -693,7 +693,7 @@ function addCardSkeletonClasses(typeOfPatient) {
 
     let statusContainer = document.getElementById(`${typeOfPatient}-status-container`);
     let status = document.getElementById(`${typeOfPatient}-status`);
-    status.innerText = 0;
+    status.innerText = '';
     addSkeletonClasses(statusContainer, ['skeleton', 'skeleton-text', 'skeleton-w-20']);
 
     let percentageContainer = document.getElementById(`${typeOfPatient}-percentage-container`);
@@ -856,11 +856,6 @@ function querySummaryTable(filter) {
 }
 
 // Summary table dropdown actions
-let dropDownsSummaryTableSelected = {
-    selected: { covid19Severity: 'all' },
-};
-const summaryDropDownOptions = document.querySelectorAll('#dropdown-table-options li a');
-
 function addSumaryTableSkeletonClasses() {
     document.getElementById('datatable-patients').classList.add('d-none');
     document.getElementsByClassName('dataTable-top')[0].classList.add('d-none');
@@ -870,14 +865,27 @@ function addSumaryTableSkeletonClasses() {
     addSkeletonClasses(patientsDataTableContainer, ['skeleton', 'skeleton-table']);
 }
 
+let dropDownsSummaryTableSelected = {
+    selected: { covid19Severity: 'all' },
+};
+
+localStorage.setItem('summary-selected', dropDownsSummaryTableSelected.selected.covid19Severity);
+
+const summaryDropDownOptions = document.querySelectorAll('#dropdown-table-options li a');
+
 summaryDropDownOptions.forEach((dropdown) => {
     dropdown.addEventListener('click', () => {
-        const filter = {
-            covid19Severity: dropdown.getAttribute('data-severity'),
-        };
-        dropDownsSummaryTableSelected.selected = filter;
-        addSumaryTableSkeletonClasses();
-        querySummaryTable(filter);
+        let covid19Severity = dropdown.getAttribute('data-severity');
+        let currentSeveritySelected = localStorage.getItem('summary-selected');
+        if (currentSeveritySelected !== covid19Severity) {
+            let filter = {
+                covid19Severity: covid19Severity,
+            };
+            dropDownsSummaryTableSelected.selected = filter;
+            localStorage.setItem('summary-selected', covid19Severity);
+            addSumaryTableSkeletonClasses();
+            querySummaryTable(filter);
+        }
     });
 });
 
