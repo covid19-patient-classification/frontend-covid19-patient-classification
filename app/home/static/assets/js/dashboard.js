@@ -726,19 +726,29 @@ function queryPatientCard(filter) {
 let dropDownsCardSelected = {
     moderate: { covid19Severity: 'moderate', dateRange: 'lastSevenDays' },
     serius: { covid19Severity: 'serius', dateRange: 'lastSevenDays' },
-    critical: { covid19Severity: 'serius', dateRange: 'lastSevenDays' },
+    critical: { covid19Severity: 'critical', dateRange: 'lastSevenDays' },
 };
+
+localStorage.setItem(`${dropDownsCardSelected.moderate.covid19Severity}-date-range`, dropDownsCardSelected.moderate.dateRange);
+localStorage.setItem(`${dropDownsCardSelected.serius.covid19Severity}-date-range`, dropDownsCardSelected.serius.dateRange);
+localStorage.setItem(`${dropDownsCardSelected.critical.covid19Severity}-date-range`, dropDownsCardSelected.critical.dateRange);
+
 const dropDownOptions = document.querySelectorAll('#moderate-dropdown-options li a, #serius-dropdown-options li a, #critical-dropdown-options li a');
 
 dropDownOptions.forEach((dropdown) => {
     dropdown.addEventListener('click', () => {
-        const covid19Severity = dropdown.getAttribute('data-severity');
-        const filter = {
-            covid19Severity: covid19Severity,
-            dateRange: dropdown.getAttribute('date-range'),
-        };
-        dropDownsCardSelected[covid19Severity] = filter;
-        queryPatientCard(filter);
+        let covid19Severity = dropdown.getAttribute('data-severity');
+        let dateRange = dropdown.getAttribute('date-range');
+        let currentDropDownSelected = localStorage.getItem(`${covid19Severity}-date-range`);
+        if (currentDropDownSelected !== dateRange) {
+            let filter = {
+                covid19Severity: covid19Severity,
+                dateRange: dateRange,
+            };
+            localStorage.setItem(`${covid19Severity}-date-range`, dateRange);
+            dropDownsCardSelected[covid19Severity] = filter;
+            queryPatientCard(filter);
+        }
     });
 });
 
@@ -852,9 +862,9 @@ let dropDownsSummaryTableSelected = {
 const summaryDropDownOptions = document.querySelectorAll('#dropdown-table-options li a');
 
 function addSumaryTableSkeletonClasses() {
-    document.getElementById('datatable-patients').classList.add('d-none')
-    document.getElementsByClassName('dataTable-top')[0].classList.add('d-none')
-    document.getElementsByClassName('dataTable-bottom')[0].classList.add('d-none')
+    document.getElementById('datatable-patients').classList.add('d-none');
+    document.getElementsByClassName('dataTable-top')[0].classList.add('d-none');
+    document.getElementsByClassName('dataTable-bottom')[0].classList.add('d-none');
 
     let patientsDataTableContainer = document.getElementById('datatable-patients-container');
     addSkeletonClasses(patientsDataTableContainer, ['skeleton', 'skeleton-table']);
