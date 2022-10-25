@@ -851,12 +851,22 @@ let dropDownsSummaryTableSelected = {
 };
 const summaryDropDownOptions = document.querySelectorAll('#dropdown-table-options li a');
 
+function addSumaryTableSkeletonClasses() {
+    document.getElementById('datatable-patients').classList.add('d-none')
+    document.getElementsByClassName('dataTable-top')[0].classList.add('d-none')
+    document.getElementsByClassName('dataTable-bottom')[0].classList.add('d-none')
+
+    let patientsDataTableContainer = document.getElementById('datatable-patients-container');
+    addSkeletonClasses(patientsDataTableContainer, ['skeleton', 'skeleton-table']);
+}
+
 summaryDropDownOptions.forEach((dropdown) => {
     dropdown.addEventListener('click', () => {
         const filter = {
             covid19Severity: dropdown.getAttribute('data-severity'),
         };
         dropDownsSummaryTableSelected.selected = filter;
+        addSumaryTableSkeletonClasses();
         querySummaryTable(filter);
     });
 });
@@ -939,15 +949,8 @@ function updateTotalPatientsLineChart(ranking, typeOfPatient, createdAt) {
     }
 }
 
-function updateSummaryTable(summary, typeOfPatient) {
-    // let dropDownSummaryTableOptions = ['all', typeOfPatient];
-    // if (dropDownSummaryTableOptions.includes(dropDownsSummaryTableSelected.selected.covid19Severity)) {
-    //     currentSummaryTableData.patients.unshift(patient);
-    //     createSummaryTable(currentSummaryTableData);
-    // }
-
-    if (dropDownsSummaryTableSelected.selected.covid19Severity === 'all') createSummaryTable(summary.all);
-    if (dropDownsSummaryTableSelected.selected.covid19Severity === typeOfPatient) createSummaryTable(summary.severity);
+function updateSummaryTable() {
+    querySummaryTable(dropDownsSummaryTableSelected.selected);
 }
 
 var socket = io.connect('https://dashboard-microservice.herokuapp.com', {
@@ -959,7 +962,7 @@ socket.on('patient', (response) => {
     updateWeeklyPatientsChart(response.type_of_patient, response.large_date); // Update weekly chart
     updateTotalPatientsDoughnutChart(response.total_ranking, response.type_of_patient); // Update total doughnut chart
     updateTotalPatientsLineChart(response.annual_ranking, response.type_of_patient, response.short_date); // Update total line chart
-    querySummaryTable(dropDownsSummaryTableSelected.selected); // Update summary table
+    updateSummaryTable(dropDownsSummaryTableSelected.selected); // Update summary table
 });
 
 // Load
