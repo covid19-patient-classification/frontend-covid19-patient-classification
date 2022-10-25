@@ -32,7 +32,8 @@ date.locale('es');
 let weeklyPatientChartInstance;
 let totalPatientsDoughnutChartInstance;
 let totalPatientLineChartInstance;
-let patientTable;
+let patientsDataTableInstance;
+let currentSummaryTableData = '';
 
 function capitalize(str) {
     return str.charAt(0).toUpperCase() + str.slice(1);
@@ -492,26 +493,26 @@ function constructTotalPatientLineChart(chartLabels, moderatePatients, seriusPat
     removeSkeletonClasses(totalPatientLineChartContainer);
 }
 
-function clearPatientDataTable(dataTablePatients) {
-    patientTable.clear();
-    patientTable.destroy();
-    dataTablePatients.removeChild(dataTablePatients.getElementsByTagName('tbody')[0]);
+function clearPatientDataTable(patientsDataTable) {
+    patientsDataTableInstance.clear();
+    patientsDataTableInstance.destroy();
+    patientsDataTable.removeChild(patientsDataTable.getElementsByTagName('tbody')[0]);
 }
 
 function createSummaryTable(summary) {
-    const datatablePatientsContainer = document.getElementById('datatable-patients-container');
-    const dataTablePatients = document.getElementById('datatable-patients');
+    const patientsDataTableContainer = document.getElementById('datatable-patients-container');
+    const patientsDataTable = document.getElementById('datatable-patients');
 
-    if (patientTable) clearPatientDataTable(dataTablePatients);
+    if (patientsDataTableInstance) clearPatientDataTable(patientsDataTable);
 
     const tbody = setTbodySummaryTable(summary.patients);
-    dataTablePatients.innerHTML += `
+    patientsDataTable.innerHTML += `
         <tbody>
             ${tbody}
         </tbody>
     `;
-    dataTablePatients.classList.remove('d-none');
-    removeSkeletonClasses(datatablePatientsContainer);
+    patientsDataTable.classList.remove('d-none');
+    removeSkeletonClasses(patientsDataTableContainer);
     setDatatablePlugin();
 }
 
@@ -548,6 +549,7 @@ function setTbodySummaryTable(patients) {
     patients.forEach((patient) => {
         tbody += addTrSummaryTable(patient);
     });
+    currentSummaryTableData = tbody;
     return tbody;
 }
 
@@ -591,7 +593,7 @@ function setTdSyntomatology(symptom) {
 
 // Set datable plugin
 function setDatatablePlugin() {
-    patientTable = new simpleDatatables.DataTable('#datatable-patients');
+    patientsDataTableInstance = new simpleDatatables.DataTable('#datatable-patients');
 }
 
 function setCoutUp(element, value) {
@@ -695,14 +697,14 @@ function queryPatientCard(filter) {
     });
 }
 
+// Initial statistics dropdown actions
 let dropDownsCardSelected = {
     moderate: { covid19Severity: 'moderate', dateRange: 'lastSevenDays' },
     serius: { covid19Severity: 'serius', dateRange: 'lastSevenDays' },
     critical: { covid19Severity: 'serius', dateRange: 'lastSevenDays' },
 };
-
-// Initial statistics dropdown actions
 const dropDownOptions = document.querySelectorAll('#moderate-dropdown-options li a, #serius-dropdown-options li a, #critical-dropdown-options li a');
+
 dropDownOptions.forEach((dropdown) => {
     dropdown.addEventListener('click', () => {
         const covid19Severity = dropdown.getAttribute('data-severity');
@@ -795,12 +797,18 @@ function querySummaryTable(filter) {
     });
 }
 
+// Summary table dropdown actions
+let dropDownsSummaryTableSelected = {
+    selected: { covid19Severity: 'all' },
+};
 const summaryDropDownOptions = document.querySelectorAll('#dropdown-table-options li a');
+
 summaryDropDownOptions.forEach((dropdown) => {
     dropdown.addEventListener('click', () => {
         const filter = {
             covid19Severity: dropdown.getAttribute('data-severity'),
         };
+        dropDownsSummaryTableSelected.selected = filter;
         querySummaryTable(filter);
     });
 });
@@ -883,6 +891,26 @@ function updateTotalPatientsLineChart(ranking, typeOfPatient, createdAt) {
     }
 }
 
+function updateSummaryTable(patient, typeOfPatient) {
+    let dropDownOptions = ['all', typeOfPatient];
+    if (dropDownOptions.includes(dropDownsSummaryTableSelected.selected.covid19Severity)) {
+        let patientsDataTable = document.getElementById('datatable-patients');
+        let newRow = addTrSummaryTable(patient);
+        let tbody = `
+            ${newRow}
+            ${currentSummaryTableData}
+        `;
+        clearPatientDataTable(patientsDataTable);
+        patientsDataTable.innerHTML += `
+            <tbody>
+                ${tbody}
+            </tbody>
+        `;
+        currentSummaryTableData = tbody;
+        setDatatablePlugin();
+    }
+}
+
 var socket = io.connect('https://dashboard-microservice.herokuapp.com', {
     forceNew: true,
 });
@@ -892,6 +920,7 @@ socket.on('patient', (response) => {
     updateWeeklyPatientsChart(response.type_of_patient, response.large_date); // Update weekly chart
     updateTotalPatientsDoughnutChart(response.total_ranking, response.type_of_patient); // Update total doughnut chart
     updateTotalPatientsLineChart(response.annual_ranking, response.type_of_patient, response.short_date); // Update total line chart
+    updateSummaryTable(response.summary.patients, response.type_of_patient); // Update summary table
 });
 
 // Load
