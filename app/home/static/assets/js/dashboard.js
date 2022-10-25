@@ -677,7 +677,7 @@ function getInitialData() {
             initializeTooltips(); // Initialize tooltips
         },
         error: () => {
-            window.location.href = '/internal-error';
+            window.location.href = '/500';
         },
     });
 }
