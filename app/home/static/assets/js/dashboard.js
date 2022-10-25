@@ -51,9 +51,9 @@ function setPatientCard(weeklyDate, data, typeOfPatient) {
 
     const dropdownContainer = document.getElementById(`${typeOfPatient}-dropdown-container`);
     const dropdownLabel = document.getElementById(`${typeOfPatient}-dropdown-label`);
-    const moderateDropdownFilters = document.getElementById(`${typeOfPatient}-dropdown-filters`);
+    const severityDropdownFilters = document.getElementById(`${typeOfPatient}-dropdown-filters`);
     dropdownLabel.innerHTML = weeklyDate;
-    moderateDropdownFilters.classList.remove('d-none');
+    severityDropdownFilters.classList.remove('d-none');
     removeSkeletonClasses(dropdownContainer);
 
     const statusContainer = document.getElementById(`${typeOfPatient}-status-container`);
@@ -682,11 +682,36 @@ function getInitialData() {
     });
 }
 
+function addSkeletonClasses(element, classes) {
+    element.classList.add(...classes);
+}
+
+function addCardSkeletonClasses(typeOfPatient) {
+    let dropdownContainer = document.getElementById(`${typeOfPatient}-dropdown-container`);
+    let severityDropdownFilters = document.getElementById(`${typeOfPatient}-dropdown-filters`);
+    addSkeletonClasses(dropdownContainer, ['skeleton', 'skeleton-text', 'skeleton-w-30']);
+
+    let statusContainer = document.getElementById(`${typeOfPatient}-status-container`);
+    let status = document.getElementById(`${typeOfPatient}-status`);
+    status.innerText = '';
+    addSkeletonClasses(statusContainer, ['skeleton', 'skeleton-text', 'skeleton-w-20']);
+
+    let percentageContainer = document.getElementById(`${typeOfPatient}-percentage-container`);
+    percentageStatus = document.getElementById(`${typeOfPatient}-percentage`);
+    percentageStatus.innerText = '';
+    addSkeletonClasses(percentageContainer, ['skeleton', 'skeleton-text', 'skeleton-w-40']);
+
+    severityDropdownFilters.classList.add('d-none');
+}
+
 function queryPatientCard(filter) {
     $.ajax({
         url: '/filter-patient-card',
         type: 'GET',
         data: filter,
+        beforeSend: () => {
+            addCardSkeletonClasses(filter.covid19Severity);
+        },
         success: (response) => {
             const cardDate = setCardDate(response.start_date, response.end_date);
             setPatientCard(cardDate, response.data.patients, filter.covid19Severity);
