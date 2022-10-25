@@ -791,14 +791,19 @@ function queryTotalPatientLineChart(filter) {
 }
 
 function resetTotalPatientLineChart() {
-    dates = [];
-    const filter = {
-        startDate: setDateFormat(new Date(), 'DD-MMM-YYYY'),
-    };
-    queryTotalPatientLineChart(filter);
+    let currentDateRange = localStorage.getItem('total-line-range-date');
+    let startDate = setDateFormat(new Date(), 'DD-MMM-YYYY');
+    if (currentDateRange !== startDate) {
+        const filter = {
+            startDate: startDate,
+        };
+        localStorage.setItem('total-line-range-date', startDate);
+        queryTotalPatientLineChart(filter);
+    }
 }
 
 var totalLineChartDates = null;
+localStorage.setItem('total-line-range-date', setDateFormat(new Date(), 'DD-MMM-YYYY'));
 
 if (document.querySelector('.datepicker')) {
     flatpickr('.datepicker', {
@@ -814,12 +819,16 @@ if (document.querySelector('.datepicker')) {
                     clearDatePicker();
                     totalLineChartDates = null;
                 } else {
-                    const filter = {
-                        startDate: startDate,
-                        endDate: endDate,
-                    };
-                    queryTotalPatientLineChart(filter);
-                    totalLineChartDates = filter;
+                    let currentDateRange = localStorage.getItem('total-line-range-date');
+                    if (currentDateRange !== `${startDate} - ${endDate}`) {
+                        const filter = {
+                            startDate: startDate,
+                            endDate: endDate,
+                        };
+                        localStorage.setItem('total-line-range-date', `${startDate} - ${endDate}`);
+                        queryTotalPatientLineChart(filter);
+                        totalLineChartDates = filter;
+                    }
                 }
             }
         },
