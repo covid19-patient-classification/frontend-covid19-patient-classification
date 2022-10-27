@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 'use strict';
 
 document.body.addEventListener('load', startTime());
@@ -42,7 +43,7 @@ function startTime() {
     var date = curWeekDay + ', ' + curDay + ' ' + curMonth + ' ' + curYear;
     document.getElementById('date').innerHTML = date;
 
-    var time = setTimeout(function () {
+    setTimeout(function () {
         startTime();
     }, 1000);
 }

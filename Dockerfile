@@ -1,15 +1,13 @@
 FROM python:3.9-slim
 
 ENV FLASK_APP run.py
+ENV PIP_ROOT_USER_ACTION ignore
 
 # Copy local code to the container image
 COPY . ./
 
 RUN python -m pip install --upgrade pip
-RUN pip install -r requirements.txt
-
-# Install production dependencies.
-RUN pip install Flask gunicorn
+RUN python -m pip install -r requirements.txt
 
 # Run the web service on container startup. Here we use the gunicorn
 # webserver, with one worker process and 8 threads.

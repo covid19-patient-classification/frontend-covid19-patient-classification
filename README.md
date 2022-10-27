@@ -10,8 +10,8 @@
 <br />
 
 > Links: 
-> * [Production environment](https://covid19-patient-classification-4vsfyjixfa-uc.a.run.app/) - Google Cloud Run
-> * [Development environment](https://covid19-patient-classification.herokuapp.com/) - Heroku
+> * Production environment deployment (Disabled for now) - Google Cloud Run
+> * [Development environment deployment](https://covid19-patient-classification.herokuapp.com/) - Heroku
 
 ## How to use it
 ```

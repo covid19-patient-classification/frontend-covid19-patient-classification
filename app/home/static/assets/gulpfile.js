@@ -1,5 +1,4 @@
 var gulp = require('gulp');
-var path = require('path');
 var rename = require('gulp-rename');
 var cleanCss = require('gulp-clean-css');
 var uglify = require('gulp-uglify');
@@ -21,7 +20,7 @@ gulp.task('minify:css', function () {
                 path.extname = '.min.css';
             })
         )
-        .pipe(gulp.dest(Paths.CSS));
+        .pipe(gulp.dest(Paths.CSS + Paths.DIST));
 });
 
 // Minify JS

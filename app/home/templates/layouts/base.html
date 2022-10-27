@@ -14,21 +14,25 @@
 
             <!----===== Iconscout CSS ===== -->
             <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css" />
-            
+
             <!-- Nucleo Icons -->
-            <link href="{{ url_for('static', filename='assets/css/nucleo-icons.min.css') }}" rel="stylesheet" />
-            <link href="{{ url_for('static', filename='assets/css/nucleo-svg.min.css') }}" rel="stylesheet" />
-            
+            <link href="{{ url_for('static', filename='assets/css/nucleo-icons.css') }}" rel="stylesheet" />
+            <link href="{{ url_for('static', filename='assets/css/nucleo-svg.css') }}" rel="stylesheet" />
+
             <!-- Font Awesome Icons -->
             <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
-            <link href="{{ url_for('static', filename='assets/css/nucleo-svg.min.css') }}" rel="stylesheet" />
+            <link href="{{ url_for('static', filename='assets/css/dist/nucleo-svg.min.css') }}" rel="stylesheet" />
 
             <!-- Bootstrap Icons -->
             <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
-            
+
+            <!-- Sweet alert -->
+            <link href="{{ url_for('static', filename='assets/css/dist/light-sweet-alert.min.css') }}" rel="stylesheet" />
+            <link href="{{ url_for('static', filename='assets/css/dist/dark-sweet-alert.min.css') }}" rel="stylesheet" />
+
             <!-- CSS Files -->
-            <link id="pagestyle" href="{{ url_for('static', filename='assets/css/light-theme-core.min.css') }}" rel="stylesheet" />
-            <link id="pagestyle_dark" href="{{ url_for('static', filename='assets/css/dark-theme-core.min.css') }}" rel="stylesheet" />
+            <link id="pagestyle" href="{{ url_for('static', filename='assets/css/dist/light-theme-core.min.css') }}" rel="stylesheet" />
+            <link id="pagestyle_dark" href="{{ url_for('static', filename='assets/css/dist/dark-theme-core.min.css') }}" rel="stylesheet" />
 
 
         <!-- Specific page css goes here! -->
@@ -40,19 +44,19 @@
 
         <main class="main-content mt-1 main-content position-relative h-100 border-radius-lg">
 
-            <!-- NAVBAR --> 
-            {% include "includes/navbar.html" %} 
-            
+            <!-- NAVBAR -->
+            {% include "includes/navbar.html" %}
+
             {% block content %} {% endblock content %}
 
             <!-- SCROLL TOP -->
-            {% include "includes/back-to-top.html" %} 
+            {% include "includes/back-to-top.html" %}
         </main>
 
         <!-- Core JS Files -->
         {% include "includes/scripts.html" %}
 
-        <!-- Specific JS goes HERE --> 
-        {% block javascripts %}{% endblock javascripts %}  
+        <!-- Specific JS goes HERE -->
+        {% block javascripts %}{% endblock javascripts %}
     </body>
 </html>

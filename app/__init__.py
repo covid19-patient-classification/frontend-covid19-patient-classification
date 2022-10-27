@@ -1,4 +1,5 @@
 from flask import Flask
+from flask_cors import CORS
 from importlib import import_module
 
 
@@ -13,4 +14,5 @@ def create_app(config):
     app = Flask(__name__, static_folder='home/static')
     app.config.from_object(config)
     register_blueprints(app)
+    CORS(app)
     return app

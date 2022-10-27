@@ -153,7 +153,7 @@ h6, .h6 {
 
 p {
   margin-top: 0;
-  margin-bottom: 1rem;
+  margin-bottom: 0.8rem;
 }
 
 abbr[title] {
@@ -484,14 +484,14 @@ progress {
   top: 0;
   transition: height .3s linear;
   width: 100%;
-  z-index: 9999; 
+  z-index: 9999;
 }
 .preloader img {
   width: 30px;
-  height: 30px; 
+  height: 30px;
 }
 .preloader.show {
-  height: 0; 
+  height: 0;
 }
 
 /*--------------------------------------------------------------
@@ -762,6 +762,10 @@ progress {
 .row-cols-6 > * {
   flex: 0 0 auto;
   width: 16.6666666667%;
+}
+
+.row-gap-4 {
+  row-gap: 4rem;
 }
 
 .col-auto {
@@ -18008,7 +18012,7 @@ textarea.form-control-lg {
   .dropdown:not(.dropdown-hover) .dropdown-menu.dropdown-filter {
     margin-top: 0px !important;
   }
-  .dropdown:not(.dropdown-hover) .dropdown-menu,  
+  .dropdown:not(.dropdown-hover) .dropdown-menu,
   .dropdown:not(.dropdown-hover) .dropdown-menu.dropdown-filter-icon {
     margin-top: 8px !important;
   }
@@ -19592,7 +19596,7 @@ hr.horizontal.gray-light {
     pointer-events: none;
   }
 
-  
+
 }
 @media (min-width: 992px) {
   .navbar-vertical.navbar-expand-lg .navbar-nav .nav-item {
@@ -19925,7 +19929,7 @@ hr.horizontal.gray-light {
 }
 
 @media (min-width: 992px) {
-  
+
   .g-sidenav-show:not(.rtl) .sidenav {
     transform: translateX(0);
   }
@@ -19940,7 +19944,7 @@ hr.horizontal.gray-light {
   .g-sidenav-show.g-sidenav-pinned .sidenav ~ .main-content {
     margin-left: 7rem !important;
   }
-  
+
   .g-sidenav-show.g-sidenav-pinned .sidenav {
     width: 100px !important;
   }
@@ -19978,7 +19982,7 @@ hr.horizontal.gray-light {
   color: #344767;
   background-image: linear-gradient(310deg, #e9ecef 0%, #e9ecef 100%);
 }
-.navbar-vertical .navbar-nav > .nav-item .nav-link.active .icon, 
+.navbar-vertical .navbar-nav > .nav-item .nav-link.active .icon,
 .navbar-vertical .navbar-nav > .nav-item .nav-link:hover .icon {
   background-image: linear-gradient(310deg, #cb0c9f 0%, #cb0c9f 100%);
 }
@@ -21982,7 +21986,10 @@ span.flatpickr-weekday {
 .flatpickr-day.flatpickr-disabled,
 .flatpickr-day.flatpickr-disabled:hover {
   cursor: not-allowed;
-  color: rgba(57, 57, 57, 0.1);
+}
+
+.flatpickr-day.flatpickr-disabled {
+  opacity: .8!important;
 }
 
 .flatpickr-day.week.selected {
@@ -22238,6 +22245,12 @@ span.flatpickr-weekday {
 .flatpickr-day.selected.startRange + .endRange:not(:nth-child(7n+1)),
 .flatpickr-day.startRange.startRange + .endRange:not(:nth-child(7n+1)) {
   box-shadow: -10px 0 0 #cb0c9f;
+}
+
+.flatpickr-clear-icon {
+  color: #cb0c9f;
+  font-size: 1.5rem;
+  cursor: pointer;
 }
 
 /*! nouislider - 14.6.3 - 11/19/2020 */
@@ -22831,17 +22844,13 @@ pre[class*=language-] {
 
 */
 
-.grid-one-container, 
+.grid-one-container,
 .grid-two-container,
 .grid-three-container,
 .grid-badges {
   display: grid;
   gap: 20px;
   grid-template-columns: repeat(1, minmax(0px, 1fr));
-}
-
-.grid-badges {
-  align-items: end;
 }
 
 .grid-chart {
@@ -22862,7 +22871,7 @@ pre[class*=language-] {
 
 @media (min-width: 576px) {
   .grid-badges {
-    grid-template-columns: repeat(3, minmax(0px, 1fr));
+    grid-template-columns: repeat(3, minmax(10px, 1fr));
   }
 
 }
@@ -23316,7 +23325,7 @@ Github: https://github.com/fiduswriter/Simple-DataTables
 
 /*
   ======================================================
-  
+
   ADD PATIENT
 
   =====================================================
@@ -23467,7 +23476,7 @@ Github: https://github.com/fiduswriter/Simple-DataTables
 
 /*
   ======================================================
-  
+
   SKELETON LOADING
 
   =====================================================
@@ -23553,4 +23562,31 @@ Github: https://github.com/fiduswriter/Simple-DataTables
 
 .skeleton-w-100 {
   width: 100%;
+}
+
+::-webkit-scrollbar {
+  background: #e9ecef;
+  border-radius: 1.5rem;
+}
+
+::-webkit-scrollbar-thumb:horizontal,
+::-webkit-scrollbar-thumb:vertical {
+  background: #a5b0bbc7;
+  border-radius: 1.5rem;
+}
+
+.total-table {
+  margin-top: 0;
+}
+
+@media (min-width: 1200px) {
+  .total-table {
+    margin-top: 3rem;
+  }
+}
+
+@media (min-width: 768px) {
+  .total-table {
+    margin-top: 3rem;
+  }
 }

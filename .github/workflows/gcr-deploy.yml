@@ -32,10 +32,10 @@ jobs:
       run: |-
         gcloud auth configure-docker ${{secrets.GAR_REPOSITORY_REGION}}-docker.pkg.dev
         docker build -t ${{secrets.DOCKER_IMAGE}} .
-        docker tag ${{secrets.DOCKER_IMAGE}} ${{env.DOCKER_IMAGE_LOCATION}}:lastest
+        docker tag ${{secrets.DOCKER_IMAGE}} ${{env.DOCKER_IMAGE_LOCATION}}:latest
         
     - name: Push the Docker image to Google Artifact Registry
-      run: docker push ${{env.DOCKER_IMAGE_LOCATION}}:lastest
+      run: docker push ${{env.DOCKER_IMAGE_LOCATION}}:latest
       
     - name: Deploy to Google Cloud Run
-      run: gcloud run deploy ${{secrets.APP_NAME}} --image ${{env.DOCKER_IMAGE_LOCATION}}:lastest --platform managed --allow-unauthenticated --region ${{secrets.GAR_REPOSITORY_REGION}}
+      run: gcloud run deploy ${{secrets.APP_NAME}} --image ${{env.DOCKER_IMAGE_LOCATION}}:latest --platform managed --allow-unauthenticated --region ${{secrets.GAR_REPOSITORY_REGION}}
