@@ -1,11 +1,12 @@
 from app.dashboard import blueprint, controller as dashboard_controller
 from flask import abort, redirect, render_template, request
+import os
 
 
 @blueprint.route('/')
 def index():
     try:
-        return render_template('home/dashboard.html', segment='dashboard', page_name='Dashboard', server=dashboard_controller.dashboard_endpoint)
+        return render_template('home/dashboard.html', segment='dashboard', page_name='Dashboard', websocket_server=os.environ.get('WEBSOCKET_SERVER'))
     except Exception as e:
         abort(500, e)
 
