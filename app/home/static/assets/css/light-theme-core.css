@@ -23574,3 +23574,19 @@ Github: https://github.com/fiduswriter/Simple-DataTables
   background: #a5b0bbc7;
   border-radius: 1.5rem;
 }
+
+.total-table {
+  margin-top: 0;
+}
+
+@media (min-width: 1200px) {
+  .total-table {
+    margin-top: 3rem;
+  }
+}
+
+@media (min-width: 768px) {
+  .total-table {
+    margin-top: 3rem;
+  }
+}
