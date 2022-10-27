@@ -40,7 +40,7 @@ function capitalize(str) {
 }
 
 function setDateFormat(createdAt, format) {
-    const dateFormat = date.format(new Date(createdAt), format);
+    let dateFormat = date.format(new Date(createdAt), format);
     return capitalize(dateFormat.replace('.', ''));
 }
 
@@ -69,7 +69,7 @@ function setPatientCard(weeklyDate, data, typeOfPatient) {
 }
 
 function setPatientCardPercentage(typeOfPatient, percentage, percentageLabel) {
-    const percentageStatus = document.getElementById(`${typeOfPatient}-percentage`);
+    let percentageStatus = document.getElementById(`${typeOfPatient}-percentage`);
     percentage = percentage.toFixed(0);
     if (percentage > 0) {
         percentageStatus.innerHTML = `+${percentage}%`;
@@ -86,8 +86,8 @@ function setPatientCardPercentage(typeOfPatient, percentage, percentageLabel) {
 
 // Chart bar Patients by week
 function createWeeklyPatientsChart(weeklyRanking, moderatePatients, seriusPatients, criticalPatients) {
-    const weeklyChartContainer = document.getElementById('weekly-chart-container');
-    const weeklyPatientChart = document.getElementById('weekly-patient-chart').getContext('2d');
+    let weeklyChartContainer = document.getElementById('weekly-chart-container');
+    let weeklyPatientChart = document.getElementById('weekly-patient-chart').getContext('2d');
 
     weeklyPatientChartInstance = new Chart(weeklyPatientChart, {
         type: 'bar',
@@ -170,18 +170,19 @@ function createWeeklyPatientsChart(weeklyRanking, moderatePatients, seriusPatien
         },
     });
     removeSkeletonClasses(weeklyChartContainer);
+    weeklyChartContainer.classList.add('mt-4');
 }
 
 // Chart Doughnut Total patients classified
 function createTotalPatientsDoughnutChart(totalRanking) {
-    const moderatePatients = totalRanking.data.moderate_patients;
-    const seriusPatients = totalRanking.data.serius_patients;
-    const criticalPatients = totalRanking.data.critical_patients;
-    const totalChartContainer = document.getElementById('total-doughnut-chart-container');
-    const totalPatientChart = document.getElementById('total-patient-doughnut-chart').getContext('2d');
-    const gradientStroke1 = totalPatientChart.createLinearGradient(0, 230, 0, 50);
-    const totalChartStatus = document.getElementById('total-doughnut-chart-status');
-    const totalChartLabel = document.getElementById('total-doughnut-chart-label');
+    let moderatePatients = totalRanking.data.moderate_patients;
+    let seriusPatients = totalRanking.data.serius_patients;
+    let criticalPatients = totalRanking.data.critical_patients;
+    let totalChartContainer = document.getElementById('total-doughnut-chart-container');
+    let totalPatientChart = document.getElementById('total-patient-doughnut-chart').getContext('2d');
+    let gradientStroke1 = totalPatientChart.createLinearGradient(0, 230, 0, 50);
+    let totalChartStatus = document.getElementById('total-doughnut-chart-status');
+    let totalChartLabel = document.getElementById('total-doughnut-chart-label');
 
     gradientStroke1.addColorStop(1, 'rgba(16, 115, 158,0.2)');
     gradientStroke1.addColorStop(0.2, 'rgba(72,72,176,0.0)');
@@ -254,10 +255,18 @@ function createTotalPatientsDoughnutChart(totalRanking) {
     createTotalTable(moderatePatients, seriusPatients, criticalPatients);
 }
 
+function changeTableMargin(totalChartContainer) {
+    var mediaqueryList = window.matchMedia('(min-width: 500px)');
+    if (mediaqueryList.matches) {
+        totalChartContainer.classList.remove('mt-5');
+        totalChartContainer.classList.add('total-table');
+    }
+}
+
 // Create total table in doughnut chart
 function createTotalTable(moderatePatients, seriusPatients, criticalPatients) {
-    const totalChartContainer = document.getElementById('total-table-container');
-    const totalTable = document.getElementById('total-table');
+    let totalChartContainer = document.getElementById('total-table-container');
+    let totalTable = document.getElementById('total-table');
     totalTable.innerHTML += `
         <tbody>
             <tr>
@@ -302,6 +311,7 @@ function createTotalTable(moderatePatients, seriusPatients, criticalPatients) {
         </tbody>
     `;
     removeSkeletonClasses(totalChartContainer);
+    changeTableMargin(totalChartContainer);
 }
 
 function add(accumulator, value) {
@@ -355,7 +365,7 @@ function setTotalPatientPercentage(percentage) {
 }
 
 function setLegendTotalPatientLineChart(typeOfPatient, patientLabel) {
-    const totalLinepatientBadgeContainer = document.getElementById(`total-line-${typeOfPatient}-badge`);
+    let totalLinepatientBadgeContainer = document.getElementById(`total-line-${typeOfPatient}-badge`);
     totalLinepatientBadgeContainer.innerHTML = `
         <i class="${typeOfPatient}-bg"></i>
         <span class="text-dark text-xs">${patientLabel}</span>
@@ -622,7 +632,7 @@ function setDatatablePlugin() {
 function setCoutUp(element, value) {
     element.setAttribute('countTo', value);
     if (element) {
-        const countUp = new CountUp(element, element.getAttribute('countTo'));
+        let countUp = new CountUp(element, element.getAttribute('countTo'));
         if (!countUp.error) {
             countUp.start();
         }
@@ -631,7 +641,7 @@ function setCoutUp(element, value) {
 
 // initialization of Tooltips
 function initializeTooltips() {
-    const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+    let tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
     tooltipTriggerList.map(function (tooltipTriggerEl) {
         return new bootstrap.Tooltip(tooltipTriggerEl, {});
     });
@@ -662,7 +672,7 @@ function errorAlert() {
 }
 
 function setCardDate(startDate, endDate) {
-    const currentDate = setDateFormat(new Date().toDateString(), 'MM/DD/YYYY');
+    let currentDate = setDateFormat(new Date().toDateString(), 'MM/DD/YYYY');
     if (currentDate === endDate) {
         startDate = setDateFormat(startDate, 'DD de MMMM');
         endDate = 'Hoy';
@@ -679,14 +689,14 @@ function getInitialData() {
         url: '/initial-dashboard-data',
         type: 'GET',
         success: (response) => {
-            const weeklyRanking = response.weekly_ranking;
-            const annualRanking = response.annual_ranking;
-            const totalRanking = response.total_ranking;
-            const summary = response.summary;
-            const weeklyDate = setCardDate(weeklyRanking.start_date, weeklyRanking.end_date);
-            const weeklyModeratePatients = weeklyRanking.data.moderate_patients;
-            const weeklySeriusPatients = weeklyRanking.data.serius_patients;
-            const weeklyCriticalPatients = weeklyRanking.data.critical_patients;
+            let weeklyRanking = response.weekly_ranking;
+            let annualRanking = response.annual_ranking;
+            let totalRanking = response.total_ranking;
+            let summary = response.summary;
+            let weeklyDate = setCardDate(weeklyRanking.start_date, weeklyRanking.end_date);
+            let weeklyModeratePatients = weeklyRanking.data.moderate_patients;
+            let weeklySeriusPatients = weeklyRanking.data.serius_patients;
+            let weeklyCriticalPatients = weeklyRanking.data.critical_patients;
 
             // Initial statistics
             setPatientCard(weeklyDate, weeklyModeratePatients, 'moderate');
@@ -736,7 +746,7 @@ function queryPatientCard(filter) {
             addCardSkeletonClasses(filter.covid19Severity);
         },
         success: (response) => {
-            const cardDate = setCardDate(response.start_date, response.end_date);
+            let cardDate = setCardDate(response.start_date, response.end_date);
             setPatientCard(cardDate, response.data.patients, filter.covid19Severity);
         },
         error: () => {
@@ -817,7 +827,7 @@ function resetTotalPatientLineChart() {
     let currentDateRange = localStorage.getItem('total-line-range-date');
     let startDate = setDateFormat(new Date(), 'DD-MMM-YYYY');
     if (currentDateRange !== startDate) {
-        const filter = {
+        let filter = {
             startDate: startDate,
         };
         localStorage.setItem('total-line-range-date', startDate);
@@ -836,15 +846,15 @@ if (document.querySelector('.datepicker')) {
         maxDate: new Date(),
         onChange: (dates) => {
             if (dates.length === 2) {
-                const startDate = setDateFormat(dates[0], 'MM-DD-YYYY');
-                const endDate = setDateFormat(dates[1], 'MM-DD-YYYY');
+                let startDate = setDateFormat(dates[0], 'MM-DD-YYYY');
+                let endDate = setDateFormat(dates[1], 'MM-DD-YYYY');
                 if (startDate === endDate) {
                     clearDatePicker();
                     totalLineChartDates = null;
                 } else {
                     let currentDateRange = localStorage.getItem('total-line-range-date');
                     if (currentDateRange !== `${startDate} - ${endDate}`) {
-                        const filter = {
+                        let filter = {
                             startDate: startDate,
                             endDate: endDate,
                         };
@@ -1003,8 +1013,8 @@ function updateSummaryTable() {
     querySummaryTable(dropDownsSummaryTableSelected.selected);
 }
 
+const server = document.getElementById('server-content').getAttribute('data-server');
 async function connectWebSocket() {
-    const server = document.getElementById('server-content').getAttribute('data-server');
     let socket = await io.connect(server, {
         forceNew: true,
     });
