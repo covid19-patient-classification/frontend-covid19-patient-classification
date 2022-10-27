@@ -304,16 +304,20 @@ function createTotalTable(moderatePatients, seriusPatients, criticalPatients) {
     removeSkeletonClasses(totalChartContainer);
 }
 
+function add(accumulator, value) {
+    return accumulator + value;
+}
+
 // Total patients line chart
 function createTotalPatientsLineChart(ranking) {
-    const moderatePatients = ranking.data.moderate_patients;
-    const seriusPatients = ranking.data.serius_patients;
-    const criticalPatients = ranking.data.critical_patients;
-    const totalLineChartStatus = document.getElementById('total-line-chart-status');
-    const totalLineChartLabel = document.getElementById('total-line-chart-label');
-    const totalLineChartLabelContainer = document.getElementById('total-line-chart-label-container');
-    const totalLineChartLegends = document.getElementById('total-line-badges');
-    const totalLineChartPercentage = document.getElementById('total-line-chart-percentage');
+    let moderatePatients = ranking.data.moderate_patients;
+    let seriusPatients = ranking.data.serius_patients;
+    let criticalPatients = ranking.data.critical_patients;
+    let totalLineChartStatus = document.getElementById('total-line-chart-status');
+    let totalLineChartLabel = document.getElementById('total-line-chart-label');
+    let totalLineChartLabelContainer = document.getElementById('total-line-chart-label-container');
+    let totalLineChartLegends = document.getElementById('total-line-badges');
+    let totalLineChartPercentage = document.getElementById('total-line-chart-percentage');
 
     setCoutUp(totalLineChartStatus, ranking.total);
     totalLineChartLabel.classList.remove('d-none');
@@ -360,13 +364,13 @@ function setLegendTotalPatientLineChart(typeOfPatient, patientLabel) {
 }
 
 function validateDate(dateLabel) {
-    const currentYear = new Date().getFullYear().toString();
+    let currentYear = new Date().getFullYear().toString();
     return dateLabel.includes(currentYear);
 }
 
 function getChartLabels(chartLabels) {
     if (chartLabels.every(validateDate)) {
-        const currentYear = new Date().getFullYear().toString();
+        let currentYear = new Date().getFullYear().toString();
         let = labels = [];
         chartLabels.map((label) => {
             if (label.includes(currentYear)) {
@@ -382,115 +386,134 @@ function destroyChart(chart) {
     if (chart) chart.destroy();
 }
 
-function constructTotalPatientLineChart(chartLabels, moderatePatients, seriusPatients, criticalPatients) {
-    const totalPatientLineChartContainer = document.getElementById('total-line-chart-container');
-    const totalPatientLineChart = document.getElementById('total-line-chart').getContext('2d');
-    const gradientStroke1 = totalPatientLineChart.createLinearGradient(0, 230, 0, 50);
-    const gradientStroke2 = totalPatientLineChart.createLinearGradient(0, 230, 0, 50);
-    const gradientStroke3 = totalPatientLineChart.createLinearGradient(0, 230, 0, 50);
+function isEmpyData(array) {
+    let sum = array.reduce(add, 0);
+    return sum === 0;
+}
 
-    // Set gradients colors
-    gradientStroke1.addColorStop(1, 'rgba(23, 194, 232, 0.2)');
-    gradientStroke1.addColorStop(0.2, 'rgba(72,72,176,0.0)');
-    gradientStroke1.addColorStop(0, 'rgba(23, 194, 232,0)');
-    gradientStroke2.addColorStop(1, 'rgba(58, 65, 111,0.2)');
-    gradientStroke2.addColorStop(0.2, 'rgba(72,72,176,0.0)');
-    gradientStroke2.addColorStop(0, 'rgba(58, 65, 111,0)');
-    gradientStroke3.addColorStop(1, 'rgba(203, 12, 159,0.2)');
-    gradientStroke3.addColorStop(0.2, 'rgba(72,72,176,0.0)');
-    gradientStroke3.addColorStop(0, 'rgba(203, 12, 159,0)');
-    totalPatientLineChartInstance = new Chart(totalPatientLineChart, {
-        type: 'line',
-        data: {
-            labels: getChartLabels(chartLabels),
-            datasets: [
-                {
-                    label: moderatePatients.label,
-                    tension: 0.4,
-                    pointRadius: 2,
-                    pointBackgroundColor: moderatePatientColor,
-                    borderColor: moderatePatientColor,
-                    backgroundColor: gradientStroke1,
-                    borderWidth: 3,
-                    fill: true,
-                    data: moderatePatients.data,
-                    maxBarThickness: 6,
-                },
-                {
-                    label: seriusPatients.label,
-                    tension: 0.4,
-                    pointRadius: 2,
-                    pointBackgroundColor: seriusPatientColor,
-                    borderColor: seriusPatientColor,
-                    backgroundColor: gradientStroke2,
-                    borderWidth: 3,
-                    fill: true,
-                    data: seriusPatients.data,
-                    maxBarThickness: 6,
-                },
-                {
-                    label: criticalPatients.label,
-                    tension: 0.4,
-                    pointRadius: 2,
-                    pointBackgroundColor: criticalPatientColor,
-                    borderColor: criticalPatientColor,
-                    backgroundColor: gradientStroke3,
-                    borderWidth: 3,
-                    fill: true,
-                    data: criticalPatients.data,
-                    maxBarThickness: 6,
-                },
-            ],
-        },
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            plugins: {
-                legend: {
-                    display: false,
-                },
-                tooltip: {
-                    usePointStyle: true,
-                    pointStyle: 'circle',
-                    position: 'nearest',
-                },
-            },
-            interaction: {
-                mode: 'index',
-            },
-            scales: {
-                y: {
-                    grid: {
-                        drawBorder: false,
-                        display: false,
-                        drawOnChartArea: false,
-                        drawTicks: false,
-                    },
-                    ticks: {
-                        display: false,
-                    },
-                },
-                x: {
-                    grid: {
-                        drawBorder: false,
-                        display: false,
-                        drawOnChartArea: false,
-                        drawTicks: false,
-                    },
-                    ticks: {
-                        beginAtZero: true,
-                        font: {
-                            size: 12,
-                            family: 'Open Sans',
-                            style: 'normal',
-                        },
-                        color: '#9ca2b7',
-                    },
-                },
-            },
-        },
+function warningAlert() {
+    Swal.fire({
+        icon: 'warning',
+        title: 'Datos de pacientes no encontrados',
+        text: 'No se encontraron datos en el rango de fechas especificadas',
+        confirmButtonText: 'Aceptar',
+        timer: 5000,
+        timerProgressBar: true,
     });
+}
 
+function constructTotalPatientLineChart(chartLabels, moderatePatients, seriusPatients, criticalPatients) {
+    let totalPatientLineChartContainer = document.getElementById('total-line-chart-container');
+    if (isEmpyData(moderatePatients.data) && isEmpyData(seriusPatients.data) && isEmpyData(criticalPatients.data)) {
+        warningAlert();
+    } else {
+        let totalPatientLineChart = document.getElementById('total-line-chart').getContext('2d');
+        let gradientStroke1 = totalPatientLineChart.createLinearGradient(0, 230, 0, 50);
+        let gradientStroke2 = totalPatientLineChart.createLinearGradient(0, 230, 0, 50);
+        let gradientStroke3 = totalPatientLineChart.createLinearGradient(0, 230, 0, 50);
+
+        // Set gradients colors
+        gradientStroke1.addColorStop(1, 'rgba(23, 194, 232, 0.2)');
+        gradientStroke1.addColorStop(0.2, 'rgba(72,72,176,0.0)');
+        gradientStroke1.addColorStop(0, 'rgba(23, 194, 232,0)');
+        gradientStroke2.addColorStop(1, 'rgba(58, 65, 111,0.2)');
+        gradientStroke2.addColorStop(0.2, 'rgba(72,72,176,0.0)');
+        gradientStroke2.addColorStop(0, 'rgba(58, 65, 111,0)');
+        gradientStroke3.addColorStop(1, 'rgba(203, 12, 159,0.2)');
+        gradientStroke3.addColorStop(0.2, 'rgba(72,72,176,0.0)');
+        gradientStroke3.addColorStop(0, 'rgba(203, 12, 159,0)');
+        totalPatientLineChartInstance = new Chart(totalPatientLineChart, {
+            type: 'line',
+            data: {
+                labels: getChartLabels(chartLabels),
+                datasets: [
+                    {
+                        label: moderatePatients.label,
+                        tension: 0.4,
+                        pointRadius: 2,
+                        pointBackgroundColor: moderatePatientColor,
+                        borderColor: moderatePatientColor,
+                        backgroundColor: gradientStroke1,
+                        borderWidth: 3,
+                        fill: true,
+                        data: moderatePatients.data,
+                        maxBarThickness: 6,
+                    },
+                    {
+                        label: seriusPatients.label,
+                        tension: 0.4,
+                        pointRadius: 2,
+                        pointBackgroundColor: seriusPatientColor,
+                        borderColor: seriusPatientColor,
+                        backgroundColor: gradientStroke2,
+                        borderWidth: 3,
+                        fill: true,
+                        data: seriusPatients.data,
+                        maxBarThickness: 6,
+                    },
+                    {
+                        label: criticalPatients.label,
+                        tension: 0.4,
+                        pointRadius: 2,
+                        pointBackgroundColor: criticalPatientColor,
+                        borderColor: criticalPatientColor,
+                        backgroundColor: gradientStroke3,
+                        borderWidth: 3,
+                        fill: true,
+                        data: criticalPatients.data,
+                        maxBarThickness: 6,
+                    },
+                ],
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: false,
+                    },
+                    tooltip: {
+                        usePointStyle: true,
+                        pointStyle: 'circle',
+                        position: 'nearest',
+                    },
+                },
+                interaction: {
+                    mode: 'index',
+                },
+                scales: {
+                    y: {
+                        grid: {
+                            drawBorder: false,
+                            display: false,
+                            drawOnChartArea: false,
+                            drawTicks: false,
+                        },
+                        ticks: {
+                            display: false,
+                        },
+                    },
+                    x: {
+                        grid: {
+                            drawBorder: false,
+                            display: false,
+                            drawOnChartArea: false,
+                            drawTicks: false,
+                        },
+                        ticks: {
+                            beginAtZero: true,
+                            font: {
+                                size: 12,
+                                family: 'Open Sans',
+                                style: 'normal',
+                            },
+                            color: '#9ca2b7',
+                        },
+                    },
+                },
+            },
+        });
+    }
     removeSkeletonClasses(totalPatientLineChartContainer);
 }
 
@@ -980,16 +1003,21 @@ function updateSummaryTable() {
     querySummaryTable(dropDownsSummaryTableSelected.selected);
 }
 
-var socket = io.connect('https://dashboard-microservice.herokuapp.com', {
-    forceNew: true,
-});
+async function connectWebSocket() {
+    let socket = await io.connect('https://dashboard-microservice.herokuapp.com', {
+        forceNew: true,
+    });
+    return socket;
+}
 
-socket.on('patient', (response) => {
-    updateCardPatient(response, response.type_of_patient); // Update initial statistics
-    updateWeeklyPatientsChart(response.type_of_patient, response.large_date); // Update weekly chart
-    updateTotalPatientsDoughnutChart(response.total_ranking, response.type_of_patient); // Update total doughnut chart
-    updateTotalPatientsLineChart(response.annual_ranking, response.type_of_patient, response.short_date); // Update total line chart
-    updateSummaryTable(dropDownsSummaryTableSelected.selected); // Update summary table
+connectWebSocket().then((socket) => {
+    socket.on('patient', (response) => {
+        updateCardPatient(response, response.type_of_patient); // Update initial statistics
+        updateWeeklyPatientsChart(response.type_of_patient, response.large_date); // Update weekly chart
+        updateTotalPatientsDoughnutChart(response.total_ranking, response.type_of_patient); // Update total doughnut chart
+        updateTotalPatientsLineChart(response.annual_ranking, response.type_of_patient, response.short_date); // Update total line chart
+        updateSummaryTable(dropDownsSummaryTableSelected.selected); // Update summary table
+    });
 });
 
 // Load
