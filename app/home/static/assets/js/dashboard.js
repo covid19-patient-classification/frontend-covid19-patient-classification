@@ -1004,7 +1004,8 @@ function updateSummaryTable() {
 }
 
 async function connectWebSocket() {
-    let socket = await io.connect('https://dashboard-microservice.herokuapp.com', {
+    const server = document.getElementById('server-content').getAttribute('data-server');
+    let socket = await io.connect(server, {
         forceNew: true,
     });
     return socket;
