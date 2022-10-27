@@ -1016,6 +1016,7 @@ function updateSummaryTable() {
 const server = document.getElementById('server-content').getAttribute('data-server');
 async function connectWebSocket() {
     let socket = await io.connect(server, {
+        secure: true,
         forceNew: true,
     });
     return socket;
