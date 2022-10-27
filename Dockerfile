@@ -1,6 +1,6 @@
 FROM python:3.9-slim
 
-ENV FLASK_APP app/runner/run.py
+ENV FLASK_APP run.py
 ENV PIP_ROOT_USER_ACTION ignore
 
 COPY . ./
