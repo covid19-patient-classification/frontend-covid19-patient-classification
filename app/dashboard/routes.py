@@ -5,7 +5,7 @@ from flask import abort, redirect, render_template, request
 @blueprint.route('/')
 def index():
     try:
-        return render_template('home/dashboard.html', segment='dashboard', page_name='Dashboard')
+        return render_template('home/dashboard.html', segment='dashboard', page_name='Dashboard', server=dashboard_controller.dashboard_endpoint)
     except Exception as e:
         abort(500, e)
 
