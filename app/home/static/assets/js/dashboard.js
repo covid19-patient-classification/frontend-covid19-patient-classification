@@ -1038,13 +1038,13 @@ function updateSummaryTable() {
 const server = document.getElementById('server-content').getAttribute('data-server');
 async function connectWebSocket() {
     let socket = await io.connect(server, {
+        secure: true,
         forceNew: true,
     });
     return socket;
 }
 
 connectWebSocket().then((socket) => {
-    console.log("connectado", socket)
     socket.on('patient', (response) => {
         updateCardPatient(response, response.type_of_patient); // Update initial statistics
         updateWeeklyPatientsChart(response.type_of_patient, response.large_date); // Update weekly chart
