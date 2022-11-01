@@ -548,12 +548,36 @@ function createSummaryTable(summary) {
     setDatatablePlugin();
 }
 
+function protectIdentification(identification) {
+    let identificationProtected = '';
+    let minValue = 7
+    for (let i = 0; i < identification.length; i++) {
+        if (i === 0 || i === 1 || i >= minValue) {
+            identificationProtected += identification[i];
+        } else {
+            identificationProtected += 'X';
+        }
+    }
+    return identificationProtected;
+}
+
+function protectName() {
+    let maxValue = 10;
+    let nameProtected = '';
+    for (let i = 0; i < maxValue; i++) {
+        nameProtected += 'x';
+    }
+    return capitalize(nameProtected);
+}
+
+protectIdentification('1104999535');
+
 function addTrSummaryTable(patient) {
     let format = 'DD MMM YYYY';
     return `
         <tr>
-            <td class="text-sm text-dark fw-bolder">${patient.identification}</td>
-            <td class="text-sm text-dark fw-bolder">${patient.name}</td>
+            <td class="text-sm text-dark fw-bolder">${protectIdentification(patient.identification)}</td>
+            <td class="text-sm text-dark fw-bolder">${protectName()}</td>
             <td class="text-sm text-dark fw-bolder">${setDateFormat(patient.created_at, format)}</td>
             <td class="text-sm text-dark fw-bolder">${setCaseSeverityPatient(patient.covid19_severity)}</td>
             <td class="text-sm text-dark fw-bolder">${patient.sato2}%</td>
@@ -578,10 +602,8 @@ function addTrSummaryTable(patient) {
 
 function setTbodySummaryTable(patients) {
     let tbody = '';
-    // currentSummaryTableData.patients = []
     patients.forEach((patient) => {
         tbody += addTrSummaryTable(patient);
-        // currentSummaryTableData.patients.push(patient);
     });
     return tbody;
 }
