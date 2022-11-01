@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable no-undef */
 //DOM elements
 var DOMstrings = {
     stepsBtnClass: 'multisteps-form__progress-btn',
@@ -23,17 +25,11 @@ function setVariables() {
     stepPrevBtnClass: 'js-btn-prev',
     stepNextBtnClass: 'js-btn-next'
   };*/
-    DOMstrings.stepsBtns = document.querySelectorAll(
-        `.multisteps-form__progress-btn`
-    );
+    DOMstrings.stepsBtns = document.querySelectorAll(`.multisteps-form__progress-btn`);
     DOMstrings.stepsBar = document.querySelector('.multisteps-form__progress');
     DOMstrings.stepsForm = document.querySelector('.multisteps-form__form');
-    DOMstrings.stepsFormTextareas = document.querySelectorAll(
-        '.multisteps-form__textarea'
-    );
-    DOMstrings.stepFormPanels = document.querySelectorAll(
-        '.multisteps-form__panel'
-    );
+    DOMstrings.stepsFormTextareas = document.querySelectorAll('.multisteps-form__textarea');
+    DOMstrings.stepFormPanels = document.querySelectorAll('.multisteps-form__panel');
 }
 
 //remove class from a set of items
@@ -127,16 +123,16 @@ DOMstrings.stepsBar.addEventListener('click', (e) => {
     //get active button step number
     const activeStep = getActiveStep(eventTarget);
     if (activeStep > currentActiveStep) {
-        try{
+        try {
             var formPanel = DOMstrings.stepFormPanels[currentActiveStep];
             checkValidate(formPanel);
             setActiveStep(activeStep);
             setActivePanel(activeStep);
             currentActiveStep = activeStep;
-        }catch(e){
+        } catch (e) {
             formPanel.classList.add('was-validated');
         }
-    }else{
+    } else {
         currentActiveStep = activeStep;
         setActiveStep(activeStep);
         setActivePanel(activeStep);
@@ -148,12 +144,7 @@ DOMstrings.stepsForm.addEventListener('click', (e) => {
     const eventTarget = e.target;
 
     //check if we clicked on `PREV` or NEXT` buttons
-    if (
-        !(
-            eventTarget.classList.contains(`${DOMstrings.stepPrevBtnClass}`) ||
-            eventTarget.classList.contains(`${DOMstrings.stepNextBtnClass}`)
-        )
-    ) {
+    if (!(eventTarget.classList.contains(`${DOMstrings.stepPrevBtnClass}`) || eventTarget.classList.contains(`${DOMstrings.stepNextBtnClass}`))) {
         return;
     }
 
@@ -166,12 +157,11 @@ DOMstrings.stepsForm.addEventListener('click', (e) => {
     if (eventTarget.classList.contains(`${DOMstrings.stepPrevBtnClass}`)) {
         activePanelNum--;
     } else {
-        try{
+        try {
             var formPanel = DOMstrings.stepFormPanels[currentActiveStep];
             checkValidate(formPanel);
             activePanelNum++;
-            
-        }catch(e){
+        } catch (e) {
             formPanel.classList.add('was-validated');
         }
     }
@@ -180,40 +170,39 @@ DOMstrings.stepsForm.addEventListener('click', (e) => {
     currentActiveStep = activePanelNum;
 });
 
-function checkValidate(form){
+function checkValidate(form) {
     var inputs = Array.from(form.getElementsByTagName('input'));
     var isValid = true;
     inputs.forEach((elem) => {
-        if(elem.type === 'text'){
+        if (elem.type === 'text') {
             isValid = validateTextInput(elem);
         }
-        if (elem.type === 'number'){
+        if (elem.type === 'number') {
             isValid = validateNumberInput(elem);
         }
 
-        if(!isValid){
+        if (!isValid) {
             throw new Error('Invalid validation');
-            
         }
-    })
+    });
 
     return isValid;
 }
 
-function validateTextInput(input){
+function validateTextInput(input) {
     return isNotEmpty(input);
 }
 
-function validateNumberInput(input){
-    var value = parseInt(input.value)
-    if(isNotEmpty(input)){
-        return value >= parseInt(input.min)  && value <= parseInt(input.max);
+function validateNumberInput(input) {
+    var value = parseInt(input.value);
+    if (isNotEmpty(input)) {
+        return value >= parseInt(input.min) && value <= parseInt(input.max);
     }
-    return false; 
+    return false;
 }
 
-function isNotEmpty(input){
-    if(input.value == ""){
+function isNotEmpty(input) {
+    if (input.value === '') {
         return false;
     }
     return true;
